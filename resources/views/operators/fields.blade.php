@@ -1,0 +1,28 @@
+<!--- Name Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('name', 'Nombre:') !!}
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+</div>
+
+<!--- Last Name Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('last_name', 'Apellidos:') !!}
+    {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
+</div>
+
+<!--- Phone Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('phone', 'Telefono:') !!}
+    {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+</div>
+
+<!--- Number License Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('number_license', 'Número de Licencia:') !!}
+    {!! Form::text('number_license', null, ['class' => 'form-control']) !!}
+</div>
+
+<!--- Submit Field --->
+<div class="form-group col-sm-12">
+    {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+</div>

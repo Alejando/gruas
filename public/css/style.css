@@ -1,0 +1,71 @@
+html
+{
+    position: relative; 
+    min-height: 100%;
+}
+body
+{
+    margin: 0 0 65px;
+}
+.navbar-custom {
+    color: #FFFFFF;
+    background-color: #B90E13;
+}
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color:#8B080B;
+}
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+.panel-default > .panel-heading {
+  background-color: #B90E13;
+  color: #ffffff;
+}
+
+.my-btn{
+    background: #8B080B;
+    color: #ffffff;
+}
+.my-btn:hover { 
+  border-color: #8B080B; 
+  background-color: #8B080B; 
+}
+
+.form-control:focus {
+        border-color: #B90E13;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(185, 14, 19, 0.5);
+}
+
+form {
+    border: 3px solid #f1f1f1;
+}
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    /*border-radius: 20%;*/
+}
+.thead-color{
+    background-color: #666666;
+    color: #fff;
+}
+.just-time{
+    background-color: #B5E7C8;
+}
+.ten-minutes{
+    background-color: #FFDAA9;
+}
+.fifteen-minutes{
+    background-color: #FF0020;
+}
