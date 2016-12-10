@@ -7,7 +7,7 @@
 
     {!! Form::open(['route' => 'services.store']) !!}
 
-        @include('services.fields')
+        @include('services.fieldParticular')
 
     {!! Form::close() !!}
 </div>

@@ -269,5 +269,7 @@ Route::get('services/{id}/delete', [
     'as' => 'services.delete',
     'uses' => 'ServiceController@destroy',
 ]);
+
+ 
 /*Obtener submarcas de marcas*/
 Route::get('create-services/1/ajax-subbrand/{id}','ServiceController@getSubbrands');

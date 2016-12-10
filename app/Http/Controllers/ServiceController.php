@@ -126,12 +126,13 @@ class ServiceController extends AppBaseController
 	{
         $input = $request->all();
 
-		/*$service = Service::create($input);
+		$service = Service::create($input);
 
-		Flash::message('Service saved successfully.');
+		Flash::message('Servicio creado correctamente.');
 
-		return redirect(route('services.index'));*/
-		return dd($input);
+		return redirect(route('services.index'));
+		// return dd($input);
+
 	}
 
 	/**
