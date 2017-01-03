@@ -12,7 +12,7 @@ class Particular extends Model
 	public $timestamps = true;
 
 	public $fillable = [
-	    "alias",
+	    "description",
 		"type",
 		"z1",
 		"z2",
@@ -26,8 +26,8 @@ class Particular extends Model
 	];
 
 	public static $rules = [
-	    "alias" => "required|alphaDash",
-		"type" => "required|alpha",
+	    "type" => "required",
+		"description" => "required",
 		"z1" => "required|numeric",
 		"z2" => "required|numeric",
 		"z3" => "required|numeric",

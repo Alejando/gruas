@@ -15,14 +15,17 @@ class Operator extends Model
 	    "name",
 	    "last_name",
 		"phone",
-		"number_license"
+		"number_license",
+		"expires_license"
+
 	];
 
 	public static $rules = [
-	    "name" => "required|Min:3|Max:50|Alpha",
-	    "last_name" => "required|Min:3|Max:50|Alpha",
+	    "name" => "required|Min:3|Max:50",
+	    "last_name" => "required|Min:3|Max:50",
 		"phone" => "required|Numeric",
-		"number_license" => "required|AlphaDash"
+		"number_license" => "required",
+		"expires_license" => "required|Date"
 	];
 
 }

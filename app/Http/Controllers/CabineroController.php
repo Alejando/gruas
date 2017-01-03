@@ -13,7 +13,10 @@ use App\User;
 use App\Role;
 class CabineroController extends AppBaseController
 {
-
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the Post.
 	 *

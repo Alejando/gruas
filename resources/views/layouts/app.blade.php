@@ -16,32 +16,12 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}"/> 
     <link rel="stylesheet" type="text/css" href="{{asset('css/logo-nav.css')}}"/>  
+    <link rel="stylesheet" type="text/css" href="{{asset('css/datepicker.css')}}"/> 
+    <link rel="stylesheet" type="text/css" href="{{asset('https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css ')}}"/> 
+     <link rel="stylesheet" type="text/css" href="{{asset('https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css')}}"/> 
+    
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <!-- Languaje -->
-    <script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDmoFbBRqP6TP9yJcSPFQ3ATerTo0jN9bU">
-    </script>
-    <script type="text/javascript">
-    google.maps.event.addDomListener(window, 'load', function () {
-        var places = new google.maps.places.Autocomplete(document.getElementById('txt1'));
-        google.maps.event.addListener(places, 'place_changed', function () {
-
-        });
-        var places = new google.maps.places.Autocomplete(document.getElementById('txt2'));
-        google.maps.event.addListener(places, 'place_changed', function () {
-
-        });
-        var places = new google.maps.places.Autocomplete(document.getElementById('txt3'));
-        google.maps.event.addListener(places, 'place_changed', function () {
-
-        });
-        var places = new google.maps.places.Autocomplete(document.getElementById('txt4'));
-        google.maps.event.addListener(places, 'place_changed', function () {
-
-        });
-    });
-</script>
+    
 <style>
     body {
         font-family: 'Lato';
@@ -85,9 +65,9 @@
                     <!--<li><a href="{{ url('/login') }}">Login</a></li>-->
                     <!--<li><a href="{{ url('/register') }}">Register</a></li>-->
                     @else
-                    <li class="active "><a href="#">Reportes Activos</a></li>
-                    <li><a href="#">Historial Reportes</a></li>
-                    <li><a href="#">Cotizaciones</a></li>
+                    <li class=" "><a href="{{ url('/services')}}">Reportes Activos</a></li>
+                    <li><a href="{{ url('/reports')}}">Reportes</a></li>
+                    <li><a href="{{ url('/quotations')}}">Cotizaciones</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <!--<i class="fa fa-book"></i>-->Costos
@@ -124,7 +104,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }} <i class="fa fa-user"></i>
+                            {{ Auth::user()->name }}   <i class="fa fa-user"></i>
 
                         </a>
 
@@ -145,12 +125,30 @@
         <p class="text-muted">&#174; Grúas Manolo | Todos los derechos reservados</p>
     </div>
 </footer>
+
+</body>
+</html>
 <!-- JavaScripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 <!-- jQuery 2.1.4 -->
-<script src="{{ asset('/js/dropdown.js')}}"></script>
 <script src="{{ asset('/js/jquery-2.1.0.min.js')}}"></script>
-</body>
-</html>
+<script src="{{ asset('/js/moment.min.js')}}"></script>
+<script src="{{ asset('/js/daterangepicker.js')}}"></script>
+<script src="{{ asset('/js/dropdown.js')}}"></script>
+<script src="{{ asset('https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js')}}"></script>
+<script src="{{ asset('https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('/js/angular.min.js')}}"></script>
+
+<script type="text/javascript" src="{{ asset('/js/formToWizard.js')}}"></script>
+
+@yield('js')
+ 
+ 
+
+    
+    
+</script>

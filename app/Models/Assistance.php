@@ -12,8 +12,8 @@ class Assistance extends Model
 	public $timestamps = true;
 
 	public $fillable = [
-	    "alias",
-		"type",
+	    "type",
+		"description",
 		"inside_of_periferico",
 		"cost_kilometer",
 		"maneuvers",
@@ -25,8 +25,8 @@ class Assistance extends Model
 	];
 
 	public static $rules = [
-	    "alias" => "required|alphaDash",
-		"type" => "required|alpha",
+	    "type" => "required",
+		"description" => "required",
 		"inside_of_periferico" => 'required|numeric',
 		"cost_kilometer" => "required|numeric",
 		"maneuvers" => "required|numeric",

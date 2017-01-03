@@ -12,13 +12,10 @@ use Schema;
 class IndustryController extends AppBaseController
 {
 
-	/**
-	 * Display a listing of the Post.
-	 *
-	 * @param Request $request
-	 *
-	 * @return Response
-	 */
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	public function index(Request $request)
 	{
 		$query = Industry::query();

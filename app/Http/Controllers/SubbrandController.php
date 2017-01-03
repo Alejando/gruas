@@ -12,7 +12,10 @@ use App\Models\Brand;
 
 class SubbrandController extends AppBaseController
 {
-
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the Post.
 	 *
@@ -102,14 +105,14 @@ class SubbrandController extends AppBaseController
 	public function edit($id)
 	{
 		$subbrand = Subbrand::find($id);
-
+		$brands = Brand::lists('name_brand','id');
 		if(empty($subbrand))
 		{
 			Flash::error('Subbrand not found');
 			return redirect(route('subbrands.index'));
 		}
 
-		return view('subbrands.edit')->with('subbrand', $subbrand);
+		return view('subbrands.edit')->with('subbrand', $subbrand)->with('brands',$brands);
 	}
 
 	/**

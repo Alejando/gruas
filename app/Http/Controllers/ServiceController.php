@@ -22,10 +22,14 @@ use App\Models\Cabinero;
 use App\Models\Unit;
 use App\Models\Operator;
 use DB;
+use Auth;
 
 class ServiceController extends AppBaseController
 {
-
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }	
 	/**
 	 * Display a listing of the Post.
 	 *
@@ -38,7 +42,7 @@ class ServiceController extends AppBaseController
 		$query = Service::query();
         $columns = Schema::getColumnListing('$TABLE_NAME$');
         $attributes = array();
-
+        
         foreach($columns as $attribute){
             if($request[$attribute] == true)
             {
@@ -49,12 +53,50 @@ class ServiceController extends AppBaseController
             }
         };
 
-        $services = $query->get();
+        $services = $query->where('estatus','!=','Terminado')->where('estatus','!=','Cotizacion')->where('estatus','!=','Cancelado')->get();
+        
+        return view('services.index')->with('services', $services);
+        }
+     public function reportes(Request $request)
+	{
+		$query = Service::query();
+        $columns = Schema::getColumnListing('$TABLE_NAME$');
+        $attributes = array();
+        
+        foreach($columns as $attribute){
+            if($request[$attribute] == true)
+            {
+                $query->where($attribute, $request[$attribute]);
+                $attributes[$attribute] =  $request[$attribute];
+            }else{
+                $attributes[$attribute] =  null;
+            }
+        };
 
-        return view('services.index')
-            ->with('services', $services)
-            ->with('attributes', $attributes);
-	}
+        $services = $query->where('estatus','!=','Cotizacion')->get();
+        
+        return view('services.reports')->with('services', $services);
+        }
+    public function cotizaciones(Request $request)
+	{
+		$query = Service::query();
+        $columns = Schema::getColumnListing('$TABLE_NAME$');
+        $attributes = array();
+        
+        foreach($columns as $attribute){
+            if($request[$attribute] == true)
+            {
+                $query->where($attribute, $request[$attribute]);
+                $attributes[$attribute] =  $request[$attribute];
+            }else{
+                $attributes[$attribute] =  null;
+            }
+        };
+
+        $services = $query->where('estatus','Cotizacion')->get();
+        
+        return view('services.quotations')->with('services', $services);
+        }
 
 	/**
 	 * Show the form for creating a new Service.
@@ -73,45 +115,93 @@ class ServiceController extends AppBaseController
 
 	public function createService($id)
 	{
-		if ($id ==1) {
-			/*Lists*/
-		$brands = Brand::lists('name_brand', 'name_brand');
+		$brands = Brand::lists('name_brand', 'id');
 		$subbrands = Subbrand::lists('name_sub_brand', 'name_sub_brand');
 		$models = Vehiclemodel::lists('model_year', 'model_year');
-		$description = Particular::lists('type', 'type');
-		$types = Particular::lists('alias', 'alias');
 		$cabineros = Cabinero::lists('name', 'name');
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
+		if ($id ==1|| $id==7) {
+			/*Lists*/
+		$typeService=$id;
+		$types = Particular::lists('type', 'id');
 		return view('services.create')
 		->with('brands', $brands)
 		->with('subbrands', $subbrands)
 		->with('models', $models)
-		->with('description', $description)
 		->with('types', $types)
 		->with('cabineros', $cabineros)
 		->with('units', $units)
-		->with('operators', $operators);
+		->with('operators', $operators)
+		->with('typeService',$typeService);
 		}
 		if ($id ==2) {
-			$datos = Assistance::lists('alias', 'type');
-			return dd($datos);
+			$typeService=$id;
+			$description = Assistance::lists('type', 'type');
+			$types = Assistance::lists('alias', 'alias');
+			return view('services.create')
+			->with('brands', $brands)
+			->with('subbrands', $subbrands)
+			->with('models', $models)
+			->with('description', $description)
+			->with('types', $types)
+			->with('cabineros', $cabineros)
+			->with('units', $units)
+			->with('operators', $operators)
+			->with('typeService',$typeService);
+
 		}
-		if ($id ==3) {
-			$datos = Movility::lists('type', 'description');
-			return dd($datos);
+		if ($id ==3 || $id==9) {
+			$typeService=$id;
+			$types = Movility::lists('type', 'id');
+			return view('services.create')
+			->with('brands', $brands)
+			->with('subbrands', $subbrands)
+			->with('models', $models)
+			->with('types', $types)
+			->with('cabineros', $cabineros)
+			->with('units', $units)
+			->with('operators', $operators)
+			->with('typeService',$typeService);
 		}
 		if ($id ==4) {
-			$datos = Police::lists('type', 'description');
-			return dd($datos);
+			$typeService=$id;
+			$types = Police::lists('type', 'type');
+			return view('services.create')
+			->with('brands', $brands)
+			->with('subbrands', $subbrands)
+			->with('models', $models)
+			->with('types', $types)
+			->with('cabineros', $cabineros)
+			->with('units', $units)
+			->with('operators', $operators)
+			->with('typeService',$typeService);
 		}
 		if ($id ==5) {
-			$datos = Business::lists('type', 'description');
-			return dd($datos);
+			$typeService=$id;
+			$types = Business::lists('type', 'type');
+			return view('services.create')
+			->with('brands', $brands)
+			->with('subbrands', $subbrands)
+			->with('models', $models)
+			->with('types', $types)
+			->with('cabineros', $cabineros)
+			->with('units', $units)
+			->with('operators', $operators)
+			->with('typeService',$typeService);
 		}
 		if ($id ==6) {
-			$datos = Industry::lists('type', 'description');
-			return dd($datos);
+			$typeService=$id;
+			$types = Industry::lists('type', 'type');
+			return view('services.create')
+			->with('brands', $brands)
+			->with('subbrands', $subbrands)
+			->with('models', $models)
+			->with('types', $types)
+			->with('cabineros', $cabineros)
+			->with('units', $units)
+			->with('operators', $operators)
+			->with('typeService',$typeService);
 		}
 	}
 
@@ -128,6 +218,7 @@ class ServiceController extends AppBaseController
 
 		$service = Service::create($input);
 
+		$service->update(['time_request'=>date('Y/m/d/  H:i:s')]);
 		Flash::message('Servicio creado correctamente.');
 
 		return redirect(route('services.index'));
@@ -162,16 +253,41 @@ class ServiceController extends AppBaseController
 	 * @return Response
 	 */
 	public function edit($id)
-	{
-		$service = Service::find($id);
+	{	
 
-		if(empty($service))
-		{
-			Flash::error('Service not found');
-			return redirect(route('services.index'));
+		$service=Service::find($id);
+		$brands = Brand::lists('name_brand', 'id');
+		$subbrands = Subbrand::lists('name_sub_brand', 'name_sub_brand');
+		$models = Vehiclemodel::lists('model_year', 'model_year');
+		$cabineros = Cabinero::lists('name', 'name');
+		$units = Unit::lists('economic_number', 'economic_number');
+		$operators = Operator::lists('name', 'name');
+		if($service->service_type=="Particular"){
+			$types = Particular::lists('type', 'id');
+       		return view('services.edit')
+	       		->with('service', $service)
+	       		->with('types',$types)
+	            ->with('brands', $brands)
+	            ->with('subbrands', $subbrands)
+	            ->with('models', $models)
+	            ->with('cabineros', $cabineros)
+				->with('units', $units)
+				->with('operators', $operators);
 		}
+		if($service->service_type=="Movilidad"){
+			$types = Movility::lists('type', 'id');
+       		return view('services.edit')
+	       		->with('service', $service)
+	       		->with('types',$types)
+	            ->with('brands', $brands)
+	            ->with('subbrands', $subbrands)
+	            ->with('models', $models)
+	            ->with('cabineros', $cabineros)
+				->with('units', $units)
+				->with('operators', $operators);
+		}
+		
 
-		return view('services.edit')->with('service', $service);
 	}
 
 	/**
@@ -192,13 +308,16 @@ class ServiceController extends AppBaseController
 			Flash::error('Service not found');
 			return redirect(route('services.index'));
 		}
-
-		$service->fill($request->all());
+		if($service->estatus=="Cotizacion"){
+			$service->update(["time_request"=>date('Y/m/d/  H:i:s')]);
+		}
+		$service->update($request->all());
 		$service->save();
 
-		Flash::message('Service updated successfully.');
+		Flash::message('Servicio actualizado Correctamente.');
 
 		return redirect(route('services.index'));
+
 	}
 
 	/**
@@ -221,16 +340,66 @@ class ServiceController extends AppBaseController
 
 		$service->delete();
 
-		Flash::message('Service deleted successfully.');
+		Flash::message('Servicio eliminado correctamente.');
 
 		return redirect(route('services.index'));
 	}
 
-	public function getSubbrands(Request $request, $id)
+	public function getSubbrands($id)
 	{
-		if($request->ajax()){
-            $subbrands = Subbrand::subbrands($id);
-            return response()->json($subbrands);
+		
+        return Subbrand::subbrands($id);
+	}
+	public function registrarArribo(Service $service)
+	{
+		
+        if($service->real_time=='0000-00-00 00:00:00'){
+        	$service->update(['real_time'=>date("Y-m-d H:i:s"),'estatus'=>'Arribado']);
+        	Flash::message('Se registro el arribo correctamente');
+        }else{
+        	Flash::message('Ya se ha registrado el arribo');
         }
+        return redirect(route('services.index'));
+	}
+	public function registrarTermino(Service $service)
+	{
+		if($service->real_time=='0000-00-00 00:00:00'){
+			Flash::message('Debes registrar primero el arribo');
+		}else{
+			if($service->end_time=='0000-00-00 00:00:00'){
+        	$service->update(['end_time'=>date("Y-m-d H:i:s"),'estatus'=>'Terminado','cabinero_end_service'=>Auth::user()->name]);
+        	Flash::message('Se termino el servicio correctamente');
+        }else{
+        	Flash::message('Ya se ha registrado el termino');
+        }	
+		}
+        
+        return redirect(route('services.index'));
+	}
+	public function registrarPago(Service $service)
+	{
+		if($service->payment_received!='Recibido'){
+        	$service->update(['payment_received'=>'Recibido']);
+        	Flash::message('Se registro el pago correctamente');
+        }else{
+        	Flash::message('Ya se ha registrado el pago');
+        }
+        return redirect(route('services.index'));
+	}
+	public function cancelarServicio(Service $service)
+	{
+		if($service->estatus!='Cancelado'){
+        	$service->update(['estatus'=>'Cancelado']);
+        	Flash::message('Se canceló el servicio correctamente');
+        }else{
+        	Flash::message('Ya se ha cancelado el servicio');
+        }
+        return redirect(route('services.index'));
+	}
+
+	public function cambiarCotizacion(Service $service)
+	{
+		$service->update(['estatus'=>'Asignado']);
+		return redirect(route('services.index'));
 	}
 }

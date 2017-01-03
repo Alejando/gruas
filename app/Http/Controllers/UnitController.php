@@ -9,12 +9,15 @@ use Response;
 use Flash;
 use Schema;
 use App\Models\Brand;
-use App\Models\subbrand;
+use App\Models\Subbrand;
 use App\Models\Vehiclemodel;
 
 class UnitController extends AppBaseController
 {
-
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the Post.
 	 *

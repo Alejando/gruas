@@ -18,7 +18,7 @@ class Movility extends Model
 		"single_return",
 		"dolly_use",
 		"wait_hour",
-		"maneuvers_hour",
+		"maneuvers",
 		"tlajomulco_to_GDL",
 		"cost_kilometer",
 		"deposit_outside_GDL",
@@ -26,13 +26,13 @@ class Movility extends Model
 	];
 
 	public static $rules = [
-	    "type" => "required|alphaDash",
-		"description" => "required|alpha",
+	    "type" => "required",
+		"description" => "required",
 		"local_service" => "required|numeric",
 		"single_return" => "required|numeric",
 		"dolly_use" => "required|numeric",
 		"wait_hour" => "required|numeric",
-		"maneuvers_hour" => "required|numeric",
+		"maneuvers" => "required|numeric",
 		"tlajomulco_to_GDL" => "required|numeric",
 		"cost_kilometer" => "required|numeric",
 		"deposit_outside_GDL" => "required|numeric",

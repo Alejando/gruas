@@ -2,40 +2,27 @@
  --}}
 {{--  
 <fieldset>
+
 <legend>General</legend> --}}
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('report_number', 'Numero de reporte:*') !!}
+    {!! Form::text('report_number', null, ['class' => 'form-control']) !!}
+</div>
  <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos cliente</h3>
-   {!! Form::hidden('service_type', 'Particular', ['class' => 'form-control','id'=>'tipoServicio']) !!}
+   {!! Form::hidden('service_type', null, ['class' => 'form-control','id'=>'tipoServicio']) !!}
 </div>
          
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('name_requests', 'Nombre quien solicita:*') !!}
     {!! Form::text('name_requests', null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
-
 <!--- Phone Requests Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('phone_requests', 'Teléfono quien solicita:*') !!}
-    {!! Form::text('phone_requests', null, ['class' => 'form-control','required' =>'true']) !!}
+    {!! Form::label('patrol', 'Patrulla en sitio:*') !!}
+    {!! Form::text('patrol', null, ['class' => 'form-control','required']) !!}
 </div>
 
-<!--- Name Wait Field --->
-<div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('name_wait', 'Nombre quien esta en el vehículo:') !!}
-    {!! Form::text('name_wait', null, ['class' => 'form-control']) !!}
-</div>
-
-<!--- Phone Wait Field --->
-<div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('phone_wait', 'Teléfono quien esta en el vehículo:') !!}
-    {!! Form::text('phone_wait', null, ['class' => 'form-control']) !!}
-</div>
-
-<!--- Email Request Field --->
-<div class="form-group col-sm-6 col-lg-4 ">
-    {!! Form::label('email_request', 'Email:') !!}
-    {!! Form::email('email_request', null, ['class' => 'form-control']) !!}
-</div>
 
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos del vehículo</h3>
@@ -91,7 +78,7 @@
 <legend>Ubicación</legend>
  --}}
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación Origen</h3>
+  <h3>Ubicación Destino</h3>
 </div>
 <!--- Street Is Field --->
 
@@ -109,8 +96,8 @@
 
 <!--- Between Streets Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('between_streets', 'Entre calles:') !!}
-    {!! Form::text('between_streets', null, ['class' => 'form-control',]) !!}
+    {!! Form::label('between_streets', 'Entre calles:*') !!}
+    {!! Form::text('between_streets', null, ['class' => 'form-control','required']) !!}
      {{-- <input type="text" name="between_streets" id="txt2" class="form-control" placeholder="Introduce localización" /> --}}
 </div>
 
@@ -136,10 +123,17 @@
     {!! Form::label('observations', 'Observaciones:') !!}
     {!! Form::text('observations', null, ['class' => 'form-control']) !!}
 </div>
+<div class="form-group col-sm-4 col-lg-4">
+    <input style="margin-top: 7%;" type="button" class="btn btn-primary" id="updateRute"  value="Actualizar ruta">
+</div>
+<div class="gmap " id="mapaOrigen" >
+
+</div>
+
 
 <!--- Street Deliver Field --->
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación Destino</h3>
+  <h3>Ubicación destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('street_deliver', 'Calle de entrega:*') !!}
@@ -181,18 +175,6 @@
     {!! Form::label('observations_deliver', 'Observaciones:') !!}
     {!! Form::text('observations_deliver', null, ['class' => 'form-control']) !!}
 </div>
-
-<div class="form-group col-sm-4 col-lg-4">
-    <input style="margin-top: 7%;" type="button" class="btn btn-primary" id="updateRute"  value="Trazar ruta">
-    <input style="margin-top: 7%;" type="button" class="btn btn-success" id="marcarPunto"  value="Marcar Origen">
-</div>
-<div class="form-group col-sm-4 col-lg-4">
-    {!! Form::label('distancia', 'Distancia:') !!}
-    {!! Form::text('distancia', null, ['class' => 'form-control','id'=>'distancia','readonly']) !!}
-</div>
-<div class="gmap " id="mapaOrigen" >
-
-</div>
 {{-- </fieldset>
 <fieldset>
 <legend>Costos</legend> --}}
@@ -216,89 +198,144 @@
 <!--- Zone Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('zone', 'Zona:*') !!}
-    {!! Form::select('zone',['z1' => 'ZONA 1', 'z2' => 'ZONA 2', 'z3' => 'ZONA 3', 'z4' => 'ZONA 4', 'z5' => 'ZONA 5'],null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona']) !!}
+    {!! Form::select('zone',['sl' => 'Servicio local','vs'=>'Vuelta sencilla','tg'=>'Tlajomulco a Gdl','dfg'=>'Depósito fuera de Gdl'],null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona']) !!}
+</div>
+
+ <!--- Extra Kilometers Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('extra_kilometers', 'Kilometros Extra:') !!}
+    {!! Form::text('extra_kilometers', null, ['class' => 'form-control','ng-model'=>'extra_kilometers']) !!}
+</div>
+<!--- Load Field --->
+<div class="form-group col-sm-6 col-lg-4 ">
+    {!! Form::label('carga', 'Carga:*') !!}
+    {!! Form::select('carga',['25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga']) !!}
+</div>
+
+<!--- Hours Maneuver Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('hours_maneuver', 'Horas de Maniobra:') !!}
+    {!! Form::text('hours_maneuver', null, ['class' => 'form-control','ng-model'=>'hours_maneuver']) !!}
+</div>
+
+<!--- Hours Wait Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('hours_wait', 'Horas de Espera:') !!}
+    {!! Form::text('hours_wait', null, ['class' => 'form-control','ng-model'=>'hours_wait']) !!}
+</div>
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('hora_acondicionamiento', 'Horas de Acondicionamiento:') !!}
+    {!! Form::text('hora_acondicionamiento', null, ['class' => 'form-control','ng-model'=>'hora_acondicionamiento']) !!}
+</div>
+
+<!--- Use Dolly Field --->
+<div class="form-group col-sm-6 col-lg-4 ">
+    {!! Form::label('use_dolly', 'Dolly:') !!}
+    {!! Form::select('use_dolly', ['si' => "SI", 'no' => "NO"], null, ['class' => 'form-control','ng-model'=>'use_dolly']) !!}
+</div>
+<div class="form-group col-sm-6 col-lg-4 ">
+    {!! Form::label('iva', 'I.V.A.:') !!}
+    {!! Form::select('iva', ['si' => "SI", 'no' => "NO"], null, ['class' => 'form-control','ng-model'=>'iva']) !!}
 </div>
 
 
-    <div class="form-group col-sm-12 col-lg-10 col-lg-offset-1">
+<!--- Base Price Field --->
+<div class="form-group col-sm-6 col-lg-4">
+   
+    {!! Form::hidden('base_price', null, ['class' => 'form-control','ng-model'=>'precioBase']) !!}
+</div>
+
+<!--- Kilometer Extra Price Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::hidden('kilometer_extra_price', null, ['class' => 'form-control','ng-model'=>'particular.cost_kilometer']) !!}
+</div>
+
+<!--- Maneuver Price Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::hidden('maneuver_price', null, ['class' => 'form-control','ng-model'=>'particular.maneuvers']) !!}
+</div>
+
+<!--- Wait Price Field---> 
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::hidden('wait_price', null, ['class' => 'form-control','ng-model'=>'particular.wait_hour']) !!}
+    {!! Form::hidden('precio_acondicionamiento', null, ['class' => 'form-control','ng-model'=>'particular.conditioning_hour']) !!}
+</div>
+
+<!--- Dolly Price Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::hidden('dolly_price', null, ['class' => 'form-control','ng-model'=>'particular.dolly_use']) !!}
+</div>
+
+    <div class="form-group col-sm-12 col-lg-8 col-lg-offset-2">
         <table width="100%" class="table table-striped">
-            <thead style="background:#B90E13;color:#ffffff">
-                <th width="25%">Concepto</th>
-                <th width="25%">Costo</th>
-                <th width="25%">Cantidad</th>
-                <th width="25%">Total</th>
+            <thead>
+                <th>Concepto</th>
+                <th>Costo</th>
+                <th>Cantidad</th>
+                <th>Total</th>
             </thead>
             <tbody >
                 <tr>
                     <td><b>Zona</b>  </td>
-                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone() | number:2}}"></td>
+                    <td>$@{{ zone() | number:2}}</td>
                     <td></td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Km adicionales: </b></td>
-                    <td>{!! Form::input('text','kilometer_extra_price', null, ['class' => 'form-control','ng-model'=>'particular.cost_kilometer','readonly']) !!}</td>
-                    <td> {!! Form::input('number','extra_kilometers', null, ['class' => 'form-control','ng-model'=>'extra_kilometers','step'=>'.01']) !!}</td>
+                    <td><b>Km adicionales:</b> </td>
+                    <td>$@{{particular.cost_kilometer | number:2}}</td>
+                    <td>@{{extra_kilometers }}</td>
                     <td>$@{{extra_kilometers*particular.cost_kilometer | number:2}}</td>
                 </tr>
                 <tr>
                     <td><b>Carga:</b> </td>
-                    <td>$@{{ precioCarga()| number:2}}</td>
-                    <td> {!! Form::select('carga',['0'=>'0%','25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga']) !!}</td>
-                    <td>$@{{(carga*precioCarga())/100 | number:2}}</td>
+                    <td>$290.00</td>
+                    <td>@{{carga}}%</td>
+                    <td>$@{{(carga*290)/100 | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Horas de Maniobras: </b></td>
-                    <td>{!! Form::input('text','maneuver_price', null, ['class' => 'form-control','ng-model'=>'particular.maneuvers','readonly']) !!}</td>
-                    <td>{!! Form::input('number','hours_maneuver', null, ['class' => 'form-control','ng-model'=>'hours_maneuver','step'=>'.1']) !!}</td>
+                    <td><b>Maniobras:</b> </td>
+                    <td>$@{{particular.maneuvers | number:2}}</td>
+                    <td>@{{hours_maneuver}}</td>
                     <td>$@{{hours_maneuver*particular.maneuvers | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Horas Espera: </b></td>
-                    <td>{!! Form::input('text','wait_price', null, ['class' => 'form-control','ng-model'=>'particular.wait_hour','readonly']) !!}</td>
-                    <td> {!! Form::input('number','hours_wait', null, ['class' => 'form-control','ng-model'=>'hours_wait','step'=>'.1']) !!}</td>
+                    <td><b>Espera: </b></td>
+                    <td>$@{{particular.wait_hour | number:2}}</td>
+                    <td>@{{hours_wait}}</td>
                     <td>$@{{hours_wait*particular.wait_hour | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Dolly:</b></td>
-                    <td> {!! Form::input('text','dolly_price', null, ['class' => 'form-control','ng-model'=>'particular.dolly_use','readonly']) !!}</td>
-                    <td> {!! Form::select('use_dolly', ['si' => "SI", 'no' => "NO"], null, ['class' => 'form-control','ng-model'=>'use_dolly']) !!}</td>
+                    <td><b>Acondicionamiento:</b> </td>
+                    <td>$@{{particular.conditioning_hour | number:2}}</td>
+                    <td>@{{hora_acondicionamiento}}</td>
+                    <td>$@{{hora_acondicionamiento*particular.conditioning_hour | number:2}}</td>
+                </tr>
+                <tr>
+                    <td><b>Dolly:</b> </td>
+                    <td>@{{particular.dolly_use | number:2}}</td>
+                    <td>@{{use_dolly |uppercase}}</td>
                     <td ng-if="use_dolly=='si'">@{{particular.dolly_use | number:2}}</td>
                     <td ng-if="use_dolly=='no'">$0.00</td>
                 </tr>
-                 <tr>
-                    <td><b>Otros</b></td>
+                <tr>
+                    <td><b>Sub total:</b> </td>
                     <td></td>
-                    <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1']) !!}</td>
-                    <td>$@{{otros| number:2}}</td>
-                    
+                    <td></td>
+                    <td>@{{subtotal() | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Servicio Nocturno (15%): </b></td>
+                    <td><b>I.V.A. (16%):</b> </td>
                     <td></td>
-                    <td>{!! Form::select('servicio_nocturno', ['no' => "NO",'si' => "SI"], null, ['class' => 'form-control','ng-model'=>'servicio_nocturno']) !!}</td>
-                    <td ng-if="servicio_nocturno=='si'">$@{{totalService()*.15 | number:2}}</td>
-                    <td ng-if="servicio_nocturno=='no'">$0.00</td>
-                    
+                    <td></td>
+                    <td ng-show="iva=='si'">$@{{subtotal()*.16 | number:2}}</td>
+                    <td ng-if="iva=='no'">$0.00</td>
                 </tr>
                 <tr>
-                    <td><b>Sub total: </b></td>
-                    <td></td>
-                    <td></td>
-                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal() | number:2}}"></td>
-                </tr>
-                <tr>
-                    <td><b>I.V.A. : </b></td>
-                    <td></td>
-                    <td>{!! Form::select('iva',['.16' => "16%", '.12' => "12%",'0'=>'No'], null, ['class' => 'form-control','ng-model'=>'iva']) !!}</td>
-                    <td>$@{{subtotal()*iva | number:2}} </td>
-                    
-                </tr>
-                <tr style="background:#B90E13;color:#ffffff">
                     <td><b>Total:</b> </td>
                     <td></td>
                     <td></td>
-                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService() | number:2}}"></td>
+                    <td>$@{{totalService() | number:2}}</td>
                 </tr>
             </tbody>
         </table>  
@@ -322,7 +359,7 @@
 <!--- Cabinero Took Service Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('cabinero_took_service', 'Cabinero que tomo el Servicio:*') !!}
-    {!! Form::select('cabinero_took_service',[Auth::user()->name => Auth::user()->name],null,['class' => 'form-control','required']) !!}
+    {!! Form::select('cabinero_took_service',$cabineros,null,['class' => 'form-control','required']) !!}
 </div>
 
 <!--- Unit Assigned Field --->
@@ -339,35 +376,45 @@
 <div class="form-group col-sm-12 col-lg-12">
   <h4>Tiempos</h4>
 </div>
-{{-- <!--- Time Request Field --->
+<!--- Time Request Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('servicio', 'Hora de solicitud del Servicio:*') !!}
-    {!! Form::text('servicio', date('Y/m/d/  H:i:s'), ['class' => 'date-picker form-control','disabled']) !!}
-    <input type="hidden" name="time_request" class="date-picker form-control" disabled value="{{date('Y/m/d/  H:i:s')}}">
-</div> --}}
+    {!! Form::label('time_request', 'Hora de solicitud del Servicio:*') !!}
+    {!! Form::text('time_request', null, ['class' => 'date-picker form-control','disabled']) !!}
+   {{--  <input type="text" name="time_request" class="date-picker form-control" required value="{{date('Y/m/d/  H:i:s')}}"> --}}
+</div>
 
 <!--- Time Promise Field --->
+@if($service->estatus=="Cotizacion")
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
-    {!! Form::text('time_promise',date('Y/m/d/  H:i:s'), ['class' => 'date-picker form-control','required']) !!}
+    {{-- {!! Form::text('time_promise',null, ['class' => 'date-picker form-control','disabled']) !!} --}}
+    <input type="text" name="time_promise" class="date-picker form-control" required value="{{date('Y/m/d/  H:i:s')}}">
+</div>
+@else
+    <div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
+    {!! Form::text('time_promise',null, ['class' => 'date-picker form-control','disabled']) !!}
     {{-- <input type="text" name="time_promise" class="date-picker form-control" disabled value="{{date('Y/m/d/  H:i:s')}}"> --}}
 </div>
+@endif
 
 <!--- Estatus Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('estatus', 'Estatus:*') !!}
-    {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('estatus', ['Asigando' => 'Asignado','Terminado'=>'Terminado'], null, ['class' => 'form-control']) !!}
 </div>
+
 <!--- Payment Method Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_method', 'Metodo de pago:') !!}
     {!! Form::select('payment_method',['Efectivo' => 'Efectivo', 'Tarjeta de débito' => 'Tarjeta de débito', 'Tarjeta de Crédito' => 'Tarjeta de Crédito', 'Transferencia bancaria' => 'Transferencia bancaria', 'Cheque' => 'Cheque','Credito' => 'Credito'], null, ['class' => 'form-control']) !!}
 </div>
+
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('payment_received',['En proceso' => 'En proceso', 'En cabina' => 'En cabina', 'En caja' => 'En caja'], null, ['class' => 'form-control']) !!}
 </div>
-
 
 <!--- Submit Field --->
 <div class="form-group col-sm-12">

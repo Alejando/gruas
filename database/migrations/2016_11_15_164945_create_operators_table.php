@@ -20,6 +20,7 @@ class CreateOperatorsTable extends Migration
 			$table->string('last_name')->nullable();
 			$table->string('phone')->nullable();
 			$table->string('number_license')->nullable();
+			$table->date('expires_license')->nullable();
 			$table->timestamps();
 		});
 	}

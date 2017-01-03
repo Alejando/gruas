@@ -27,7 +27,7 @@
                 <th>Costo Z4</th>
                 <th>Costo Z5</th>
                 <th>Costo por kilometro</th>
-                <th>Costo por Maniobras</th>
+                <th>'Costo de Maniobra por Hora</th>
                 <th>Costo de espera por Hra</th>
                 <th>Costo por uso de Dolly</th>
                 @role('admin')

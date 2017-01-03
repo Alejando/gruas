@@ -23,6 +23,7 @@
                 <th>Apellidos</th>
                 <th>Telefono</th>
                 <th>Número de Licencia</th>
+                <th>Vencimiento de Licencia</th>
                 @role('admin')
                 <th width="50px">Acción</th>
                 @endrole
@@ -35,6 +36,7 @@
                     <td>{!! $operator->last_name !!}</td>
                     <td>{!! $operator->phone !!}</td>
                     <td>{!! $operator->number_license !!}</td>
+                    <td>{!! $operator->expires_license !!}</td>
                     <td>
                         @role('admin')
                         <a href="{!! route('operators.edit', [$operator->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>

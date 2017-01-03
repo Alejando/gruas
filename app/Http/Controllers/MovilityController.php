@@ -11,7 +11,10 @@ use Schema;
 
 class MovilityController extends AppBaseController
 {
-
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the Post.
 	 *
@@ -159,5 +162,8 @@ class MovilityController extends AppBaseController
 		Flash::message('Movility deleted successfully.');
 
 		return redirect(route('movilities.index'));
+	}
+	public function datosMovility(Movility $movility){
+		return $movility;
 	}
 }

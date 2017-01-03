@@ -56,8 +56,8 @@
 
 <!--- Sub Brand Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('sub_brand', 'Submarca:*') !!}
-    {!! Form::select('sub_brand',$subbrands,null, ['id'=>'subbrand', 'class' => 'form-control','required' =>'true']) !!}
+    {!! Form::label('sub_brand', 'Submarca:') !!}
+    {!! Form::select('sub_brand',[''=>''],null, ['id'=>'subbrand', 'class' => 'form-control']) !!}
 </div>
 
 <!--- Model Field --->
@@ -74,14 +74,14 @@
 
 <!--- License Plate Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('license_plate', 'Placas:*') !!}
-    {!! Form::text('license_plate', null, ['class' => 'form-control','required']) !!}
+    {!! Form::label('license_plate', 'Placas:') !!}
+    {!! Form::text('license_plate', null, ['class' => 'form-control']) !!}
 </div>
 
 <!--- Failure Field --->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('failure', 'Falla:*') !!}
-    {!! Form::text('failure', null, ['class' => 'form-control','required']) !!}
+    {!! Form::label('failure', 'Falla:') !!}
+    {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
 
 
@@ -91,7 +91,7 @@
 <legend>Ubicación</legend>
  --}}
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación Origen</h3>
+  <h3>Ubicación Destino</h3>
 </div>
 <!--- Street Is Field --->
 
@@ -110,7 +110,7 @@
 <!--- Between Streets Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('between_streets', 'Entre calles:') !!}
-    {!! Form::text('between_streets', null, ['class' => 'form-control',]) !!}
+    {!! Form::text('between_streets', null, ['class' => 'form-control']) !!}
      {{-- <input type="text" name="between_streets" id="txt2" class="form-control" placeholder="Introduce localización" /> --}}
 </div>
 
@@ -139,11 +139,11 @@
 
 <!--- Street Deliver Field --->
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación Destino</h3>
+  <h3>Ubicación destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('street_deliver', 'Calle de entrega:*') !!}
-   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver','required']) !!}
+    {!! Form::label('street_deliver', 'Calle de entrega:') !!}
+   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver']) !!}
 </div>
 
 <!--- Number Deliver Field --->
@@ -181,7 +181,6 @@
     {!! Form::label('observations_deliver', 'Observaciones:') !!}
     {!! Form::text('observations_deliver', null, ['class' => 'form-control']) !!}
 </div>
-
 <div class="form-group col-sm-4 col-lg-4">
     <input style="margin-top: 7%;" type="button" class="btn btn-primary" id="updateRute"  value="Trazar ruta">
     <input style="margin-top: 7%;" type="button" class="btn btn-success" id="marcarPunto"  value="Marcar Origen">
@@ -327,37 +326,33 @@
 
 <!--- Unit Assigned Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('unit_assigned', 'Unidad Asignada:*') !!}
-    {!! Form::select('unit_assigned',$units,null, ['class' => 'form-control','required']) !!}
+    {!! Form::label('unit_assigned', 'Unidad Asignada:') !!}
+    {!! Form::select('unit_assigned',$units,null, ['class' => 'form-control']) !!}
 </div>
 
 <!--- Operator Assigned Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('operator_assigned', 'Operador Asignado:*') !!}
-    {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control','required']) !!}
+    {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control']) !!}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
   <h4>Tiempos</h4>
 </div>
-{{-- <!--- Time Request Field --->
-<div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('servicio', 'Hora de solicitud del Servicio:*') !!}
-    {!! Form::text('servicio', date('Y/m/d/  H:i:s'), ['class' => 'date-picker form-control','disabled']) !!}
-    <input type="hidden" name="time_request" class="date-picker form-control" disabled value="{{date('Y/m/d/  H:i:s')}}">
-</div> --}}
-
 <!--- Time Promise Field --->
-<div class="form-group col-sm-6 col-lg-4">
+{{-- <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
     {!! Form::text('time_promise',date('Y/m/d/  H:i:s'), ['class' => 'date-picker form-control','required']) !!}
-    {{-- <input type="text" name="time_promise" class="date-picker form-control" disabled value="{{date('Y/m/d/  H:i:s')}}"> --}}
-</div>
+   
+</div> --}}
 
-<!--- Estatus Field --->
+{{-- <!--- Time Promise Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('estatus', 'Estatus:*') !!}
-    {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
-</div>
+    {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
+    {!! Form::text('time_promise',null, ['class' => 'date-picker form-control','required']) !!}
+    <input type="text" name="time_promise" class="date-picker form-control" required value="{{date('Y/m/d/  H:i:s')}}">
+</div> --}}
+
+
 <!--- Payment Method Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_method', 'Metodo de pago:') !!}
@@ -368,6 +363,11 @@
     {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
 </div>
 
+<!--- Estatus Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('estatus', 'Estatus:*') !!}
+    {!! Form::select('estatus', ['Cotizacion' => 'Cotizacion'], null, ['class' => 'form-control']) !!}
+</div>
 
 <!--- Submit Field --->
 <div class="form-group col-sm-12">

@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Monterrey',
 
     /*
     |--------------------------------------------------------------------------
@@ -219,8 +219,8 @@ return [
 
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
-        'Form'  => 'Illuminate\Html\FormFacade',
-        'HTML'  => 'Illuminate\Html\HtmlFacade',
+        // 'Form'  => 'Illuminate\Html\FormFacade',
+        // 'Html'  => 'Illuminate\Html\HtmlFacade',
         'Flash' => 'Laracasts\Flash\Flash'
 
     ],

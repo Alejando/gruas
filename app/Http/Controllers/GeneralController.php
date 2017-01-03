@@ -19,6 +19,10 @@ use DB;
 
 class GeneralController extends Controller
 {
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function createService($id)
 	{
 		if ($id ==1) {

@@ -11,7 +11,10 @@ use Schema;
 
 class ParticularController extends AppBaseController
 {
-
+	 public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	/**
 	 * Display a listing of the Post.
 	 *
@@ -159,5 +162,8 @@ class ParticularController extends AppBaseController
 		Flash::message('Particular deleted successfully.');
 
 		return redirect(route('particulars.index'));
+	}
+	public function datosParticular(Particular $particular){
+		return $particular;
 	}
 }

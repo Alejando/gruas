@@ -1,8 +1,24 @@
-$("#brand").change(event => {
-	$.get(`ajax-subbrand/${event.target.value}`, function(res, bra){
-		$("#subbrand").empty();
-		res.forEach(element => {
-			$("#subbrand").append(`<option value=${element.id}> ${element.name} </option>`);
-		});
-	});
-});
+
+ document.getElementById('brand').addEventListener('change', function() {
+    $('#subbrand').empty();
+      $.ajax({
+        type: "GET",
+        url:'../../subbrands_ajax/'+$('#brand').val(),
+        success: llegada,
+      });
+    function llegada(data){
+    //  console.log(data);
+        $.each(data, function(i,p) {
+            $('#subbrand').append($('<option>', {
+            value: p.name_sub_brand,
+            text: p.name_sub_brand
+             }));
+          //console.log(p.pivot.precio);
+        });
+      
+    }
+  });
+
+
+
+    
