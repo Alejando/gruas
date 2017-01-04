@@ -93,35 +93,7 @@
   });
 </script>
 @endif
-<!-- Modal -->
-<div id="data" class="modal fade" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Datos del vehiculo</h4>
-      </div>
-      <div class="modal-body">
-       @include('common.errors')
-
-       {!! Form::open(['route' => 'services.store']) !!}
-       @if(!empty(Session::get('option')) && Session::get('option') == 1)
-       @include('services.fields')
-       @endif
-       {!! Form::close() !!}
-
-     </div>
-     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="button" class="btn my-btn">Siguiente</button>
-    </div>
-  </div>
-
-</div>
-</div>
-{{-- End Modal --}}
 
 
 <div class="container" style="width: 80%">

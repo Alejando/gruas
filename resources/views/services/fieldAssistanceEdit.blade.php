@@ -206,7 +206,7 @@
 
 <!--- Zone Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('zone', 'Zone:*') !!}
+    {!! Form::label('zone', 'Zona:*') !!}
     {!! Form::select('zone',['dp' => 'Dentro de periférico'], null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona','required']) !!}
 
 </div>

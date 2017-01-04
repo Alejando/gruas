@@ -49,7 +49,7 @@ var app= angular.module('serviceApp',[]);
                return $scope.total*(1+parseFloat($scope.iva)); //Agregar IVA
       };
      $scope.precioCarga= function(){
-        return parseFloat($scope.zone())+parseFloat($scope.particular.cost_kilometer);
+        return parseFloat($scope.zone())+(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
       };
       $scope.tipo= function(){
 
