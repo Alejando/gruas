@@ -12,6 +12,9 @@
    {!! Form::model($service, ['route' => ['services.update', $service->id], 'method' => 'patch']) !!}
       @if($service->service_type=="Particular")
         @include('services.fieldParticularEdit')
+      @elseif($service->service_type=="Asistencia")
+         @include('services.fieldAssistanceEdit')
+      
       @elseif($service->service_type=="Movilidad")
          @include('services.fieldMovilityEdit')
       @endif

@@ -22,7 +22,7 @@
             @elseif($typeService==7)
               @include('services.fieldParticularCotizacion')
             @elseif($typeService==8)
-              {{-- @include('services.fieldIndustry') --}}
+              @include('services.fieldAssistanceCotizacion')
             @elseif($typeService==9)
              @include('services.fieldMovilityCotizacion')
             @elseif($typeService==10)

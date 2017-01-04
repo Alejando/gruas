@@ -14,6 +14,7 @@ var app= angular.module('serviceApp',[]);
       $scope.iva='0';
       $scope.total=0;
       $scope.precioBase=$('#precioBase').val();
+      $scope.abanderamiento_hours=0;
       $scope.hora_acondicionamiento=0;
       $scope.tipoDato=$('#type').val();
       $scope.otros=0;
@@ -30,6 +31,9 @@ var app= angular.module('serviceApp',[]);
         $scope.total+=parseFloat($scope.otros);
         if($scope.tipoServicio=="Movilidad"){
             $scope.total+=(parseFloat($scope.particular.conditioning_hour)*parseFloat($scope.hora_acondicionamiento));
+        }
+        if($scope.tipoServicio=="Asistencia"){
+            $scope.total+=(parseFloat($scope.particular.flag)*parseFloat($scope.abanderamiento_hours));
         }
         if($scope.use_dolly=='si'){
           $scope.total+=parseFloat($scope.particular.dolly_use);
@@ -48,8 +52,9 @@ var app= angular.module('serviceApp',[]);
         return parseFloat($scope.zone())+parseFloat($scope.particular.cost_kilometer);
       };
       $scope.tipo= function(){
-
+        
         switch($scope.tipoServicio){ //obtener los diferentes datos de los servicios
+
             case 'Particular':
                     $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
@@ -58,6 +63,13 @@ var app= angular.module('serviceApp',[]);
                 break; 
             case 'Movilidad':
                     $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
+                        $scope.particular=data.data;
+                        console.log($scope.particular);
+                    });
+                break;
+            case 'Asistencia':
+
+                    $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
                     });
@@ -94,6 +106,9 @@ var app= angular.module('serviceApp',[]);
                     break;
                 case 'dfg':
                   $scope.precioBase= $scope.particular.deposit_outside_GDL;
+                    break;
+                case 'dp':
+                  $scope.precioBase= $scope.particular.inside_of_periferico;
                     break;
                 default:
                   $scope.precioBase= 0;

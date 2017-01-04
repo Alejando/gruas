@@ -36,8 +36,8 @@
                
                 @foreach($assistances as $assistance)
                 <tr>
-                    <td>{!! $assistance->alias !!}</td>
                     <td>{!! $assistance->type !!}</td>
+                    <td>{!! $assistance->description !!}</td>
                     <td>{!! $assistance->inside_of_periferico !!}</td>
                     <td>{!! $assistance->cost_kilometer !!}</td>
                     <td>{!! $assistance->maneuvers !!}</td>

@@ -130,22 +130,18 @@ class ServiceController extends AppBaseController
 		->with('subbrands', $subbrands)
 		->with('models', $models)
 		->with('types', $types)
-		->with('cabineros', $cabineros)
 		->with('units', $units)
 		->with('operators', $operators)
 		->with('typeService',$typeService);
 		}
-		if ($id ==2) {
+		if ($id ==2 || $id==8) {
 			$typeService=$id;
-			$description = Assistance::lists('type', 'type');
-			$types = Assistance::lists('alias', 'alias');
+			$types = Assistance::lists('type', 'id');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
 			->with('models', $models)
-			->with('description', $description)
 			->with('types', $types)
-			->with('cabineros', $cabineros)
 			->with('units', $units)
 			->with('operators', $operators)
 			->with('typeService',$typeService);
@@ -159,7 +155,6 @@ class ServiceController extends AppBaseController
 			->with('subbrands', $subbrands)
 			->with('models', $models)
 			->with('types', $types)
-			->with('cabineros', $cabineros)
 			->with('units', $units)
 			->with('operators', $operators)
 			->with('typeService',$typeService);
@@ -275,6 +270,18 @@ class ServiceController extends AppBaseController
 				->with('operators', $operators);
 		}
 		if($service->service_type=="Movilidad"){
+			$types = Movility::lists('type', 'id');
+       		return view('services.edit')
+	       		->with('service', $service)
+	       		->with('types',$types)
+	            ->with('brands', $brands)
+	            ->with('subbrands', $subbrands)
+	            ->with('models', $models)
+	            ->with('cabineros', $cabineros)
+				->with('units', $units)
+				->with('operators', $operators);
+		}
+		if($service->service_type=="Asistencia"){
 			$types = Movility::lists('type', 'id');
        		return view('services.edit')
 	       		->with('service', $service)

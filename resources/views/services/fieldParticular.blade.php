@@ -1,8 +1,4 @@
-    {{-- Etiqueta Servicio Particular 
- --}}
-{{--  
-<fieldset>
-<legend>General</legend> --}}
+
  <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos cliente</h3>
    {!! Form::hidden('service_type', 'Particular', ['class' => 'form-control','id'=>'tipoServicio']) !!}
@@ -85,11 +81,6 @@
 </div>
 
 
-
-{{-- </fieldset>
-<fieldset>
-<legend>Ubicación</legend>
- --}}
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Ubicación Origen</h3>
 </div>
@@ -132,7 +123,7 @@
     {!! Form::text('references', null, ['class' => 'form-control']) !!}
 </div>
 <!--- Observations  Field --->
-<div class="form-group col-sm-8 col-lg-8">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('observations', 'Observaciones:') !!}
     {!! Form::text('observations', null, ['class' => 'form-control']) !!}
 </div>
@@ -193,9 +184,7 @@
 <div class="gmap " id="mapaOrigen" >
 
 </div>
-{{-- </fieldset>
-<fieldset>
-<legend>Costos</legend> --}}
+
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Costos</h3>
 </div>
@@ -277,7 +266,7 @@
                     <td><b>Servicio Nocturno (15%): </b></td>
                     <td></td>
                     <td>{!! Form::select('servicio_nocturno', ['no' => "NO",'si' => "SI"], null, ['class' => 'form-control','ng-model'=>'servicio_nocturno']) !!}</td>
-                    <td ng-if="servicio_nocturno=='si'">$@{{totalService()*.15 | number:2}}</td>
+                    <td ng-if="servicio_nocturno=='si'">$@{{subtotal()*.15 | number:2}}</td>
                     <td ng-if="servicio_nocturno=='no'">$0.00</td>
                     
                 </tr>
@@ -305,19 +294,12 @@
     </div>
     <div class="form-group col-sm-12 col-lg-12 col-lg-offset-2">
     </div>
-{{--  </fieldset>
- <fieldset>
 
-<legend>Asignación y tiempos</legend> --}}
-<!--- Payment Received Field --->
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
 
-{{-- <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['En proceso' => 'En proceso', 'En cabina' => 'En cabina', 'En caja' => 'En caja'], null, ['class' => 'form-control']) !!}
-</div> --}}
+
 
 <!--- Cabinero Took Service Field --->
 <div class="form-group col-sm-6 col-lg-4">
@@ -373,4 +355,3 @@
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
 </div>
-{{-- </fieldset> --}}

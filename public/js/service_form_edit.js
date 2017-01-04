@@ -15,6 +15,7 @@ var app= angular.module('serviceApp',[]);
       $scope.total=0;
       $scope.precioBase=parseFloat($('#precioBase').val());
       $scope.hora_acondicionamiento=parseFloat($('#hora_acondicionamiento').val());
+      $scope.abanderamiento_hours=parseFloat($('#abanderamiento_hours').val());;
       $scope.tipoDato=$('#type').val();
       $scope.otros=parseFloat($('#otros').val());
       $scope.servicio_nocturno=$('#servicio_nocturno').val();
@@ -30,6 +31,9 @@ var app= angular.module('serviceApp',[]);
         $scope.total+=parseFloat($scope.otros);
         if($scope.tipoServicio=="Movilidad"){
             $scope.total+=(parseFloat($scope.particular.conditioning_hour)*parseFloat($scope.hora_acondicionamiento));
+        }
+        if($scope.tipoServicio=="Asistencia"){
+            $scope.total+=(parseFloat($scope.particular.flag)*parseFloat($scope.abanderamiento_hours));
         }
         if($scope.use_dolly=='si'){
           $scope.total+=parseFloat($scope.particular.dolly_use);
@@ -58,6 +62,13 @@ var app= angular.module('serviceApp',[]);
                 break; 
             case 'Movilidad':
                     $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
+                        $scope.particular=data.data;
+                        console.log($scope.particular);
+                    });
+                break;
+            case 'Asistencia':
+
+                    $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
                     });
@@ -94,6 +105,9 @@ var app= angular.module('serviceApp',[]);
                     break;
                 case 'dfg':
                   $scope.precioBase= $scope.particular.deposit_outside_GDL;
+                    break;
+                 case 'dp':
+                  $scope.precioBase= $scope.particular.inside_of_periferico;
                     break;
                 default:
                   $scope.precioBase= 0;

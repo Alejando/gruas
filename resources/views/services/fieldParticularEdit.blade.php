@@ -132,7 +132,7 @@
     {!! Form::text('references', null, ['class' => 'form-control']) !!}
 </div>
 <!--- Observations  Field --->
-<div class="form-group col-sm-8 col-lg-8">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('observations', 'Observaciones:') !!}
     {!! Form::text('observations', null, ['class' => 'form-control']) !!}
 </div>
@@ -276,7 +276,7 @@
                     <td><b>Servicio Nocturno (15%): </b></td>
                     <td></td>
                     <td>{!! Form::select('servicio_nocturno', ['no' => "NO",'si' => "SI"], null, ['class' => 'form-control','ng-model'=>'servicio_nocturno','id'=>'servicio_nocturno']) !!}</td>
-                    <td ng-if="servicio_nocturno=='si'">$@{{totalService()*.15 | number:2}}</td>
+                    <td ng-if="servicio_nocturno=='si'">$@{{subtotal()*.15 | number:2}}</td>
                     <td ng-if="servicio_nocturno=='no'">$0.00</td>
                     
                 </tr>
@@ -304,19 +304,13 @@
     </div>
     <div class="form-group col-sm-12 col-lg-12 col-lg-offset-2">
     </div>
-{{--  </fieldset>
- <fieldset>
 
-<legend>Asignación y tiempos</legend> --}}
 <!--- Payment Received Field --->
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
 
-{{-- <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['En proceso' => 'En proceso', 'En cabina' => 'En cabina', 'En caja' => 'En caja'], null, ['class' => 'form-control']) !!}
-</div> --}}
+
 
 <!--- Cabinero Took Service Field --->
 <div class="form-group col-sm-6 col-lg-4">
@@ -369,11 +363,9 @@
     {!! Form::label('payment_method', 'Metodo de pago:') !!}
     {!! Form::select('payment_method',['Efectivo' => 'Efectivo', 'Tarjeta de débito' => 'Tarjeta de débito', 'Tarjeta de Crédito' => 'Tarjeta de Crédito', 'Transferencia bancaria' => 'Transferencia bancaria', 'Cheque' => 'Cheque','Credito' => 'Credito'], null, ['class' => 'form-control']) !!}
 </div>
-
-
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['En proceso' => 'En proceso', 'En cabina' => 'En cabina', 'En caja' => 'En caja'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!--- Submit Field --->

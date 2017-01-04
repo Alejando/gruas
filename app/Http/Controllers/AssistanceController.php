@@ -163,4 +163,7 @@ class AssistanceController extends AppBaseController
 
 		return redirect(route('assistances.index'));
 	}
+	public function datosAssistance(Assistance $assistance){
+		return $assistance;
+	}
 }

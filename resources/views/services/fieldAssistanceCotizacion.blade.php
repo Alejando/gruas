@@ -1,22 +1,25 @@
-    {{-- Etiqueta Servicio Particular 
+    {{-- Etiqueta Servicio Asistencia 
  --}}
-{{--  
-<fieldset>
-<legend>General</legend> --}}
- <div class="form-group col-sm-12 col-lg-12">
-  <h3>Datos cliente</h3>
-   {!! Form::hidden('service_type', 'Particular', ['class' => 'form-control','id'=>'tipoServicio']) !!}
+
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('report_number', 'Numero de reporte:*') !!}
+    {!! Form::text('report_number', null, ['class' => 'form-control','required']) !!}
 </div>
-         
+<div class="form-group col-sm-12 col-lg-12">
+  <h3>Datos del cliente</h3>
+   {!! Form::hidden('service_type', 'Asistencia', ['class' => 'form-control','id'=>'tipoServicio']) !!}
+</div>
+<!--- Name Requests Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('name_requests', 'Nombre quien solicita:*') !!}
-    {!! Form::text('name_requests', null, ['class' => 'form-control','required' =>'true']) !!}
+    {!! Form::text('name_requests', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!--- Phone Requests Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('phone_requests', 'Teléfono quien solicita:*') !!}
-    {!! Form::text('phone_requests', null, ['class' => 'form-control','required' =>'true']) !!}
+    {!! Form::text('phone_requests', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!--- Name Wait Field --->
@@ -32,7 +35,7 @@
 </div>
 
 <!--- Email Request Field --->
-<div class="form-group col-sm-6 col-lg-4 ">
+<div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('email_request', 'Email:') !!}
     {!! Form::email('email_request', null, ['class' => 'form-control']) !!}
 </div>
@@ -45,25 +48,25 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-    {!! Form::text('vehicle_type', null, ['class' => 'form-control','required' =>'true']) !!}
+    {!! Form::text('vehicle_type', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!--- Brand Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('brand', 'Marca:*') !!}
-    {!! Form::select('brand',$brands,null, ['id'=>'brand', 'class' => 'form-control','required' =>'true']) !!}
+    {!! Form::select('brand', $brands, null, ['id'=>'brand', 'class' => 'form-control','required']) !!}
 </div>
 
 <!--- Sub Brand Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('sub_brand', 'Submarca:') !!}
-    {!! Form::select('sub_brand',[''=>''],null, ['id'=>'subbrand', 'class' => 'form-control']) !!}
+    {!! Form::select('sub_brand', $subbrands, null, ['id'=>'subbrand', 'class' => 'form-control']) !!}
 </div>
 
 <!--- Model Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('model', 'Modelo:') !!}
-    {!! Form::select('model',$models,null, ['id'=>'Model', 'class' => 'form-control']) !!}
+    {!! Form::select('model', $models, null, ['id'=>'Model', 'class' => 'form-control']) !!}
 </div>
 
 <!--- Color Field --->
@@ -84,14 +87,8 @@
     {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
 
-
-
-{{-- </fieldset>
-<fieldset>
-<legend>Ubicación</legend>
- --}}
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación Destino</h3>
+  <h3>Ubicación Origen</h3>
 </div>
 <!--- Street Is Field --->
 
@@ -136,6 +133,7 @@
     {!! Form::label('observations', 'Observaciones:') !!}
     {!! Form::text('observations', null, ['class' => 'form-control']) !!}
 </div>
+
 
 <!--- Street Deliver Field --->
 <div class="form-group col-sm-12 col-lg-12">
@@ -192,34 +190,28 @@
 <div class="gmap " id="mapaOrigen" >
 
 </div>
-{{-- </fieldset>
-<fieldset>
-<legend>Costos</legend> --}}
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Costos</h3>
 </div>
-
 <!--- Type Field --->
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('type', 'Tipo:*') !!}
-    {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
+    {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato','required']) !!}
 </div>
-
-<!--- Description Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('description', 'Descripción:*') !!}
-    {!! Form::text('description',null,['id'=>'description', 'class' => 'form-control','readonly','ng-model'=>'particular.description']) !!}
+    {!! Form::text('description',null,['id'=>'description', 'class' => 'form-control','readonly','ng-model'=>'particular.description','required']) !!}
 </div>
 
 <!--- Zone Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('zone', 'Zona:*') !!}
-    {!! Form::select('zone',['z1' => 'ZONA 1', 'z2' => 'ZONA 2', 'z3' => 'ZONA 3', 'z4' => 'ZONA 4', 'z5' => 'ZONA 5'],null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona']) !!}
+    {!! Form::label('zone', 'Zone:*') !!}
+    {!! Form::select('zone',['dp' => 'Dentro de periférico'], null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona','required']) !!}
+
 </div>
 
-
-    <div class="form-group col-sm-12 col-lg-10 col-lg-offset-1">
+<div class="form-group col-sm-12 col-lg-10 col-lg-offset-1">
         <table width="100%" class="table table-striped">
             <thead style="background:#B90E13;color:#ffffff">
                 <th width="25%">Concepto</th>
@@ -257,6 +249,12 @@
                     <td>{!! Form::input('text','wait_price', null, ['class' => 'form-control','ng-model'=>'particular.wait_hour','readonly']) !!}</td>
                     <td> {!! Form::input('number','hours_wait', null, ['class' => 'form-control','ng-model'=>'hours_wait','step'=>'.1']) !!}</td>
                     <td>$@{{hours_wait*particular.wait_hour | number:2}}</td>
+                </tr>
+                <tr>
+                    <td><b>Horas Abandaderamiento:</b></td>
+                    <td> {!! Form::input('text','abanderamiento_price', null, ['class' => 'form-control','ng-model'=>'particular.flag','readonly']) !!}</td>
+                    <td> {!! Form::input('number','abanderamiento_hours', null, ['class' => 'form-control','ng-model'=>'abanderamiento_hours','step'=>'.1']) !!}</td>
+                    <td>$@{{abanderamiento_hours*particular.flag | number:2}}</td>
                 </tr>
                 <tr>
                     <td><b>Dolly:</b></td>
@@ -304,10 +302,8 @@
     </div>
     <div class="form-group col-sm-12 col-lg-12 col-lg-offset-2">
     </div>
-{{--  </fieldset>
- <fieldset>
 
-<legend>Asignación y tiempos</legend> --}}
+<!--- Payment Received Field --->
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
@@ -372,4 +368,3 @@
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
 </div>
-{{-- </fieldset> --}}
