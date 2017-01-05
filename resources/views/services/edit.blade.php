@@ -14,9 +14,14 @@
         @include('services.fieldParticularEdit')
       @elseif($service->service_type=="Asistencia")
          @include('services.fieldAssistanceEdit')
-      
       @elseif($service->service_type=="Movilidad")
          @include('services.fieldMovilityEdit')
+      @elseif($service->service_type=="Policia")
+        @include('services.fieldPoliceEdit')
+      @elseif($service->service_type=="Empresa")
+         @include('services.fieldBusinessEdit')
+      @elseif($service->service_type=="Industrial")
+         @include('services.fieldIndustryEdit')
       @endif
     {!! Form::close() !!}
   </div>

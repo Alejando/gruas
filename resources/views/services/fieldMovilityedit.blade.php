@@ -1,9 +1,4 @@
-    {{-- Etiqueta Servicio Particular 
- --}}
-{{--  
-<fieldset>
 
-<legend>General</legend> --}}
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('report_number', 'Numero de reporte:*') !!}
     {!! Form::text('report_number', null, ['class' => 'form-control']) !!}
@@ -91,7 +86,7 @@
 <!--- Between Streets Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('between_streets', 'Entre calles:*') !!}
-    {!! Form::text('between_streets', null, ['class' => 'form-control','required']) !!}
+    {!! Form::text('between_streets', null, ['class' => 'form-control']) !!}
      {{-- <input type="text" name="between_streets" id="txt2" class="form-control" placeholder="Introduce localización" /> --}}
 </div>
 
@@ -239,6 +234,13 @@
                     <td>$@{{hours_wait*particular.wait_hour | number:2}}</td>
                 </tr>
                 <tr>
+                    <td><b>Horas Acondicionamiento: </b></td>
+                    <td>{!! Form::input('text','wait_price', null, ['class' => 'form-control','ng-model'=>'particular.conditioning_hour','readonly']) !!}</td>
+                    <td> {!! Form::input('number','hora_acondicionamiento', null, ['class' => 'form-control','ng-model'=>'hora_acondicionamiento','step'=>'.1','id'=>'hora_acondicionamiento']) !!}
+                    </td>
+                    <td>$@{{hora_acondicionamiento*particular.conditioning_hour | number:2}}</td>
+                </tr>
+                <tr>
                     <td><b>Dolly:</b></td>
                     <td> {!! Form::input('text','dolly_price', null, ['class' => 'form-control','ng-model'=>'particular.dolly_use','readonly']) !!}</td>
                     <td> {!! Form::select('use_dolly', ['si' => "SI", 'no' => "NO"], null, ['class' => 'form-control','ng-model'=>'use_dolly','id'=>'use_dolly']) !!}</td>
@@ -342,4 +344,5 @@
 
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+   <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>
 </div>

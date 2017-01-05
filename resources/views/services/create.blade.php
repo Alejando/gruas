@@ -26,7 +26,11 @@
             @elseif($typeService==9)
              @include('services.fieldMovilityCotizacion')
             @elseif($typeService==10)
-              {{-- @include('services.fieldIndustry') --}}
+              @include('services.fieldPoliceCotizacion')
+            @elseif($typeService==11)
+              @include('services.fieldBusinessCotizacion')
+            @elseif($typeService==12)
+              @include('services.fieldIndustryCotizacion')
             @endif
         {!! Form::close() !!}
     </div>

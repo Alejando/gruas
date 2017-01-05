@@ -16,7 +16,7 @@ class Police extends Model
 		"description",
 		"banderazo",
 		"cost_kilometer",
-		"maneuvers_hour",
+		"maneuvers",
 		"custody_hour",
 		"flag_hour",
 		"pension"
@@ -27,7 +27,7 @@ class Police extends Model
 		"description" => "required",
 		"banderazo" => "required|numeric",
 		"cost_kilometer" => "required|numeric",
-		"maneuvers_hour" => "required|numeric",
+		"maneuvers" => "required|numeric",
 		"custody_hour" => "required|numeric",
 		"flag_hour" => "required|numeric",
 		"pension" => "required|numeric"

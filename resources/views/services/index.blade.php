@@ -96,7 +96,7 @@
 
 
 
-<div class="container" style="width: 80%">
+<div class="container" style="width: 90%">
   <div class="row">
     <div class="col-md-2">
       <p style="margin-top: 10px"><h3>Reportes Activos</h3></p>
@@ -122,7 +122,7 @@
   </div>
 </div>
 </div>
-<div class="container" style="width: 80%">
+<div class="container" style="width: 90%">
 
   @include('flash::message')
 

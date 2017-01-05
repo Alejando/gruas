@@ -16,6 +16,8 @@ var app= angular.module('serviceApp',[]);
       $scope.precioBase=$('#precioBase').val();
       $scope.abanderamiento_hours=0;
       $scope.hora_acondicionamiento=0;
+      $scope.custody_hours=0;  
+      $scope.pension_hours=0;      
       $scope.tipoDato=$('#type').val();
       $scope.otros=0;
       $scope.servicio_nocturno="no";
@@ -26,14 +28,26 @@ var app= angular.module('serviceApp',[]);
         $scope.total+=parseFloat($scope.zone());
         $scope.total+=(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
         $scope.total+=parseFloat(($scope.carga)*parseFloat($scope.precioCarga())/100);
-        $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
-        $scope.total+=(parseFloat($scope.particular.wait_hour)*parseFloat($scope.hours_wait));
         $scope.total+=parseFloat($scope.otros);
+        if($scope.tipoServicio!="Industrial"){
+           $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
+          
+        }
+       
         if($scope.tipoServicio=="Movilidad"){
             $scope.total+=(parseFloat($scope.particular.conditioning_hour)*parseFloat($scope.hora_acondicionamiento));
         }
         if($scope.tipoServicio=="Asistencia"){
             $scope.total+=(parseFloat($scope.particular.flag)*parseFloat($scope.abanderamiento_hours));
+        }
+        if($scope.tipoServicio=="Policia"){
+           $scope.total+=(parseFloat($scope.particular.flag_hour)*parseFloat($scope.abanderamiento_hours));
+           $scope.total+=(parseFloat($scope.particular.pension)*parseFloat($scope.pension_hours));
+           $scope.total+=(parseFloat($scope.particular.custody_hour)*parseFloat($scope.custody_hours));
+        }else{
+          if($scope.tipoServicio!="Industrial"){
+            $scope.total+=(parseFloat($scope.particular.wait_hour)*parseFloat($scope.hours_wait));
+          }
         }
         if($scope.use_dolly=='si'){
           $scope.total+=parseFloat($scope.particular.dolly_use);
@@ -74,6 +88,26 @@ var app= angular.module('serviceApp',[]);
                         console.log($scope.particular);
                     });
                 break;
+             case 'Policia':
+
+                    $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
+                        $scope.particular=data.data;
+                        console.log($scope.particular);
+                    });
+                break;
+             case 'Empresa':
+                    console.log("hola");
+                    $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
+                        $scope.particular=data.data;
+                        console.log($scope.particular);
+                    });
+                break;
+               case 'Industrial':
+                    $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
+                        $scope.particular=data.data;
+                        console.log($scope.particular);
+                    });
+                break;
         }
             
       }
@@ -109,6 +143,9 @@ var app= angular.module('serviceApp',[]);
                     break;
                 case 'dp':
                   $scope.precioBase= $scope.particular.inside_of_periferico;
+                    break;
+                case 'ba':
+                  $scope.precioBase= $scope.particular.banderazo;
                     break;
                 default:
                   $scope.precioBase= 0;

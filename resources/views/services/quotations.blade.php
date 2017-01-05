@@ -48,14 +48,14 @@
 
 
 
-<div class="container" style="width: 80%">
+<div class="container" style="width: 90%">
   <div class="row">
   <div class="col-md-2 pull-right">
-    <a class="btn my-btn btn-md" style="margin-top: 10px" data-toggle="modal" data-target="#modalContizacion">Nueva cotización</a>
+    <a class="btn my-btn btn-md" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva cotización</a>
   </div>
 </div>
 </div>
-<div class="container" style="width: 80%">
+<div class="container" style="width: 90%">
 
   @include('flash::message')
 
@@ -111,7 +111,7 @@
 <script type="text/javascript">
    $(document).ready(function() {
         $('#activos').DataTable( );
-        
+       
     } );
   
 </script>

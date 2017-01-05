@@ -39,7 +39,7 @@
                     <td>{!! $police->description !!}</td>
                     <td>{!! $police->banderazo !!}</td>
                     <td>{!! $police->cost_kilometer !!}</td>
-                    <td>{!! $police->maneuvers_hour !!}</td>
+                    <td>{!! $police->maneuvers !!}</td>
                     <td>{!! $police->custody_hour !!}</td>
                     <td>{!! $police->flag_hour !!}</td>
                     <td>{!! $police->pension !!}</td>

@@ -163,4 +163,9 @@ class BusinessController extends AppBaseController
 
 		return redirect(route('businesses.index'));
 	}
+
+	public function datosBusiness(Business $business)
+	{
+		return $business;
+	}
 }

@@ -159,9 +159,9 @@ class ServiceController extends AppBaseController
 			->with('operators', $operators)
 			->with('typeService',$typeService);
 		}
-		if ($id ==4) {
+		if ($id ==4 || $id==10) {
 			$typeService=$id;
-			$types = Police::lists('type', 'type');
+			$types = Police::lists('type', 'id');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -172,9 +172,9 @@ class ServiceController extends AppBaseController
 			->with('operators', $operators)
 			->with('typeService',$typeService);
 		}
-		if ($id ==5) {
+		if ($id ==5 || $id==11) {
 			$typeService=$id;
-			$types = Business::lists('type', 'type');
+			$types = Business::lists('type', 'id');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -185,9 +185,9 @@ class ServiceController extends AppBaseController
 			->with('operators', $operators)
 			->with('typeService',$typeService);
 		}
-		if ($id ==6) {
+		if ($id ==6 || $id==12) {
 			$typeService=$id;
-			$types = Industry::lists('type', 'type');
+			$types = Industry::lists('type', 'id');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -254,7 +254,6 @@ class ServiceController extends AppBaseController
 		$brands = Brand::lists('name_brand', 'id');
 		$subbrands = Subbrand::lists('name_sub_brand', 'name_sub_brand');
 		$models = Vehiclemodel::lists('model_year', 'model_year');
-		$cabineros = Cabinero::lists('name', 'name');
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
 		if($service->service_type=="Particular"){
@@ -265,11 +264,10 @@ class ServiceController extends AppBaseController
 	            ->with('brands', $brands)
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
-	            ->with('cabineros', $cabineros)
 				->with('units', $units)
 				->with('operators', $operators);
 		}
-		if($service->service_type=="Movilidad"){
+		elseif($service->service_type=="Movilidad"){
 			$types = Movility::lists('type', 'id');
        		return view('services.edit')
 	       		->with('service', $service)
@@ -277,23 +275,53 @@ class ServiceController extends AppBaseController
 	            ->with('brands', $brands)
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
-	            ->with('cabineros', $cabineros)
 				->with('units', $units)
 				->with('operators', $operators);
 		}
-		if($service->service_type=="Asistencia"){
-			$types = Movility::lists('type', 'id');
+		elseif($service->service_type=="Asistencia"){
+			$types = Assistance::lists('type', 'id');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
 	            ->with('brands', $brands)
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
-	            ->with('cabineros', $cabineros)
 				->with('units', $units)
 				->with('operators', $operators);
 		}
-		
+		elseif($service->service_type=="Policia"){
+			$types = Police::lists('type', 'id');
+       		return view('services.edit')
+	       		->with('service', $service)
+	       		->with('types',$types)
+	            ->with('brands', $brands)
+	            ->with('subbrands', $subbrands)
+	            ->with('models', $models)
+				->with('units', $units)
+				->with('operators', $operators);
+		}
+		elseif($service->service_type=="Empresa"){
+			$types = Business::lists('type', 'id');
+       		return view('services.edit')
+	       		->with('service', $service)
+	       		->with('types',$types)
+	            ->with('brands', $brands)
+	            ->with('subbrands', $subbrands)
+	            ->with('models', $models)
+				->with('units', $units)
+				->with('operators', $operators);
+		}
+		elseif($service->service_type=="Industrial"){
+			$types = Industry::lists('type', 'id');
+       		return view('services.edit')
+	       		->with('service', $service)
+	       		->with('types',$types)
+	            ->with('brands', $brands)
+	            ->with('subbrands', $subbrands)
+	            ->with('models', $models)
+				->with('units', $units)
+				->with('operators', $operators);
+		}
 
 	}
 
@@ -408,5 +436,23 @@ class ServiceController extends AppBaseController
 	{
 		$service->update(['estatus'=>'Asignado']);
 		return redirect(route('services.index'));
+	}
+
+	public function getReportFilter(Request $request)
+	{
+		$fechaInicio=date($request->input('hInicio'));
+		$fechaFin=date($request->input('hFin'));
+
+		if($request->input('cInicio')=='0'){
+			$service= Service::where('cabinero_end_service',$request->input('cfin'))->where('time_request','>=',$fechaInicio)->where('end_time','<=',$fechaFin)->get();
+		}
+		elseif($request->input('cFin')=='0'){
+			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('time_request','>=',time($request->input('hInicio')))->where('end_time','<=',$fechaFin)->get();
+		}
+		else{
+			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('cabinero_end_service',$request->input('cfin'))->get()->where('time_request','>=',$request->input('hInicio'))->where('end_time','<=',$fechaFin);
+		}
+		
+		return $service;
 	}
 }

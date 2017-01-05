@@ -178,4 +178,8 @@ class CabineroController extends AppBaseController
 
 		return redirect(route('cabineros.index'));
 	}
+	public function getCabineros()
+	{
+		return Cabinero::all();
+	}
 }

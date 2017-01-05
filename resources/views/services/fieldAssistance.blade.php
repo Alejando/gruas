@@ -107,7 +107,7 @@
 <!--- Between Streets Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('between_streets', 'Entre calles:*') !!}
-    {!! Form::text('between_streets', null, ['class' => 'form-control','required']) !!}
+    {!! Form::text('between_streets', null, ['class' => 'form-control']) !!}
      {{-- <input type="text" name="between_streets" id="txt2" class="form-control" placeholder="Introduce localización" /> --}}
 </div>
 

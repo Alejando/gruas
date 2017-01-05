@@ -46,7 +46,7 @@
                     <td>{!! $business->z4 !!}</td>
                     <td>{!! $business->z5 !!}</td>
                     <td>{!! $business->cost_kilometer !!}</td>
-                    <td>{!! $business->maneuvers_hour !!}</td>
+                    <td>{!! $business->maneuvers !!}</td>
                     <td>{!! $business->wait_hour !!}</td>
                     <td>{!! $business->dolly_use !!}</td>
                     @role('admin')

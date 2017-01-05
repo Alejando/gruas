@@ -273,6 +273,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('quotations','ServiceController@cotizaciones');
 
 	Route::get('subbrands_ajax/{id}','ServiceController@getSubbrands');
+	Route::get('getReportFilter','ServiceController@getReportFilter');
+	Route::get('getCabineros','CabineroController@getCabineros');
 	Route::get('registrarArribo/{service}',['as'=>'registrarArribo','uses'=>'ServiceController@registrarArribo'])->where('service', '[0-9]+');
 	Route::get('registrarTermino/{service}',['as'=>'registrarTermino','uses'=>'ServiceController@registrarTermino'])->where('service', '[0-9]+');
 	Route::get('registrarPago/{service}',['as'=>'registrarPago','uses'=>'ServiceController@registrarPago'])->where('service', '[0-9]+');
@@ -281,8 +283,12 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::get('datosParticular/{particular}',['as'=>'datosParticular','uses'=>'ParticularController@datosParticular'])->where('particular', '[0-9]+');
 	Route::get('datosAssistance/{assistance}',['as'=>'datosAssistance','uses'=>'AssistanceController@datosAssistance'])->where('assistance', '[0-9]+');
-
 	Route::get('datosMovility/{movility}',['as'=>'datosMovility','uses'=>'MovilityController@datosMovility'])->where('movility', '[0-9]+');
+	Route::get('datosBusiness/{business}',['as'=>'datosBusiness','uses'=>'BusinessController@datosBusiness'])->where('business', '[0-9]+');
+	Route::get('datosPolice/{police}',['as'=>'datosPolice','uses'=>'PoliceController@datosPolice'])->where('police', '[0-9]+');
+	Route::get('datosIndustry/{industry}',['as'=>'datosIndustry','uses'=>'IndustryController@datosIndustry'])->where('industry', '[0-9]+');
+	
+	
 });
 
 

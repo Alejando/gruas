@@ -34,7 +34,7 @@ class Business extends Model
 		"z4" => "required|numeric",
 		"z5" => "required|numeric",
 		"cost_kilometer" => "required|numeric",
-		"maneuvers_hour" => "required|numeric",
+		"maneuvers" => "required|numeric",
 		"wait_hour" => "required|numeric",
 		"dolly_use" => "required|numeric"
 	];

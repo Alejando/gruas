@@ -27,8 +27,8 @@
 
 <!--- Maneuvers Hour Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('maneuvers_hour', 'Costo de Maniobra por Hora:') !!}
-    {!! Form::input('number','maneuvers_hour', null, ['class' => 'form-control','step'=>'.01']) !!}
+    {!! Form::label('maneuvers', 'Costo de Maniobra por Hora:') !!}
+    {!! Form::input('number','maneuvers', null, ['class' => 'form-control','step'=>'.01']) !!}
 </div>
 
 <!--- Custody Hour Field --->

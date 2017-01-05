@@ -370,4 +370,5 @@
 <!--- Submit Field --->
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+    <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>
 </div>

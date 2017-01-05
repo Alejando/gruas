@@ -157,4 +157,9 @@ class IndustryController extends AppBaseController
 
 		return redirect(route('industries.index'));
 	}
+
+	public function datosIndustry(Industry $industry)
+	{
+		return $industry;
+	}
 }

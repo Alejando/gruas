@@ -304,18 +304,10 @@
     </div>
     <div class="form-group col-sm-12 col-lg-12 col-lg-offset-2">
     </div>
-{{--  </fieldset>
- <fieldset>
 
-<legend>Asignación y tiempos</legend> --}}
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
-
-{{-- <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['En proceso' => 'En proceso', 'En cabina' => 'En cabina', 'En caja' => 'En caja'], null, ['class' => 'form-control']) !!}
-</div> --}}
 
 <!--- Cabinero Took Service Field --->
 <div class="form-group col-sm-6 col-lg-4">
@@ -337,20 +329,6 @@
 <div class="form-group col-sm-12 col-lg-12">
   <h4>Tiempos</h4>
 </div>
-<!--- Time Promise Field --->
-{{-- <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
-    {!! Form::text('time_promise',date('Y/m/d/  H:i:s'), ['class' => 'date-picker form-control','required']) !!}
-   
-</div> --}}
-
-{{-- <!--- Time Promise Field --->
-<div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
-    {!! Form::text('time_promise',null, ['class' => 'date-picker form-control','required']) !!}
-    <input type="text" name="time_promise" class="date-picker form-control" required value="{{date('Y/m/d/  H:i:s')}}">
-</div> --}}
-
 
 <!--- Payment Method Field --->
 <div class="form-group col-sm-6 col-lg-4">
@@ -372,4 +350,3 @@
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
 </div>
-{{-- </fieldset> --}}

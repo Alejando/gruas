@@ -163,4 +163,9 @@ class PoliceController extends AppBaseController
 
 		return redirect(route('police.index'));
 	}
+
+	public function datosPolice(Police $police)
+	{
+		return $police;
+	}
 }
