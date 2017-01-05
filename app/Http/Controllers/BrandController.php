@@ -68,7 +68,7 @@ class BrandController extends AppBaseController
 
 		$brand = Brand::create($input);
 
-		Flash::message('Brand saved successfully.');
+		Flash::message('Marca guardada correctamente.');
 
 		return redirect(route('brands.index'));
 	}
@@ -86,7 +86,7 @@ class BrandController extends AppBaseController
 
 		if(empty($brand))
 		{
-			Flash::error('Brand not found');
+			Flash::error('Marca no encontrada');
 			return redirect(route('brands.index'));
 		}
 
@@ -105,7 +105,7 @@ class BrandController extends AppBaseController
 
 		if(empty($brand))
 		{
-			Flash::error('Brand not found');
+			Flash::error('Marca no encontrada');
 			return redirect(route('brands.index'));
 		}
 
@@ -127,14 +127,14 @@ class BrandController extends AppBaseController
 
 		if(empty($brand))
 		{
-			Flash::error('Brand not found');
+			FFlash::error('Marca no encontrada');
 			return redirect(route('brands.index'));
 		}
 
 		$brand->fill($request->all());
 		$brand->save();
 
-		Flash::message('Brand updated successfully.');
+		Flash::message('Marca actualizada correctamente.');
 
 		return redirect(route('brands.index'));
 	}
@@ -153,13 +153,13 @@ class BrandController extends AppBaseController
 
 		if(empty($brand))
 		{
-			Flash::error('Brand not found');
+			Flash::error('Marca no encontrada');
 			return redirect(route('brands.index'));
 		}
 
 		$brand->delete();
 
-		Flash::message('Brand deleted successfully.');
+		Flash::message('Marca borrada correctamente.');
 
 		return redirect(route('brands.index'));
 	}

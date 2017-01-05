@@ -17,11 +17,11 @@
         @if($cabineros->isEmpty())
         <div class="well text-center">No hay registros.</div>
         @else
-        <table class="table">
+        <table class="table table-striped">
             <thead class="thead-color">
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th>Telefono</th>
+                <th>Teléfono</th>
                 <th>Horario</th>
                 <th>Correo Electronico</th>
                 @role('admin')
@@ -37,12 +37,14 @@
                     <td>{!! $cabinero->phone !!}</td>
                     <td>{!! $cabinero->schedule !!}</td>
                     <td>{!! $cabinero->email !!}</td>
-                    <td>
-                        @role('admin')
+                   
+                    @role('admin')
+                        <td>
                         <a href="{!! route('cabineros.edit', [$cabinero->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
                         <a href="{!! route('cabineros.delete', [$cabinero->id]) !!}" onclick="return confirm('¿Esta seguro de eliminar a este Cabinero?')"><i class="glyphicon glyphicon-remove"></i></a>
-                        @endrole
-                    </td>
+                        </td>
+                    @endrole
+                    
                 </tr>
                 @endforeach
             </tbody>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('widthContainer')
+<div class="container"  style="width: 90%">
+@endsection
 @section('content')
 
   
@@ -44,25 +46,28 @@
 
 </div>
 </div>
-
-
-
-
-<div class="container" style="width: 90%">
-  <div class="row">
-  <div class="col-md-2 pull-right">
-    <a class="btn my-btn btn-md" style="margin-top: 10px" data-toggle="modal" data-target="#myModal">Nuevo Reporte</a>
-  </div>
-</div>
-</div>
 <div class="container"  style="width: 90%">
+
+  
+    <div class="row">
+      <div class="col-lg-6 col-sm-12">
+        <h1 class="pull-left">Reportes</h1>
+      </div>
+       <div class="col-lg-6 col-sm-12">
+        <a class="btn my-btn btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#myModal">Nuevo Reporte</a>
+      </div>
+    </div>
+</div>
+
+<div class="container"  style="width: 90%; background-color:#E6E6E6;">
 
   @include('flash::message')
 
-  <div class="row">
-    <h1 class="pull-left">Reportes</h1>
+    <div class="row">
+   
+      
     <div class="col-md-12">
-      <div class="">
+      <div >
 
             <div class="panel-body">
               <form class="form-inline" style="border: none;">
@@ -95,51 +100,78 @@
   </div>
 
 <div class="row">
+
   @if($services->isEmpty())
   <div class="well text-center">No hay registros.</div>
   @else
-  <table class="table" id="reportes">
-    <thead>
-      <th>Folio</th>
-      <th>Tipo de Servicio</th>
-      <th>Unidad</th>
-      <th>Operador</th>
-      <th>Submarca</th>
-      <th>Fecha y hora</th>
-      <th>Ubicación Origen</th>
-      <th>Arribo Estimado</th>
-      <th>Arribo Real</th>
-      <th>Estatus</th>
-      <th>Pago</th>
-    </thead>
-    <tbody>
+  <div class="table-responsive" style="padding: 10px">
+    <table class="table table-striped" id="reportes">
+      <thead>
+        <th>Folio</th>
+        <th>Tipo de Servicio</th>
+        <th>Unidad</th>
+        <th>Operador</th>
+        <th>Submarca</th>
+        <th>Fecha y hora</th>
+        <th>Ubicación Origen</th>
+        <th>Arribo Estimado</th>
+        <th>Arribo Real</th>
+        <th>Estatus</th>
+        <th>Pago</th>
+        <th>total</th>
+      </thead>
+      <tbody id="tBody">
 
-      @foreach($services as $service)
-      <tr>
-        <td>{!! $service->id !!}</td>
-        <td>{!! $service->service_type !!}</td>
-        <td>{!! $service->unit_assigned !!}</td>
-        <td>{!! $service->operator_assigned !!}</td>
-        <td>{!! $service->sub_brand !!}</td>
-        <td>{!! $service->time_request !!}</td>
-        <td>{!! $service->street_is !!}, #{!! $service->number_is !!}, {!! $service->colony !!}, {!! $service->municipality !!}</td>
-        <td >{!! $service->time_promise !!}</td>
-        <td>{!! $service->real_time !!}</td>
-        <td>{!! $service->estatus !!}</td>
-        <td>{!! $service->payment_received !!}</td>
-       
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+        @foreach($services as $service)
+        <tr >
+          <td>{!! $service->id !!}</td>
+          <td>{!! $service->service_type !!}</td>
+          <td>{!! $service->unit_assigned !!}</td>
+          <td>{!! $service->operator_assigned !!}</td>
+          <td>{!! $service->sub_brand !!}</td>
+          <td>{!! $service->time_request !!}</td>
+          <td>{!! $service->street_is !!}, #{!! $service->number_is !!}, {!! $service->colony !!}, {!! $service->municipality !!}</td>
+          <td >{!! $service->time_promise !!}</td>
+          <td>{!! $service->real_time !!}</td>
+          <td>{!! $service->estatus !!}</td>
+          <td>{!! $service->payment_received !!}</td>
+          <td>${!! $service->total !!}</td>
+         
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
   @endif
 </div>
 </div>
 @endsection
+@section('footer')
+      <div class="container" style="width: 90%">
+@endsection
 @section('js')
 <script type="text/javascript">
    $(document).ready(function() {
-        $('#reportes').DataTable();
+      $('#reportes').DataTable({
+        dom: 'Bfrtip',
+        buttons: [ {
+            extend: 'excelHtml5',
+            
+        } ],
+        "language": {
+          "emptyTable":     "No hay datos disponibles",
+          "search": "Buscar",
+          "lengthMenu":     "Mostrar _MENU_ elementos",
+          "info":           "Mostrar _START_ a _END_ de _TOTAL_ elementos",
+          "infoEmpty":      "Mostrar 0 a 0 de 0 elementos",
+          "paginate": {
+              "first":      "Primero",
+              "last":       "Ultimo",
+              "next":       "Siguiente",
+              "previous":   "Anterior"
+          },
+        }
+      });
       mostrarCabineros();
     } );
    $(document).ready(function() {
@@ -184,6 +216,7 @@
     }
    }   
    function filtraReporte() {
+    var tabla='';
      $.ajax({
         type: "get",
         data: {cInicio:$('#cabineroInicio').val(),cFin:$('#cabineroFin').val(),hInicio:$('#HoraInicio').val(),hFin:$('#HoraFin').val()},
@@ -191,9 +224,48 @@
         success: llegada,
       });   
      function llegada(data){
-      console.log(data);
+       $('#reportes').dataTable().fnDestroy();
+      $('#reportes').dataTable({
+        "language": {
+          "emptyTable":     "No hay datos disponibles",
+          "search": "Buscar",
+          "lengthMenu":     "Mostrar _MENU_ elementos",
+          "info":           "Mostrar _START_ a _END_ de _TOTAL_ elementos",
+          "infoEmpty":      "Mostrar 0 a 0 de 0 elementos",
+          "paginate": {
+              "first":      "Primero",
+              "last":       "Ultimo",
+              "next":       "Siguiente",
+              "previous":   "Anterior"
+          },
+        },
+        dom: 'Bfrtip',
+        buttons: [ {
+            extend: 'excelHtml5',
             
-    }
+        } ],
+           data:data,
+        columns: [
+            {data:'id'},
+            {data:'service_type'},
+            {data:'unit_assigned'},
+            {data:'operator_assigned'},
+            {data:'sub_brand' },
+            {data:'time_request'},
+            {data:'street_is'},
+            {data:'time_promise'},
+            {data:'real_time'},
+            {data:'estatus'},
+            {data:'payment_received' },
+            {data:'total'}
+
+        ]
+        });
+
+}
+
+            
+    
    }
 
 </script>

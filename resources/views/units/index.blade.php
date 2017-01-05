@@ -17,7 +17,7 @@
         @if($units->isEmpty())
         <div class="well text-center">No hay registros.</div>
         @else
-        <table class="table">
+        <table class="table table-striped">
             <thead class="thead-color">
                 <th>Tipo</th>
                 <th>Descripción</th>
@@ -43,12 +43,12 @@
                     <td>{!! $unit->expiration_date !!}</td>
                     <td>{!! $unit->license_plate !!}</td>
                     <td>{!! $unit->economic_number !!}</td>
-                    <td>
-                        @role('admin')
+                    @role('admin')
+                        <td>
                         <a href="{!! route('units.edit', [$unit->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
                         <a href="{!! route('units.delete', [$unit->id]) !!}" onclick="return confirm('¿Esta seguro de eliminar esta Unidad?')"><i class="glyphicon glyphicon-remove"></i></a>
-                        @endrole
-                    </td>
+                        </td>
+                    @endrole
                 </tr>
                 @endforeach
             </tbody>

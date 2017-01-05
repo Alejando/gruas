@@ -17,11 +17,11 @@
         @if($operators->isEmpty())
         <div class="well text-center">No hay ningun registro.</div>
         @else
-        <table class="table">
+        <table class="table table-striped">
             <thead class="thead-color">
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th>Telefono</th>
+                <th>Teléfono</th>
                 <th>Número de Licencia</th>
                 <th>Vencimiento de Licencia</th>
                 @role('admin')
@@ -37,12 +37,12 @@
                     <td>{!! $operator->phone !!}</td>
                     <td>{!! $operator->number_license !!}</td>
                     <td>{!! $operator->expires_license !!}</td>
-                    <td>
-                        @role('admin')
-                        <a href="{!! route('operators.edit', [$operator->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a href="{!! route('operators.delete', [$operator->id]) !!}" onclick="return confirm('¿Esta seguro de eliminar a este Operador?')"><i class="glyphicon glyphicon-remove"></i></a>
-                        @endrole
-                    </td>
+                     @role('admin')
+                        <td >
+                            <a href="{!! route('operators.edit', [$operator->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="{!! route('operators.delete', [$operator->id]) !!}" onclick="return confirm('¿Esta seguro de eliminar a este Operador?')"><i class="glyphicon glyphicon-remove"></i></a>
+                        </td>
+                     @endrole
                 </tr>
                 @endforeach
             </tbody>

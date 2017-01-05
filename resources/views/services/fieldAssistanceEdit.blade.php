@@ -314,7 +314,11 @@
 <!--- Cabinero Took Service Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('cabinero_took_service', 'Cabinero que tomo el Servicio:*') !!}
+    @if($service->estatus=="Cotizacion")
+    {!! Form::text('cabinero_took_service',Auth::user()->name,['class' => 'form-control','readonly']) !!}
+    @else
     {!! Form::text('cabinero_took_service',null,['class' => 'form-control','readonly']) !!}
+    @endif
 </div>
 
 <!--- Unit Assigned Field --->

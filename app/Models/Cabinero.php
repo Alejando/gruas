@@ -22,11 +22,11 @@ class Cabinero extends Model
 	];
 
 	public static $rules = [
-	    "name" => "required|Alpha",
+	    "name" => "required",
 	    "last_name" => "required",
 	    "phone" => "required|numeric",
 	    "schedule" => "required",
-	    "email" => "required|email",
+	    "email" => "required|email|unique:users",
 		"password" => "required|AlphaNum",
 	];
 

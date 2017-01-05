@@ -17,7 +17,7 @@
         @if($police->isEmpty())
         <div class="well text-center">No hay registros.</div>
         @else
-        <table class="table">
+        <table class="table table-striped">
             <thead class="thead-color">
                 <th>Tipo</th>
                 <th>Descripción</th>

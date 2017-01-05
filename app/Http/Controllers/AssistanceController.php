@@ -86,7 +86,7 @@ class AssistanceController extends AppBaseController
 
 		if(empty($assistance))
 		{
-			Flash::error('Assistance not found');
+			Flash::error('Asistencia no encotrada');
 			return redirect(route('assistances.index'));
 		}
 
@@ -105,7 +105,7 @@ class AssistanceController extends AppBaseController
 
 		if(empty($assistance))
 		{
-			Flash::error('Assistance not found');
+			Flash::error('Asistencia no encotrada');
 			return redirect(route('assistances.index'));
 		}
 
@@ -127,7 +127,7 @@ class AssistanceController extends AppBaseController
 
 		if(empty($assistance))
 		{
-			Flash::error('Assistance not found');
+			Flash::error('Asistencia no encotrada');
 			return redirect(route('assistances.index'));
 		}
 
@@ -153,13 +153,13 @@ class AssistanceController extends AppBaseController
 
 		if(empty($assistance))
 		{
-			Flash::error('Assistance not found');
+			Flash::error('Asistencia no encotrada');
 			return redirect(route('assistances.index'));
 		}
 
 		$assistance->delete();
 
-		Flash::message('Assistance deleted successfully.');
+		Flash::message('Servicio de Asistencia borrado correctamente.');
 
 		return redirect(route('assistances.index'));
 	}

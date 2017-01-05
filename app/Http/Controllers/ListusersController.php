@@ -8,6 +8,7 @@ use Mitul\Controller\AppBaseController;
 use Response;
 use Flash;
 use Schema;
+use Auth;
 use App\User;
 use App\Models\Particular;
 use App\Models\Assitance;
@@ -76,7 +77,7 @@ class ListusersController extends AppBaseController
 
 		$listusers = User::create($input);
 
-		Flash::message('Listusers saved successfully.');
+		Flash::message('Usuario guardado correctamente.');
 
 		return redirect(route('listusers.index'));
 	}
@@ -94,7 +95,7 @@ class ListusersController extends AppBaseController
 
 		if(empty($listusers))
 		{
-			Flash::error('Listusers not found');
+			Flash::error('Usuario no encontrado');
 			return redirect(route('listusers.index'));
 		}
 
@@ -113,7 +114,7 @@ class ListusersController extends AppBaseController
 
 		if(empty($listusers))
 		{
-			Flash::error('Listusers not found');
+			Flash::error('Usuario no encontrado');
 			return redirect(route('listusers.index'));
 		}
 
@@ -135,14 +136,14 @@ class ListusersController extends AppBaseController
 
 		if(empty($listusers))
 		{
-			Flash::error('Listusers not found');
+			Flash::error('Usuario no encontrado');
 			return redirect(route('listusers.index'));
 		}
 
 		$listusers->fill($request->all());
 		$listusers->save();
 
-		Flash::message('Listusers updated successfully.');
+		Flash::message('Usuario actualizado correctamente.');
 
 		return redirect(route('listusers.index'));
 	}
@@ -161,14 +162,16 @@ class ListusersController extends AppBaseController
 
 		if(empty($listusers))
 		{
-			Flash::error('Listusers not found');
+			Flash::error('Usuario no encontrado');
 			return redirect(route('listusers.index'));
 		}
-
-		$listusers->delete();
-
-		Flash::message('Listusers deleted successfully.');
-
+		if($listusers!=Auth::user()){
+			$listusers->delete();
+			Flash::message('Usuario eliminado correctamente.');
+		}else{
+			Flash::message('No puedes eliminarte a ti mismo :).');
+		}
+		
 		return redirect(route('listusers.index'));
 	}
 

@@ -447,7 +447,7 @@ class ServiceController extends AppBaseController
 			$service= Service::where('cabinero_end_service',$request->input('cfin'))->where('time_request','>=',$fechaInicio)->where('end_time','<=',$fechaFin)->get();
 		}
 		elseif($request->input('cFin')=='0'){
-			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('time_request','>=',time($request->input('hInicio')))->where('end_time','<=',$fechaFin)->get();
+			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('time_request','>=',$request->input('hInicio'))->where('end_time','<=',$fechaFin)->get();
 		}
 		else{
 			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('cabinero_end_service',$request->input('cfin'))->get()->where('time_request','>=',$request->input('hInicio'))->where('end_time','<=',$fechaFin);

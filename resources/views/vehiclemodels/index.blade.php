@@ -17,8 +17,8 @@
         @if($vehiclemodels->isEmpty())
         <div class="well text-center">No hay registros.</div>
         @else
-        <table class="table">
-            <thead>
+        <table class="table table-striped">
+            <thead class="thead-color">
                 <th>Modelo (Año)</th>
                 @role('admin')
                 <th width="50px">Acción</th>

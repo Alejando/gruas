@@ -30,12 +30,13 @@
     .fa-btn {
         margin-right: 6px;
     }
-
+    
 </style>
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container">
+    @yield('widthContainer','<div class="container" >')
+        
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
@@ -84,7 +85,9 @@
                             <li><a href="{{ url('/industries')}}">Industrial</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('/cabineros')}}">Cabineros</a></li>
+                    @role('admin')
+                     <li><a href="{{ url('/cabineros')}}">Cabineros</a></li>
+                    @endrole                   
                     <li><a href="{{ url('/units')}}">Unidades</a></li>
                     <li><a href="{{ url('/operators')}}">Operadores</a></li>
                     <li class="dropdown">
@@ -98,8 +101,11 @@
                             <li><a href="{{ url('/brands')}}">Marcas</a></li>
                             <li><a href="{{ url('/subbrands')}}">Sub marcas</a></li>
                             <li><a href="{{ url('/vehiclemodels')}}">Modelos (Año)</a></li>
-                            <li class="dropdown-header">Usuarios</li>
-                            <li><a href="{{ url('/listusers')}}">Ver usuarios</a></li>
+                            @role('admin')
+                                <li class="dropdown-header">Usuarios</li>
+                                <li><a href="{{ url('/listusers')}}">Ver usuarios</a></li>
+                            @endrole
+                            
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -119,12 +125,13 @@
     </nav>
 
     @yield('content')
-
     <footer>
-      <div class="container">
-        <p class="text-muted">&#174; Grúas Manolo | Todos los derechos reservados</p>
+    @yield('footer','
+      <div class="container" >')
+    <p class="text-muted">&#174; Grúas Manolo | Todos los derechos reservados 2017</p>
     </div>
-</footer>
+    </footer>
+
 
 </body>
 </html>

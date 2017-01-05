@@ -69,7 +69,7 @@ class CabineroController extends AppBaseController
 	{
         $input = $request->all();
 
-        $name = $request->input('name');
+        $name = $request->input('name').' '.$request->input('last_name');
         $email = $request->input('email');
         $password = $request->input('password');
         $datos['name'] = $name;
@@ -171,15 +171,17 @@ class CabineroController extends AppBaseController
 			Flash::error('Cabinero not found');
 			return redirect(route('cabineros.index'));
 		}
+		if($cabinero->user()->delete()){
+			$cabinero->delete();
+			Flash::message('Cabinero deleted successfully.');
+			return redirect(route('cabineros.index'));
+		}
+		
 
-		$cabinero->delete();
-
-		Flash::message('Cabinero deleted successfully.');
-
-		return redirect(route('cabineros.index'));
+		
 	}
 	public function getCabineros()
 	{
-		return Cabinero::all();
+		return User::all();
 	}
 }
