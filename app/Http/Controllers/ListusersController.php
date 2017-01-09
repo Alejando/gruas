@@ -166,8 +166,14 @@ class ListusersController extends AppBaseController
 			return redirect(route('listusers.index'));
 		}
 		if($listusers!=Auth::user()){
-			$listusers->delete();
-			Flash::message('Usuario eliminado correctamente.');
+			if($listusers->cabinero()->delete()){
+				$listusers->delete();
+				Flash::message('Usuario eliminado correctamente.');
+			}
+			else{
+				Flash::message('Cabinero no existe');
+			}
+			
 		}else{
 			Flash::message('No puedes eliminarte a ti mismo :).');
 		}

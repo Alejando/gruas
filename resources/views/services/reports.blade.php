@@ -73,14 +73,68 @@
               <form class="form-inline" style="border: none;">
                 <div class="form-group">
                   <label for="cabineroInicio" class="form-label">Cabinero que Inicio </label>
-                  <select type="text" class="form-control" id="cabineroInicio" >
-                   
+                  <select type="text" class="form-control" id="cabineroInicio">
+                  <option value="0">Todos</option>
+                   @foreach($users as $option)
+                      <option>{{$option->name}}</option>
+                   @endforeach
                   </select>
                 </div>
                  <div class="form-group">
                   <label for="cabineroFin" class="form-label">Cabinero que Termino </label>
-                   <select type="text" class="form-control" id="cabineroFin" >
-                   
+                   <select type="text" class="form-control" id="cabineroFin">
+                   <option value="0">Todos</option>
+                   @foreach($users as $option)
+                      <option>{{$option->name}}</option>
+                   @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="operador" class="form-label">Operador</label>
+                   <select class="form-control" id="operador">
+                   <option value="0">Todos</option>
+                   @foreach($operators as $option)
+                      <option>{{$option->name}}</option>
+                   @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="unidad" class="form-label">Unidad</label>
+                   <select class="form-control" id="unidad">
+                   <option value="0">Todos</option>
+                   @foreach($units as $option)
+                      <option>{{$option->economic_number}}</option>
+                   @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="servicio" class="form-label">Servicio</label>
+                   <select class="form-control" id="servicio">
+                    <option value="0">Todos</option>
+                    <option>Particular</option>
+                    <option>Asistencia</option>
+                    <option>Movilidad</option>
+                    <option>Policia</option>
+                    <option>Empresa</option>
+                    <option>Industrial</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="subMarca" class="form-label">Sub-Marca</label>
+                   <select class="form-control" id="subMarca">
+                   <option value="0">Todos</option>
+                   @foreach($subbrands as $option)
+                      <option>{{$option->name_sub_brand}}</option>
+                   @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="empresa" class="form-label">Empresa</label>
+                   <select class="form-control" id="empresa">
+                  {{--  @foreach($dato as $option)
+                      <option>{{$option->name}}</option>
+                   @endforeach --}}
+                    <option value="0">hola</option>
                   </select>
                 </div>
                  <div class="form-group">
@@ -118,7 +172,9 @@
         <th>Arribo Real</th>
         <th>Estatus</th>
         <th>Pago</th>
-        <th>total</th>
+        <th>Total</th>
+        <th>Cabinero Inicio</th>
+        <th>Cabinero Termino</th>
       </thead>
       <tbody id="tBody">
 
@@ -136,10 +192,28 @@
           <td>{!! $service->estatus !!}</td>
           <td>{!! $service->payment_received !!}</td>
           <td>${!! $service->total !!}</td>
+          <td>{!! $service->cabinero_took_service !!}</td>
+          <td>{!! $service->cabinero_end_service !!}</td>
          
         </tr>
         @endforeach
       </tbody>
+      <tfoot>
+        <th>Folio</th>
+        <th class="filtro">Tipo de Servicio</th>
+        <th class="filtro">Unidad</th>
+        <th class="filtro">Operador</th>
+        <th class="filtro">Submarca</th>
+        <th>Fecha y hora</th>
+        <th>Ubicación Origen</th>
+        <th>Arribo Estimado</th>
+        <th>Arribo Real</th>
+        <th>Estatus</th>
+        <th>Pago</th>
+        <th>Total</th>
+        <th class="filtro">Cabinero Inicio</th>
+        <th class="filtro">Cabinero Termino</th>
+      </tfoot>
     </table>
   </div>
   @endif
@@ -152,7 +226,8 @@
 @section('js')
 <script type="text/javascript">
    $(document).ready(function() {
-      $('#reportes').DataTable({
+     var table= $('#reportes').DataTable({
+        responsive: true,
         dom: 'Bfrtip',
         buttons: [ {
             extend: 'excelHtml5',
@@ -170,9 +245,27 @@
               "next":       "Siguiente",
               "previous":   "Anterior"
           },
-        }
+        },
+
       });
-      mostrarCabineros();
+
+
+  //     $('#reportes tfoot .filtro').each( function () {
+  //       var title = $(this).text();
+  //       $(this).html( '<input type="text" placeholder="filtrar por '+title+'" />' );
+  //   } );
+  // table.columns().every( function () {
+  //       var that = this;
+ 
+  //       $( 'input', this.footer() ).on( 'keyup change', function () {
+  //           if ( that.search() !== this.value ) {
+  //               that
+  //                   .search( this.value )
+  //                   .draw();
+  //           }
+  //       } );
+  //   } );
+  
     } );
    $(document).ready(function() {
   $('.date-picker').daterangepicker({ singleDatePicker: true, timePicker: true,
@@ -181,49 +274,51 @@
       console.log(start.toISOString(), end.toISOString(), label);
     });
   });
-  function mostrarCabineros() {
-     $('#cabineroInicio').empty();
-      $.ajax({
-        type: "GET",
-        url:'getCabineros',
-        success: llegada,
-      });
-    function llegada(data){
-      console.log(data);
-      $('#cabineroInicio').append($('<option>', {
-            value: '0',
-            text:  'Sin filtrar'
-             }));
-        $.each(data, function(i,p) {
-            $('#cabineroInicio').append($('<option>', {
-            value: p.name,
-            text: p.name
-             }));
-          //console.log(p.pivot.precio);
-        });
-        $('#cabineroFin').append($('<option>', {
-            value: '0',
-            text:  'Sin filtrar'
-             }));
-        $.each(data, function(i,p) {
-            $('#cabineroFin').append($('<option>', {
-            value: p.name,
-            text: p.name
-             }));
-          //console.log(p.pivot.precio);
-        });
+  // function mostrarCabineros() {
+  //    $('#cabineroInicio').empty();
+  //     $.ajax({
+  //       type: "GET",
+  //       url:'getCabineros',
+  //       success: llegada,
+  //     });
+  //   function llegada(data){
+  //     console.log(data);
+  //     $('#cabineroInicio').append($('<option>', {
+  //           value: '0',
+  //           text:  'Sin filtrar'
+  //            }));
+  //       $.each(data, function(i,p) {
+  //           $('#cabineroInicio').append($('<option>', {
+  //           value: p.name,
+  //           text: p.name
+  //            }));
+  //         //console.log(p.pivot.precio);
+  //       });
+  //       $('#cabineroFin').append($('<option>', {
+  //           value: '0',
+  //           text:  'Sin filtrar'
+  //            }));
+  //       $.each(data, function(i,p) {
+  //           $('#cabineroFin').append($('<option>', {
+  //           value: p.name,
+  //           text: p.name
+  //            }));
+  //         //console.log(p.pivot.precio);
+  //       });
       
-    }
-   }   
+  //   }
+  //  }   
    function filtraReporte() {
     var tabla='';
+
      $.ajax({
         type: "get",
-        data: {cInicio:$('#cabineroInicio').val(),cFin:$('#cabineroFin').val(),hInicio:$('#HoraInicio').val(),hFin:$('#HoraFin').val()},
+        data: {cInicio:$('#cabineroInicio').val(),cFin:$('#cabineroFin').val(),hInicio:$('#HoraInicio').val(),hFin:$('#HoraFin').val(),servicio:$('#servicio').val(),operador:$('#operador').val(),unidad:$('#unidad').val(),subMarca:$('#subMarca').val(),empresa:$('#empresa').val()},
         url:'getReportFilter',
         success: llegada,
       });   
      function llegada(data){
+      console.log(data);
        $('#reportes').dataTable().fnDestroy();
       $('#reportes').dataTable({
         "language": {
@@ -257,7 +352,9 @@
             {data:'real_time'},
             {data:'estatus'},
             {data:'payment_received' },
-            {data:'total'}
+            {data:'total'},
+             {data:'cabinero_took_service' },
+            {data:'cabinero_end_service'}
 
         ]
         });

@@ -34,6 +34,6 @@ class User extends Authenticatable
 
     public function cabinero()
     {
-         return $this->hasOne('App\Models\Docent');
+         return $this->hasOne('App\Models\Cabinero');
     }
 }

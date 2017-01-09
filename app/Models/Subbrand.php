@@ -14,6 +14,7 @@ class Subbrand extends Model
 	public $fillable = [
 	    "name_sub_brand",
 	    "brand_id",
+	    "tipo",
 	];
 
 	public static $rules = [

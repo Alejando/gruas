@@ -1,3 +1,34 @@
+var subMarcas;
+ document.getElementById('brand').addEventListener('change', function() {
+    $('#subbrand').empty();
+      $.ajax({
+        type: "GET",
+        url:'../../subbrands_ajax/'+$('#brand').val(),
+        success: llegada,
+      });
+    function llegada(data){
+      subMarcas=data;
+    //  console.log(data);
+        $.each(data, function(i,p) {
+            $('#subbrand').append($('<option>', {
+            value: p.name_sub_brand,
+            text: p.name_sub_brand
+             }));
+          //console.log(p.pivot.precio);
+        });
+    $('#labelTipo').html("Tipo:*      <b style='color:gray;'>(Sugerido : "+data[0].tipo+").</b>");
+      
+    }
+  });
+
+ document.getElementById('subbrand').addEventListener('change', function() {
+       $.each(subMarcas, function(i,p) {
+          if(p.name_sub_brand==$('#subbrand').val()){
+            $('#labelTipo').html("Tipo:*      <b style='color:gray;'>(Sugerido : "+p.tipo+").</b>");
+          }
+      });
+  });
+
 
 
 var app= angular.module('serviceApp',[]);
@@ -21,7 +52,6 @@ var app= angular.module('serviceApp',[]);
       $scope.tipoDato=$('#type').val();
       $scope.otros=0;
       $scope.servicio_nocturno="no";
-
 
       $scope.subtotal = function(){
        $scope.total=parseFloat(0);

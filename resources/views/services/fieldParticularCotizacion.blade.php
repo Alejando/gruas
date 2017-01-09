@@ -1,8 +1,4 @@
-    {{-- Etiqueta Servicio Particular 
- --}}
-{{--  
-<fieldset>
-<legend>General</legend> --}}
+
  <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos cliente</h3>
    {!! Form::hidden('service_type', 'Particular', ['class' => 'form-control','id'=>'tipoServicio']) !!}
@@ -84,12 +80,6 @@
     {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
 
-
-
-{{-- </fieldset>
-<fieldset>
-<legend>Ubicación</legend>
- --}}
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Ubicación Destino</h3>
 </div>
@@ -192,9 +182,6 @@
 <div class="gmap " id="mapaOrigen" >
 
 </div>
-{{-- </fieldset>
-<fieldset>
-<legend>Costos</legend> --}}
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Costos</h3>
 </div>
@@ -241,7 +228,7 @@
                     <td>$@{{extra_kilometers*particular.cost_kilometer | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Carga:</b> </td>
+                    <td><b>Precio por carga:</b> </td>
                     <td>$@{{ precioCarga()| number:2}}</td>
                     <td> {!! Form::select('carga',['0'=>'0%','25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga']) !!}</td>
                     <td>$@{{(carga*precioCarga())/100 | number:2}}</td>
@@ -267,7 +254,7 @@
                 </tr>
                  <tr>
                     <td><b>Otros</b></td>
-                    <td></td>
+                    <td>{!! Form::input('text','concepto_otros', null, ['class' => 'form-control','placeholder'=>'Concepto del cargo']) !!}</td>
                     <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1']) !!}</td>
                     <td>$@{{otros| number:2}}</td>
                     
@@ -327,7 +314,7 @@
     {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control']) !!}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
-  <h4>Tiempos</h4>
+  <h3>Tiempos</h3>
 </div>
 
 <!--- Payment Method Field --->
@@ -345,8 +332,12 @@
     {!! Form::label('estatus', 'Estatus:*') !!}
     {!! Form::select('estatus', ['Cotizacion' => 'Cotizacion'], null, ['class' => 'form-control']) !!}
 </div>
-
+<div class="form-group col-sm-6 col-lg-8">
+    {!! Form::label('nota', 'Detalles del servicios:') !!}
+    {!! Form::textArea('nota', null, ['class' => 'form-control','placeholder'=>'Puedes agregar cualquier nota referente al servicio  que no este contenplado en el formulario.']) !!}
+</div>
 <!--- Submit Field --->
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+    <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>
 </div>

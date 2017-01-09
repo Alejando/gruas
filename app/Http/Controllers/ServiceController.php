@@ -53,7 +53,7 @@ class ServiceController extends AppBaseController
             }
         };
 
-        $services = $query->where('estatus','!=','Terminado')->where('estatus','!=','Cotizacion')->where('estatus','!=','Cancelado')->get();
+        $services = $query->where('payment_received','!=','Recibido')->where('estatus','!=','Cotizacion')->where('estatus','!=','Cancelado')->get();
         
         return view('services.index')->with('services', $services);
         }
@@ -74,8 +74,16 @@ class ServiceController extends AppBaseController
         };
 
         $services = $query->where('estatus','!=','Cotizacion')->get();
-        
-        return view('services.reports')->with('services', $services);
+        $subbrands = Subbrand::all();
+		$units = Unit::all();
+		$operators = Operator::all();
+		$users= User::all();
+        return view('services.reports')
+		->with('subbrands', $subbrands)
+		->with('units', $units)
+		->with('operators', $operators)
+		->with('users', $users)
+		->with('services', $services);
         }
     public function cotizaciones(Request $request)
 	{
@@ -121,6 +129,14 @@ class ServiceController extends AppBaseController
 		$cabineros = Cabinero::lists('name', 'name');
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
+
+		$operators->prepend('Sin Asignar','Ninguno');
+		$brands->prepend('Sin Asignar','Ninguno');
+		$subbrands->prepend('Sin Asignar','Ninguno');
+		$models->prepend('Sin Asignar','Ninguno');
+		$cabineros->prepend('Sin Asignar','Ninguno');
+		$units->prepend('Sin Asignar','Ninguno');
+
 		if ($id ==1|| $id==7) {
 			/*Lists*/
 		$typeService=$id;
@@ -256,6 +272,12 @@ class ServiceController extends AppBaseController
 		$models = Vehiclemodel::lists('model_year', 'model_year');
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
+		$operators->prepend('Sin Asignar','Ninguno');
+		$brands->prepend('Sin Asignar','Ninguno');
+		$subbrands->prepend('Sin Asignar','Ninguno');
+		$models->prepend('Sin Asignar','Ninguno');
+		$units->prepend('Sin Asignar','Ninguno');
+
 		if($service->service_type=="Particular"){
 			$types = Particular::lists('type', 'id');
        		return view('services.edit')
@@ -440,18 +462,39 @@ class ServiceController extends AppBaseController
 
 	public function getReportFilter(Request $request)
 	{
-		$fechaInicio=date($request->input('hInicio'));
-		$fechaFin=date($request->input('hFin'));
+		$fechaInicio = date($request->input('hInicio'));
+		$fechaFin = date($request->input('hFin'));
+		$empresa = $request->input('empresa');
+		$unidad = $request->input('unidad');		
+		$operador = $request->input('operador');
+		$subMarca = $request->input('subMarca');
+		$servicio = $request->input('servicio');
+		$cFin=$request->input('cFin');
+		$cInicio=$request->input('cInicio');
+		
+		$query = Service::query();
+		$query->where('estatus','Terminado')->where('time_request','>=',$fechaInicio)->where('end_time','<=',$fechaFin);
 
-		if($request->input('cInicio')=='0'){
-			$service= Service::where('cabinero_end_service',$request->input('cfin'))->where('time_request','>=',$fechaInicio)->where('end_time','<=',$fechaFin)->get();
+		if($cInicio!='0'){
+			$query->where('cabinero_took_service',$cInicio);
 		}
-		elseif($request->input('cFin')=='0'){
-			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('time_request','>=',$request->input('hInicio'))->where('end_time','<=',$fechaFin)->get();
+		if($cFin!='0'){
+			$query->where('cabinero_end_service',$cFin);
 		}
-		else{
-			$service= Service::where('cabinero_took_service',$request->input('cInicio'))->where('cabinero_end_service',$request->input('cfin'))->get()->where('time_request','>=',$request->input('hInicio'))->where('end_time','<=',$fechaFin);
+		if($servicio!='0'){
+			$query->where('service_type',$servicio);
 		}
+		if($subMarca!='0'){
+			$query->where('sub_brand',$subMarca);
+		}
+		if($operador!='0'){
+			$query->where('operator_assigned',$operador);
+		}
+		if($unidad!='0'){
+			$query->where('unit_assigned',$unidad);
+		}
+		
+		$service=$query->get();
 		
 		return $service;
 	}

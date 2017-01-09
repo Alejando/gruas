@@ -20,6 +20,7 @@
         <table class="table table-striped">
             <thead class="thead-color">
                 <th>Nombre de Sub Marca</th>
+                <th>Tipo</th>
                 @role('admin')
                 <th width="50px">Acción</th>
                 @endrole
@@ -29,6 +30,7 @@
                 @foreach($subbrands as $subbrand)
                 <tr>
                     <td>{!! $subbrand->name_sub_brand !!}</td>
+                    <td>{!! $subbrand->tipo !!}</td>
                     @role('admin')
                     <td>
                         <a href="{!! route('subbrands.edit', [$subbrand->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>

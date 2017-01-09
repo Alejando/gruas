@@ -1,5 +1,3 @@
-    {{-- Etiqueta Servicio Asistencia 
- --}}
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('report_number', 'Numero de reporte:*') !!}

@@ -73,11 +73,8 @@ class Service extends Model
 		"machine_works",
 		"obstructs",
 		"height",
-		"pension_price",
-		"pension_hours",
 		"hours_custody",
 		"custody_price",
-		"abanderamiento",
 		"abanderamiento_hours",
 		"abanderamiento_price",
 		"back_home",
@@ -88,7 +85,9 @@ class Service extends Model
 		"precio_acondicionamiento",
 		"cabinero_end_service",
 		"iva",
-		"otros"
+		"otros",
+		"nota",
+		"concepto_otros"
 		//"compliment"
 	];
 

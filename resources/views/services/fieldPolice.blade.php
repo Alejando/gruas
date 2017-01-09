@@ -238,13 +238,6 @@
                     <td>$@{{abanderamiento_hours*particular.flag_hour | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Dias de Pensión: </b></td>
-                    <td>{!! Form::input('text','pension_price', null, ['class' => 'form-control','ng-model'=>'particular.pension','readonly']) !!}</td>
-                    <td> {!! Form::input('number','pension_hours', null, ['class' => 'form-control','ng-model'=>'pension_hours','step'=>'.1','id'=>'pension_hours']) !!}
-                    </td>
-                    <td>$@{{pension_hours*particular.pension | number:2}}</td>
-                </tr>
-                <tr>
                     <td><b>Otros</b></td>
                     <td></td>
                     <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1','id'=>'otros']) !!}</td>

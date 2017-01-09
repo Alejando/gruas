@@ -112,9 +112,7 @@
    <div class="col-md-1" style="margin-top: 20px;">
      <span class="badge fifteen-minutes">3</span> < A 5 mins
    </div>
-   
-   <div class="col-md-1"></div>
-   <div class="col-md-2">
+   <div class="col-md-4">
     <a class="btn btn-default btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva Cotización</a>
   </div>
   <div class="col-md-2">
@@ -154,29 +152,41 @@
       @foreach($services as $service)
       <tr >
         <td  style="vertical-align: middle;">{!! $service->id !!}</td>
-        <td style="vertical-align: middle;">{!! $service->service_type !!}</td>
-        <td style="vertical-align: middle;"><b>{!! $service->unit_assigned !!}</b></td>
-        <td style="vertical-align: middle;"><b>{!! $service->operator_assigned !!}</b></td>
+        <td style="vertical-align: middle;"> {!! $service->service_type !!}</td>
+        <td style="vertical-align: middle;">
+          @if($service->unit_assigned=="Ninguno")
+              <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id,'#unit_assigned']) !!}">Asignar<i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+          @else
+            <b>{!! $service->unit_assigned !!}</b>
+          @endif   
+        </td>       
+        <td style="vertical-align: middle;">
+          @if($service->operator_assigned=="Ninguno")
+              <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id,'#operator_assigned']) !!}">Asignar<i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+          @else
+            <b>{!! $service->operator_assigned !!}</b></td>
+          @endif
+        </td>
         <td style="vertical-align: middle;">{!! $service->sub_brand !!}</td>
         <td style="vertical-align: middle;">{!! $service->time_request !!}</td>
         <td style="vertical-align: middle;">{!! $service->street_is !!}, #{!! $service->number_is !!}, {!! $service->colony !!}, {!! $service->municipality !!}</td>
         <td style="vertical-align: middle;" class="arriboEstimado">{!! $service->time_promise !!}</td>
-        <td style="vertical-align: middle;">
-          @if($service->real_time=="0000-00-00 00:00:00")
+        <td style="vertical-align: middle;" lass="arriboReal">
+          @if($service->real_time=="0000-00-00 00:00:00" && $service->operator_assigned!="Ninguno" && $service->unit_assigned!="Ninguno" && $service->estatus=="Asignado" )
             <a class="btn btn-danger" href="{!! route('registrarArribo', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas registrar el arribo?')">Arribar <i class="glyphicon glyphicon-send" > </i></a>
           @else
             {!! $service->real_time !!}
           @endif
         </td>
         <td style="vertical-align: middle;" class="estatus">
-          @if($service->estatus=="Arribado" && $service->payment_received=="Recibido")
+          @if($service->estatus=="Arribado" )
             <a class="btn btn-success" href="{!! route('registrarTermino', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas terminar el servicio?')"> Terminar <i class="glyphicon glyphicon-ok" ></i></a>
           @else
           {!! $service->estatus !!}
           @endif
         </td>
         <td style="vertical-align: middle;">
-           @if($service->payment_received!= "Recibido")
+           @if($service->estatus=="Terminado" )
             <a class="btn btn-warning" href="{!! route('registrarPago', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas Registrar el pago?')"> Pagar <i class="glyphicon glyphicon-usd" ></i></a>
           @else
             {!! $service->payment_received !!}
@@ -224,18 +234,19 @@
         setInterval(verificarEstado, 3000)
     } );
    function verificarEstado(){
-     var fecha =  new Date();
+     
        //nsole.log('<---->'+fecha);
        $("#activos tbody tr .estatus").each(function (index) 
         {
+            var fecha =  new Date();
             var estatus=$(this).text(); 
             var tr= $(this).parent();
             // console.log(tr.find('.arriboEstimado').html());
              // console.log(estatus.search("Asignado"))
             if(estatus.includes("Asignado")){
             // console.log(estatus)
-              var tr=tr.find('.arriboEstimado').html()
-              var fechaServicio= new Date(tr);
+              var td=tr.find('.arriboEstimado').html()
+              var fechaServicio= new Date(td);
               var fecha10  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()-10,0,0));
               var fecha5  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()+5,0,0));
 
@@ -255,7 +266,27 @@
                   
               
             }
-            else {
+            else if(estatus.includes("Termina")) {
+              var fecha =  new Date(tr.find('.arriboEstimado').html());
+              var td=tr.find('.arriboEstimado').html()
+              var fechaServicio= new Date(td);
+              var fecha10  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()-10,0,0));
+              var fecha5  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()+5,0,0));
+
+               console.log(fecha10+'<---->'+fecha5);
+                if(fecha<fecha10){
+                  $(this).parent().css("background-color", "#B5E7C8");
+                }
+                else if(fecha>fecha10 && fecha<fecha5){
+                   $(this).parent().css("background-color", "#FFDAA9");
+                  //console.log('fecha 2->'+fecha);
+                }
+                else if(fecha>fecha5){
+                   $(this).parent().css({"background-color":"#FF0020","color":"#FFFFFF"});
+                  //console.log('fecha 2->'+fecha);
+                }
+            }
+            else  {
                $(this).parent().css("background-color", "#FFFFFF");
             }
             

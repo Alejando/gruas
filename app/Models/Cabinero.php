@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Auth;
 class Cabinero extends Model
 {
     
@@ -26,7 +26,7 @@ class Cabinero extends Model
 	    "last_name" => "required",
 	    "phone" => "required|numeric",
 	    "schedule" => "required",
-	    "email" => "required|email|unique:users",
+	    "email" => "required|email",
 		"password" => "required|AlphaNum",
 	];
 
