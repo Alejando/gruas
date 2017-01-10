@@ -19,7 +19,8 @@ class Industry extends Model
 		"z3",
 		"z4",
 		"z5",
-		"cost_kilometer"
+		"cost_kilometer",
+		"maneuvers"
 	];
 
 	public static $rules = [
@@ -30,7 +31,8 @@ class Industry extends Model
 		"z3" => "required|numeric",
 		"z4" => "required|numeric",
 		"z5" => "required|numeric",
-		"cost_kilometer" => "required|numeric"
+		"cost_kilometer" => "required|numeric",
+		"maneuvers" => "required|numeric" 
 	];
 
 }

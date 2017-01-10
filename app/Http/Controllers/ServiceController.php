@@ -21,6 +21,7 @@ use App\Models\Vehiclemodel;
 use App\Models\Cabinero;
 use App\Models\Unit;
 use App\Models\Operator;
+use App\Models\Empresa;
 use DB;
 use Auth;
 
@@ -73,16 +74,18 @@ class ServiceController extends AppBaseController
             }
         };
 
-        $services = $query->where('estatus','!=','Cotizacion')->get();
+        $services = $query->where('estatus','!=','Cotizacion')->where('estatus','!=','Sin Asignar')->get();
         $subbrands = Subbrand::all();
 		$units = Unit::all();
 		$operators = Operator::all();
 		$users= User::all();
+		$empresas=Empresa::all(); 
         return view('services.reports')
 		->with('subbrands', $subbrands)
 		->with('units', $units)
 		->with('operators', $operators)
 		->with('users', $users)
+		->with('empresas',$empresas)
 		->with('services', $services);
         }
     public function cotizaciones(Request $request)
@@ -191,6 +194,7 @@ class ServiceController extends AppBaseController
 		if ($id ==5 || $id==11) {
 			$typeService=$id;
 			$types = Business::lists('type', 'id');
+			$empresas =Empresa::lists('name','id');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -199,6 +203,7 @@ class ServiceController extends AppBaseController
 			->with('cabineros', $cabineros)
 			->with('units', $units)
 			->with('operators', $operators)
+			->with('empresas',$empresas)
 			->with('typeService',$typeService);
 		}
 		if ($id ==6 || $id==12) {
@@ -324,6 +329,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Empresa"){
 			$types = Business::lists('type', 'id');
+			$empresas =Empresa::lists('name','id');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
@@ -331,6 +337,7 @@ class ServiceController extends AppBaseController
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
 				->with('units', $units)
+				->with('empresas',$empresas)
 				->with('operators', $operators);
 		}
 		elseif($service->service_type=="Industrial"){

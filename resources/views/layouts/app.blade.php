@@ -101,6 +101,7 @@
                             <li><a href="{{ url('/brands')}}">Marcas</a></li>
                             <li><a href="{{ url('/subbrands')}}">Sub marcas</a></li>
                             <li><a href="{{ url('/vehiclemodels')}}">Modelos (Año)</a></li>
+                            <li><a href="{{ url('/empresas')}}">Empresas</a></li>
                             @role('admin')
                                 <li class="dropdown-header">Usuarios</li>
                                 <li><a href="{{ url('/listusers')}}">Ver usuarios</a></li>

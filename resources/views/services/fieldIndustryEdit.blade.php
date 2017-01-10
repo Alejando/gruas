@@ -38,7 +38,8 @@
 </div>
 
 <!--- Vehicle Type Field --->
-
+<input type="hidden" id="brand">
+<input type="hidden" id="subbrand">
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('machine_type', 'Tipo de máquina:*') !!}
     {!! Form::text('machine_type', null, ['class' => 'form-control','required' =>'true']) !!}
@@ -124,8 +125,8 @@
   <h3>Ubicación Destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('street_deliver', 'Calle de entrega:*') !!}
-   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver','required']) !!}
+    {!! Form::label('street_deliver', 'Calle de entrega:') !!}
+   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver']) !!}
 </div>
 
 <!--- Number Deliver Field --->
@@ -183,7 +184,7 @@
 <!--- Type Field --->
 
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('type', 'Tipo:*') !!}
+    {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
     {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 
@@ -196,7 +197,7 @@
 <!--- Zone Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('zone', 'Zona:*') !!}
-    {!! Form::select('zone',['z1' => 'ZONA 1', 'z2' => 'ZONA 2', 'z3' => 'ZONA 3', 'z4' => 'ZONA 4', 'z5' => 'ZONA 5'],null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona']) !!}
+    {!! Form::select('zone',['z1' => 'ZONA 1', 'z2' => 'ZONA 2', 'z3' => 'ZONA 3', 'z4' => 'ZONA 4', 'z5' => 'ZONA 5','sz'=>'Sin zona'],null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona']) !!}
 </div>
 
 
@@ -210,9 +211,10 @@
             </thead>
             <tbody >
                 <tr>
-                    <td><b>Zona</b>  </td>
-                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone() | number:2}}"></td>
-                    <td></td>
+                     <td><b>Zona</b>  </td>
+                    <td>$@{{ zone() | number:2}}</td>
+                    <td ng-show="tipoZona!='sz'"><input type="hidden" name="base_price" value="@{{zone()}}"></td>
+                    <td ng-show="tipoZona=='sz'"> {!! Form::input('number','base_price', null, ['class' => 'form-control','ng-model'=>'zonaEditar','step'=>'.01','ng-disabled'=>"tipoZona!='sz'"]) !!}</td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>
                 <tr>
@@ -222,15 +224,20 @@
                     <td>$@{{extra_kilometers*particular.cost_kilometer | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Carga:</b> </td>
+                    <td><b>Precio por Carga:</b> </td>
                     <td>$@{{ precioCarga()| number:2}}</td>
                     <td> {!! Form::select('carga',['0'=>'0%','25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga']) !!}</td>
                     <td>$@{{(carga*precioCarga())/100 | number:2}}</td>
                 </tr>
-                
+                <tr>
+                    <td><b>Horas de Maniobras: </b></td>
+                    <td>{!! Form::input('text','maneuver_price', null, ['class' => 'form-control','ng-model'=>'particular.maneuvers','readonly']) !!}</td>
+                    <td>{!! Form::input('number','hours_maneuver', null, ['class' => 'form-control','ng-model'=>'hours_maneuver','step'=>'.1','id'=>'hours_maneuver']) !!}</td>
+                    <td>$@{{hours_maneuver*particular.maneuvers | number:2}}</td>
+                </tr>
                  <tr>
                     <td><b>Otros</b></td>
-                    <td></td>
+                     <td>{!! Form::input('text','concepto_otros', null, ['class' => 'form-control','placeholder'=>'Concepto del cargo']) !!}</td>
                     <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1']) !!}</td>
                     <td>$@{{otros| number:2}}</td>
                     
@@ -272,8 +279,6 @@
   <h3>Asignación </h3>
 </div>
 
-
-
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('cabinero_took_service', 'Cabinero que tomo el Servicio:*') !!}
     @if($service->estatus=="Cotizacion")
@@ -293,7 +298,7 @@
     {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control','required']) !!}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
-  <h4>Tiempos</h4>
+  <h3>Tiempos</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('time_request', 'Hora de solicitud del Servicio:*') !!}
@@ -316,6 +321,7 @@
     {!! Form::text('time_promise',null, ['class' => 'date-picker form-control','disabled']) !!}
     {{-- <input type="text" name="time_promise" class="date-picker form-control" disabled value="{{date('Y/m/d/  H:i:s')}}"> --}}
 </div>
+
 @endif
 
 <div class="form-group col-sm-6 col-lg-4">
@@ -326,8 +332,24 @@
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
     {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
 </div>
-
+@if($service->operator_assigned=="Ninguno" && $service->unit_assigned=="Ninguno")
+<!--- Estatus Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('estatus', 'Estatus:*') !!}
+    {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar','Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
+</div>
+@else
+    <!--- Estatus Field --->
+    <div class="form-group col-sm-6 col-lg-4">
+        {!! Form::label('estatus', 'Estatus:*') !!}
+        {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
+    </div>
+@endif
+<div class="form-group col-sm-6 col-lg-8">
+    {!! Form::label('nota', 'Detalles del servicios:') !!}
+    {!! Form::textArea('nota', null, ['class' => 'form-control','placeholder'=>'Puedes agregar cualquier nota referente al servicio  que no este contenplado en el formulario.']) !!}
+</div>
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
     <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>
-</div>}
+</div>

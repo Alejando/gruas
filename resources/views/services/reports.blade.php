@@ -131,10 +131,10 @@
                 <div class="form-group">
                   <label for="empresa" class="form-label">Empresa</label>
                    <select class="form-control" id="empresa">
-                  {{--  @foreach($dato as $option)
+                    <option value="0">todos</option>
+                      @foreach($empresas as $option)
                       <option>{{$option->name}}</option>
-                   @endforeach --}}
-                    <option value="0">hola</option>
+                   @endforeach
                   </select>
                 </div>
                  <div class="form-group">

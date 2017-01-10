@@ -1,4 +1,7 @@
-
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('report_number', 'Numero de inventario:') !!}
+    {!! Form::text('report_number', null, ['class' => 'form-control']) !!}
+</div>
  <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos cliente</h3>
    {!! Form::hidden('service_type', 'Policia', ['class' => 'form-control','id'=>'tipoServicio']) !!}
@@ -28,14 +31,14 @@
 
 <!--- Brand Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('brand', 'Marca:*') !!}
-    {!! Form::select('brand',$brands,null, ['id'=>'brand', 'class' => 'form-control','required' =>'true']) !!}
+    {!! Form::label('brand', 'Marca:') !!}
+    {!! Form::select('brand',$brands,null, ['id'=>'brand', 'class' => 'form-control']) !!}
 </div>
 
 <!--- Sub Brand Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('sub_brand', 'Submarca:*') !!}
-    {!! Form::select('sub_brand',$subbrands,null, ['id'=>'subbrand', 'class' => 'form-control','required' =>'true']) !!}
+    {!! Form::label('sub_brand', 'Submarca:') !!}
+    {!! Form::select('sub_brand',$subbrands,null, ['id'=>'subbrand', 'class' => 'form-control']) !!}
 </div>
 
 <!--- Model Field --->
@@ -52,14 +55,14 @@
 
 <!--- License Plate Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('license_plate', 'Placas:*') !!}
-    {!! Form::text('license_plate', null, ['class' => 'form-control','required']) !!}
+    {!! Form::label('license_plate', 'Placas:') !!}
+    {!! Form::text('license_plate', null, ['class' => 'form-control']) !!}
 </div>
 
 <!--- Failure Field --->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('failure', 'Falla:*') !!}
-    {!! Form::text('failure', null, ['class' => 'form-control','required']) !!}
+    {!! Form::label('failure', 'Falla:') !!}
+    {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
@@ -114,8 +117,8 @@
   <h3>Ubicación destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('street_deliver', 'Calle de entrega:*') !!}
-   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver','required']) !!}
+    {!! Form::label('street_deliver', 'Calle de entrega:') !!}
+   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver']) !!}
 </div>
 
 <!--- Number Deliver Field --->
@@ -172,7 +175,7 @@
 <!--- Type Field --->
 
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('type', 'Tipo:*') !!}
+     {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
     {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 
@@ -213,7 +216,7 @@
                     <td>$@{{extra_kilometers*particular.cost_kilometer | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Carga:</b> </td>
+                    <td><b>Precio por Carga:</b> </td>
                     <td>$@{{ precioCarga()| number:2}}</td>
                     <td> {!! Form::select('carga',['0'=>'0%','25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga','id'=>'carga']) !!}</td>
                     <td>$@{{(carga*precioCarga())/100 | number:2}}</td>
@@ -239,7 +242,7 @@
                 </tr>
                 <tr>
                     <td><b>Otros</b></td>
-                    <td></td>
+                    <td>{!! Form::input('text','concepto_otros', null, ['class' => 'form-control','placeholder'=>'Concepto del cargo']) !!}</td>
                     <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1','id'=>'otros']) !!}</td>
                     <td>$@{{otros| number:2}}</td>
                 </tr>
@@ -289,14 +292,14 @@
 
 <!--- Unit Assigned Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('unit_assigned', 'Unidad Asignada:*') !!}
+    {!! Form::label('unit_assigned', 'Unidad Asignada:') !!}
     {!! Form::select('unit_assigned',$units,null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!--- Operator Assigned Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('operator_assigned', 'Operador Asignado:*') !!}
-    {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control','required']) !!}
+    {!! Form::label('operator_assigned', 'Operador Asignado:') !!}
+    {!! Form::select('operator_assigned',$operators,'Sin Asignar', ['class' => 'form-control','required']) !!}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
   <h4>Tiempos</h4>
@@ -312,20 +315,26 @@
 <!--- Estatus Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('estatus', 'Estatus:*') !!}
-    {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar','Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
 </div>
 <!--- Payment Method Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_method', 'Metodo de pago:') !!}
     {!! Form::select('payment_method',['Efectivo' => 'Efectivo', 'Tarjeta de débito' => 'Tarjeta de débito', 'Tarjeta de Crédito' => 'Tarjeta de Crédito', 'Transferencia bancaria' => 'Transferencia bancaria', 'Cheque' => 'Cheque','Credito' => 'Credito'], null, ['class' => 'form-control']) !!}
 </div>
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
     {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
 </div>
 
+<div class="form-group col-sm-6 col-lg-8">
+    {!! Form::label('nota', 'Detalles del servicios:') !!}
+    {!! Form::textArea('nota', null, ['class' => 'form-control','placeholder'=>'Puedes agregar cualquier nota referente al servicio  que no este contenplado en el formulario.']) !!}
+</div>
 
 <!--- Submit Field --->
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+    <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>
 </div>

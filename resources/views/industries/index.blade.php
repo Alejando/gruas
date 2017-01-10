@@ -27,6 +27,7 @@
                 <th>Costo Z4</th>
                 <th>Costo Z5</th>
                 <th>Costo por Kilometro</th>
+                <th>Costo por Maniobra</th>
                 @role('admin')
                 <th width="50px">Acción</th>
                 @endrole
@@ -43,6 +44,7 @@
                     <td>{!! $industry->z4 !!}</td>
                     <td>{!! $industry->z5 !!}</td>
                     <td>{!! $industry->cost_kilometer !!}</td>
+                    <td>{!! $industry->maneuvers !!}</td>
                     @role('admin')
                     <td>
                         <a href="{!! route('industries.edit', [$industry->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>

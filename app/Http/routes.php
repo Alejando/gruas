@@ -233,6 +233,12 @@ Route::group(['middleware' => 'auth'], function () {
 	    'uses' => 'BrandController@destroy',
 	]);
 
+	Route::resource('empresas', 'EmpresaController');
+
+	Route::get('empresas/{id}/delete', [
+	    'as' => 'empresas.delete',
+	    'uses' => 'EmpresaController@destroy',
+	]);
 
 	Route::resource('subbrands', 'SubbrandController');
 

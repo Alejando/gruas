@@ -44,7 +44,7 @@ var app= angular.module('serviceApp',[]);
       $scope.use_dolly=$('#use_dolly').val();
       $scope.iva=$('#iva').val();
       $scope.total=0;
-      $scope.precioBase=parseFloat($('#precioBase').val());
+      $scope.precioBase=parseFloat($('#precioBase').val());;
       $scope.hora_acondicionamiento=parseFloat($('#hora_acondicionamiento').val());
       $scope.abanderamiento_hours=parseFloat($('#abanderamiento_hours').val());
       $scope.custody_hours=parseFloat($('#custody_hours').val());
@@ -52,7 +52,7 @@ var app= angular.module('serviceApp',[]);
       $scope.tipoDato=$('#type').val();
       $scope.otros=parseFloat($('#otros').val());
       $scope.servicio_nocturno=$('#servicio_nocturno').val();
-
+      $scope.zonaEditar=parseFloat($('#precioBase').val());
 
        $scope.subtotal = function(){
        $scope.total=parseFloat(0);
@@ -60,11 +60,8 @@ var app= angular.module('serviceApp',[]);
         $scope.total+=(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
         $scope.total+=parseFloat(($scope.carga)*parseFloat($scope.precioCarga())/100);
         $scope.total+=parseFloat($scope.otros);
-        if($scope.tipoServicio!="Industrial"){
-           $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
-          
-        }
-       
+        $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
+        
         if($scope.tipoServicio=="Movilidad"){
             $scope.total+=(parseFloat($scope.particular.conditioning_hour)*parseFloat($scope.hora_acondicionamiento));
         }
@@ -132,12 +129,11 @@ var app= angular.module('serviceApp',[]);
                         console.log($scope.particular);
                     });
                 break;
-               case 'Industrial':
-
-                    // $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
-                    //     $scope.particular=data.data;
-                    //     console.log($scope.particular);
-                    // });
+              case 'Industrial':
+                    $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
+                        $scope.particular=data.data;
+                        console.log($scope.particular);
+                    });
                 break;
         }
             
@@ -177,6 +173,9 @@ var app= angular.module('serviceApp',[]);
                     break;
                 case 'ba':
                   $scope.precioBase= $scope.particular.banderazo;
+                    break;
+                case 'sz':
+                  $scope.precioBase= $scope.zonaEditar;
                     break;
                 default:
                   $scope.precioBase= 0;

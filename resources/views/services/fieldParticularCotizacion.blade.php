@@ -189,7 +189,7 @@
 <!--- Type Field --->
 
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('type', 'Tipo:*') !!}
+     {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
     {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 
@@ -321,10 +321,6 @@
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_method', 'Metodo de pago:') !!}
     {!! Form::select('payment_method',['Efectivo' => 'Efectivo', 'Tarjeta de débito' => 'Tarjeta de débito', 'Tarjeta de Crédito' => 'Tarjeta de Crédito', 'Transferencia bancaria' => 'Transferencia bancaria', 'Cheque' => 'Cheque','Credito' => 'Credito'], null, ['class' => 'form-control']) !!}
-</div>
-<div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!--- Estatus Field --->

@@ -48,7 +48,11 @@
     {!! Form::label('cost_kilometer', 'Costo por Kilometro:') !!}
     {!! Form::input('number','cost_kilometer', null, ['class' => 'form-control','step'=>'.01']) !!}
 </div>
-
+<!--- Cost Maneuvers Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('maneuvers', 'Costo por Maniobra:') !!}
+    {!! Form::input('number','maneuvers', null, ['class' => 'form-control','step'=>'.01']) !!}
+</div>
 
 <!--- Submit Field --->
 <div class="form-group col-sm-12">

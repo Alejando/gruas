@@ -53,7 +53,7 @@
 <!--- Sub Brand Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('sub_brand', 'Submarca:*') !!}
-    {!! Form::select('sub_brand',[],null, ['id'=>'subbrand', 'class' => 'form-control','required' =>'true','ng-change'=>'tipoMarca()','ng-model'=>'subMarca']) !!}
+    {!! Form::select('sub_brand',[],null, ['id'=>'subbrand', 'class' => 'form-control','required' =>'true']) !!}
 </div>
 
 <!--- Model Field --->
@@ -298,8 +298,6 @@
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
-
-
 
 <!--- Cabinero Took Service Field --->
 <div class="form-group col-sm-6 col-lg-4">

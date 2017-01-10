@@ -52,6 +52,7 @@ var app= angular.module('serviceApp',[]);
       $scope.tipoDato=$('#type').val();
       $scope.otros=0;
       $scope.servicio_nocturno="no";
+      $scope.zonaEditar=0;
 
       $scope.subtotal = function(){
        $scope.total=parseFloat(0);
@@ -59,10 +60,10 @@ var app= angular.module('serviceApp',[]);
         $scope.total+=(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
         $scope.total+=parseFloat(($scope.carga)*parseFloat($scope.precioCarga())/100);
         $scope.total+=parseFloat($scope.otros);
-        if($scope.tipoServicio!="Industrial"){
-           $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
+        
+        $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
           
-        }
+        
        
         if($scope.tipoServicio=="Movilidad"){
             $scope.total+=(parseFloat($scope.particular.conditioning_hour)*parseFloat($scope.hora_acondicionamiento));
@@ -177,10 +178,14 @@ var app= angular.module('serviceApp',[]);
                 case 'ba':
                   $scope.precioBase= $scope.particular.banderazo;
                     break;
+                case 'sz':
+                  $scope.precioBase= $scope.zonaEditar;
+                    break;
                 default:
                   $scope.precioBase= 0;
                     break;
           }
+         
          return $scope.precioBase;
       }
 

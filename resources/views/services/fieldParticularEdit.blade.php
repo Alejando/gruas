@@ -167,7 +167,7 @@
 
 
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('type', 'Tipo:*') !!}
+    {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
     {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 
@@ -271,8 +271,6 @@
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
-
-
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('cabinero_took_service', 'Cabinero que tomo el Servicio:*') !!}
