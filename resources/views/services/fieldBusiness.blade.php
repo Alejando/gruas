@@ -1,7 +1,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('empresa ', 'Empresa:*') !!}
-    {!! Form::select('empresa ',$empresas,null, ['id'=>'empresa', 'class' => 'form-control','required' =>'true']) !!}
+    {!! Form::label('empresa', 'Empresa:*') !!}
+    {!! Form::select('empresa',$empresas,null, ['id'=>'empresa', 'class' => 'form-control','required' =>'true']) !!}
 </div>
  <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos cliente</h3>
@@ -149,7 +149,7 @@
 
 <!--- Between Streets Deliver Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('between_streets_deliver', 'Cruces:') !!}
+    {!! Form::label('between_streets_deliver', 'Entre calles:') !!}
     {!! Form::text('between_streets_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -224,7 +224,7 @@
             <tbody >
                 <tr>
                     <td><b>Zona</b>  </td>
-                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone() | number:2}}"></td>
+                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone()}}"></td>
                     <td></td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>
@@ -278,7 +278,7 @@
                     <td><b>Sub total: </b></td>
                     <td></td>
                     <td></td>
-                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal() | number:2}}"></td>
+                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal()}}"></td>
                 </tr>
                 <tr>
                     <td><b>I.V.A. : </b></td>
@@ -291,7 +291,7 @@
                     <td><b>Total:</b> </td>
                     <td></td>
                     <td></td>
-                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService() | number:2}}"></td>
+                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService()}}"></td>
                 </tr>
             </tbody>
         </table>  

@@ -65,7 +65,7 @@
     {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación Destino</h3>
+  <h3>Ubicación Origen</h3>
 </div>
 <!--- Street Is Field --->
 
@@ -113,7 +113,7 @@
 
 <!--- Street Deliver Field --->
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación destino</h3>
+  <h3>Ubicación Destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('street_deliver', 'Calle de entrega:') !!}
@@ -128,7 +128,7 @@
 
 <!--- Between Streets Deliver Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('between_streets_deliver', 'Cruces:') !!}
+    {!! Form::label('between_streets_deliver', 'Entre calles:') !!}
     {!! Form::text('between_streets_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -204,7 +204,7 @@
             <tbody >
                 <tr>
                     <td><b>Banderazo</b>  </td>
-                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone() | number:2}}"></td>
+                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone()}}"></td>
                     <td></td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>
@@ -258,7 +258,7 @@
                     <td><b>Sub total: </b></td>
                     <td></td>
                     <td></td>
-                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal() | number:2}}"></td>
+                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal()}}"></td>
                 </tr>
                 <tr>
                     <td><b>I.V.A. : </b></td>
@@ -270,19 +270,17 @@
                     <td><b>Total:</b> </td>
                     <td></td>
                     <td></td>
-                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService() | number:2}}"></td>
+                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService()}}"></td>
                 </tr>
             </tbody>
         </table> 
     </div>
     <div class="form-group col-sm-12 col-lg-12 col-lg-offset-2">
     </div>
- 
+
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Asignación </h3>
 </div>
-
-
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('cabinero_took_service', 'Cabinero que tomo el Servicio:*') !!}
@@ -335,7 +333,7 @@
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('payment_received',[$service->payment_received => $service->payment_received], null, ['class' => 'form-control']) !!}
 </div>
 @if($service->operator_assigned=="Ninguno" && $service->unit_assigned=="Ninguno")
 <!--- Estatus Field --->
@@ -344,11 +342,13 @@
     {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar','Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
 </div>
 @else
-    <!--- Estatus Field --->
-    <div class="form-group col-sm-6 col-lg-4">
-        {!! Form::label('estatus', 'Estatus:*') !!}
-        {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
-    </div>
+   
+        <!--- Estatus Field --->
+        <div class="form-group col-sm-6 col-lg-4">
+            {!! Form::label('estatus', 'Estatus:*') !!}
+            {!! Form::select('estatus', [$service->estatus => $service->estatus], null, ['class' => 'form-control']) !!}
+        </div>
+
 @endif
 <div class="form-group col-sm-6 col-lg-8">
     {!! Form::label('nota', 'Detalles del servicios:') !!}

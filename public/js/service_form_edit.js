@@ -32,7 +32,7 @@ var subMarcas;
 
 
 var app= angular.module('serviceApp',[]);
-    app.controller('serviceController',['$scope','$http',function($scope,$http){
+    app.controller('serviceController',['$scope','$http','$q',function($scope,$http,$q){
 
       $scope.tipoServicio=$('#tipoServicio').val();
       $scope.particular={};
@@ -44,7 +44,7 @@ var app= angular.module('serviceApp',[]);
       $scope.use_dolly=$('#use_dolly').val();
       $scope.iva=$('#iva').val();
       $scope.total=0;
-      $scope.precioBase=parseFloat($('#precioBase').val());;
+      $scope.precioBase=parseFloat($('#precioBase').val());
       $scope.hora_acondicionamiento=parseFloat($('#hora_acondicionamiento').val());
       $scope.abanderamiento_hours=parseFloat($('#abanderamiento_hours').val());
       $scope.custody_hours=parseFloat($('#custody_hours').val());
@@ -94,18 +94,20 @@ var app= angular.module('serviceApp',[]);
         return parseFloat($scope.zone())+(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
       };
       $scope.tipo= function(){
-
+        var $def=$q.defer();
         switch($scope.tipoServicio){ //obtener los diferentes datos de los servicios
              case 'Particular':
                     $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
+                        $def.resolve();
                     });
                 break; 
             case 'Movilidad':
                     $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
+                        $def.resolve();
                     });
                 break;
             case 'Asistencia':
@@ -113,6 +115,7 @@ var app= angular.module('serviceApp',[]);
                     $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
+                        $def.resolve();
                     });
                 break;
              case 'Policia':
@@ -120,6 +123,7 @@ var app= angular.module('serviceApp',[]);
                     $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
+                        $def.resolve();
                     });
                 break;
              case 'Empresa':
@@ -127,16 +131,18 @@ var app= angular.module('serviceApp',[]);
                     $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
+                        $def.resolve();
                     });
                 break;
               case 'Industrial':
                     $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         console.log($scope.particular);
+                        $def.resolve();
                     });
                 break;
         }
-            
+        return $def.promise;    
       }
      
       $scope.zone= function(){
@@ -184,7 +190,12 @@ var app= angular.module('serviceApp',[]);
          return $scope.precioBase;
       }
 
-      $scope.tipo();
+      $scope.tipo().then(function  () {
+          console.log('algo');
+          $scope.subtotal();
+      },function  () {
+        console.log('Algo salio mal :(');
+      });
       
 
 

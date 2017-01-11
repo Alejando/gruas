@@ -137,7 +137,7 @@
 
 <!--- Street Deliver Field --->
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación destino</h3>
+  <h3>Ubicación Destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('street_deliver', 'Calle de entrega:') !!}
@@ -152,7 +152,7 @@
 
 <!--- Between Streets Deliver Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('between_streets_deliver', 'Cruces:') !!}
+    {!! Form::label('between_streets_deliver', 'Entre calles:') !!}
     {!! Form::text('between_streets_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -206,7 +206,7 @@
 
 <!--- Zone Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('zone', 'Zone:*') !!}
+    {!! Form::label('zone', 'Zona:*') !!}
     {!! Form::select('zone',['dp' => 'Dentro de periférico'], null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona','required']) !!}
 
 </div>
@@ -222,7 +222,7 @@
             <tbody >
                 <tr>
                     <td><b>Zona</b>  </td>
-                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone() | number:2}}"></td>
+                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone()}}"></td>
                     <td></td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>

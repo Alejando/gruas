@@ -137,7 +137,7 @@
 
 <!--- Between Streets Deliver Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('between_streets_deliver', 'Cruces:') !!}
+    {!! Form::label('between_streets_deliver', 'Entre calles:') !!}
     {!! Form::text('between_streets_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -211,22 +211,22 @@
             </thead>
             <tbody >
                 <tr>
-                     <td><b>Zona</b>  </td>
+                    <td><b>Zona</b>  </td>
                     <td>$@{{ zone() | number:2}}</td>
                     <td ng-show="tipoZona!='sz'"><input type="hidden" name="base_price" value="@{{zone()}}"></td>
-                    <td ng-show="tipoZona=='sz'"> {!! Form::input('number','base_price', null, ['class' => 'form-control','ng-model'=>'zonaEditar','step'=>'.01','ng-disabled'=>"tipoZona!='sz'"]) !!}</td>
+                    <td ng-show="tipoZona=='sz'"> {!! Form::input('number','base_price', null, ['class' => 'form-control','ng-model'=>'zonaEditar','step'=>'.01','ng-disabled'=>"tipoZona!='sz'",'id'=>'precioBase']) !!}</td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>
                 <tr>
                     <td><b>Km adicionales: </b></td>
                     <td>{!! Form::input('text','kilometer_extra_price', null, ['class' => 'form-control','ng-model'=>'particular.cost_kilometer','readonly']) !!}</td>
-                    <td> {!! Form::input('number','extra_kilometers', null, ['class' => 'form-control','ng-model'=>'extra_kilometers','step'=>'.01']) !!}</td>
+                    <td> {!! Form::input('number','extra_kilometers', null, ['class' => 'form-control','ng-model'=>'extra_kilometers','step'=>'.01','id'=>'extra_kilometers']) !!}</td>
                     <td>$@{{extra_kilometers*particular.cost_kilometer | number:2}}</td>
                 </tr>
                 <tr>
-                    <td><b>Precio por Carga:</b> </td>
+                    <td><b>Precio por carga:</b> </td>
                     <td>$@{{ precioCarga()| number:2}}</td>
-                    <td> {!! Form::select('carga',['0'=>'0%','25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga']) !!}</td>
+                    <td> {!! Form::select('carga',['0'=>'0%','25' => '25%', '50' => '50%', '75' => '75%', '100' => '100%'], null, ['class' => 'form-control','ng-model'=>'carga','id'=>'carga']) !!}</td>
                     <td>$@{{(carga*precioCarga())/100 | number:2}}</td>
                 </tr>
                 <tr>
@@ -237,15 +237,15 @@
                 </tr>
                  <tr>
                     <td><b>Otros</b></td>
-                     <td>{!! Form::input('text','concepto_otros', null, ['class' => 'form-control','placeholder'=>'Concepto del cargo']) !!}</td>
-                    <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1']) !!}</td>
+                    <td>{!! Form::input('text','concepto_otros', null, ['class' => 'form-control','placeholder'=>'Concepto del cargo']) !!}</td>
+                    <td>{!! Form::input('number','otros', null, ['class' => 'form-control','ng-model'=>'otros','step'=>'.1','id'=>'otros']) !!}</td>
                     <td>$@{{otros| number:2}}</td>
                     
                 </tr>
                 <tr>
                     <td><b>Servicio Nocturno (15%): </b></td>
                     <td></td>
-                    <td>{!! Form::select('servicio_nocturno', ['no' => "NO",'si' => "SI"], null, ['class' => 'form-control','ng-model'=>'servicio_nocturno']) !!}</td>
+                    <td>{!! Form::select('servicio_nocturno', ['no' => "NO",'si' => "SI"], null, ['class' => 'form-control','ng-model'=>'servicio_nocturno','id'=>'servicio_nocturno']) !!}</td>
                     <td ng-if="servicio_nocturno=='si'">$@{{subtotal()*.15 | number:2}}</td>
                     <td ng-if="servicio_nocturno=='no'">$0.00</td>
                     
@@ -259,7 +259,7 @@
                 <tr>
                     <td><b>I.V.A. : </b></td>
                     <td></td>
-                    <td>{!! Form::select('iva',['.16' => "16%", '.12' => "12%",'0'=>'No'], null, ['class' => 'form-control','ng-model'=>'iva']) !!}</td>
+                    <td>{!! Form::select('iva',['.16' => "16%", '.12' => "12%",'0'=>'No'], null, ['class' => 'form-control','ng-model'=>'iva','id'=>'iva']) !!}</td>
                     <td>$@{{subtotal()*iva | number:2}} </td>
                     
                 </tr>
@@ -330,7 +330,7 @@
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
-    {!! Form::select('payment_received',['No recibido' => 'No recibido', 'Recibido' => 'Recibido'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('payment_received',[$service->payment_received => $service->payment_received], null, ['class' => 'form-control']) !!}
 </div>
 @if($service->operator_assigned=="Ninguno" && $service->unit_assigned=="Ninguno")
 <!--- Estatus Field --->
@@ -339,11 +339,13 @@
     {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar','Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
 </div>
 @else
-    <!--- Estatus Field --->
-    <div class="form-group col-sm-6 col-lg-4">
-        {!! Form::label('estatus', 'Estatus:*') !!}
-        {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
-    </div>
+   
+        <!--- Estatus Field --->
+        <div class="form-group col-sm-6 col-lg-4">
+            {!! Form::label('estatus', 'Estatus:*') !!}
+            {!! Form::select('estatus', [$service->estatus => $service->estatus], null, ['class' => 'form-control']) !!}
+        </div>
+
 @endif
 <div class="form-group col-sm-6 col-lg-8">
     {!! Form::label('nota', 'Detalles del servicios:') !!}

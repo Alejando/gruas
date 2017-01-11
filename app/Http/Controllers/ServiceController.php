@@ -40,6 +40,7 @@ class ServiceController extends AppBaseController
 	 */
 	public function index(Request $request)
 	{
+		
 		$query = Service::query();
         $columns = Schema::getColumnListing('$TABLE_NAME$');
         $attributes = array();
@@ -194,7 +195,7 @@ class ServiceController extends AppBaseController
 		if ($id ==5 || $id==11) {
 			$typeService=$id;
 			$types = Business::lists('type', 'id');
-			$empresas =Empresa::lists('name','id');
+			$empresas =Empresa::lists('name','name');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -329,7 +330,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Empresa"){
 			$types = Business::lists('type', 'id');
-			$empresas =Empresa::lists('name','id');
+			$empresas =Empresa::lists('name','name');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
@@ -381,7 +382,7 @@ class ServiceController extends AppBaseController
 		Flash::message('Servicio actualizado Correctamente.');
 
 		return redirect(route('services.index'));
-
+// 		return $request->all();
 	}
 
 	/**
@@ -443,7 +444,7 @@ class ServiceController extends AppBaseController
 	public function registrarPago(Service $service)
 	{
 		if($service->payment_received!='Recibido'){
-        	$service->update(['payment_received'=>'Recibido']);
+        	$service->update(['payment_received'=>'Recibido','cabinero_end_service'=>Auth::user()->name]);
         	Flash::message('Se registro el pago correctamente');
         }else{
         	Flash::message('Ya se ha registrado el pago');
@@ -478,10 +479,13 @@ class ServiceController extends AppBaseController
 		$servicio = $request->input('servicio');
 		$cFin=$request->input('cFin');
 		$cInicio=$request->input('cInicio');
-		
+		$estatus=$request->input('estatus');
+		// return $request->all();
 		$query = Service::query();
-		$query->where('estatus','Terminado')->where('time_request','>=',$fechaInicio)->where('end_time','<=',$fechaFin);
-
+		$query->where('time_request','>=',$fechaInicio)->where('end_time','<=',$fechaFin);
+		if($estatus!='0'){
+			$query->where('estatus',$estatus);
+		}
 		if($cInicio!='0'){
 			$query->where('cabinero_took_service',$cInicio);
 		}
@@ -501,8 +505,20 @@ class ServiceController extends AppBaseController
 			$query->where('unit_assigned',$unidad);
 		}
 		
-		$service=$query->get();
+		$services=$query->get();
+
+		foreach ($services as $key => $service) {
+			 if($service->service_type=="Empresa"){
+
+			 }
+			 else if($service->service_type=="Policia" || $service->service_type=="Movilidad" || $service->service_type=="Asistencia"){
+			 	 $service->empresa=$service->report_number;
+			 	}	           
+	         else {
+	            $service->empresa="No contiene";         
+	          }
+		}
 		
-		return $service;
+		return $services;
 	}
 }

@@ -51,9 +51,10 @@
 
   // var onChangeHandler = function() {
     if($('#street_deliver').empty()){
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
+        geocodeAddress(geocoder, map);
     }else{
-      geocodeAddress(geocoder, map);
+      
+       calculateAndDisplayRoute(directionsService, directionsDisplay);
     }
     
   // };

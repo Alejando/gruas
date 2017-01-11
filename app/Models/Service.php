@@ -12,6 +12,7 @@ class Service extends Model
 	public $timestamps = true;
 
 	public $fillable = [
+		"empresa",
 		"service_type",
 	    "name_requests",
 		"phone_requests",
@@ -74,7 +75,6 @@ class Service extends Model
 		"obstructs",
 		"height",
 		"hours_custody",
-		"empresa",
 		"abanderamiento_hours",
 		"abanderamiento_price",
 		"back_home",

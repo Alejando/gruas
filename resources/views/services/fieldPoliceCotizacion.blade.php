@@ -64,9 +64,56 @@
     {!! Form::label('failure', 'Falla:') !!}
     {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
+<div class="form-group col-sm-12 col-lg-12">
+  <h3>Ubicación Origen</h3>
+</div>
+<!--- Street Is Field --->
+
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('street_is', 'Calle:*') !!}
+    {!! Form::text('street_is', null, [ 'class' => 'form-control', 'id'=>'street_is','required']) !!}
+    {{-- <input type="text" name="street_is" id="txt1" class="form-control" placeholder="Introduce localización" /> --}}
+</div>
+
+<!--- Number Is Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('number_is', 'Número:') !!}
+    {!! Form::text('number_is', null, ['class' => 'form-control','id'=>'number_is']) !!}
+</div>
+
+<!--- Between Streets Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('between_streets', 'Entre calles:') !!}
+    {!! Form::text('between_streets', null, ['class' => 'form-control']) !!}
+     {{-- <input type="text" name="between_streets" id="txt2" class="form-control" placeholder="Introduce localización" /> --}}
+</div>
+
+<!--- Colony Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('colony', 'Colonia:') !!}
+    {!! Form::text('colony', null, ['class' => 'form-control','id'=>'colony']) !!}
+</div>
+
+<!--- Municipality Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('municipality', 'Municipio:') !!}
+     {!! Form::text('municipality', null, ['class' => 'form-control','id'=>'municipality']) !!}
+</div>
+
+<!--- References Field --->
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('references', 'Referencias:') !!}
+    {!! Form::text('references', null, ['class' => 'form-control']) !!}
+</div>
+<!--- Observations  Field --->
+<div class="form-group col-sm-12 col-lg-12">
+    {!! Form::label('observations', 'Observaciones:') !!}
+    {!! Form::text('observations', null, ['class' => 'form-control']) !!}
+</div>
+
 <!--- Street Deliver Field --->
 <div class="form-group col-sm-12 col-lg-12">
-  <h3>Ubicación destino</h3>
+  <h3>Ubicación Destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('street_deliver', 'Calle de entrega:') !!}
@@ -81,7 +128,7 @@
 
 <!--- Between Streets Deliver Field --->
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('between_streets_deliver', 'Cruces:') !!}
+    {!! Form::label('between_streets_deliver', 'Entre calles:') !!}
     {!! Form::text('between_streets_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -157,7 +204,7 @@
             <tbody>
                 <tr>
                     <td><b>Banderazo</b>  </td>
-                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone() | number:2}}"></td>
+                    <td>$@{{ zone() | number:2}}<input type="hidden" name="base_price" value="@{{zone()}}"></td>
                     <td></td>
                     <td>$@{{ zone() | number:2}}</td>
                 </tr>
@@ -211,7 +258,7 @@
                     <td><b>Sub total: </b></td>
                     <td></td>
                     <td></td>
-                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal() | number:2}}"></td>
+                    <td>@{{subtotal() | number:2}}<input type="hidden" name="sub_total" value="@{{subtotal()}}"></td>
                 </tr>
                 <tr>
                     <td><b>I.V.A. : </b></td>
@@ -223,7 +270,7 @@
                     <td><b>Total:</b> </td>
                     <td></td>
                     <td></td>
-                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService() | number:2}}"></td>
+                    <td>$@{{totalService() | number:2}} <input type="hidden" name="total" value="@{{totalService()}}"></td>
                 </tr>
             </tbody>
         </table> 

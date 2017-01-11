@@ -161,8 +161,8 @@ return [
         // ...
 
         Zizaco\Entrust\EntrustServiceProvider::class,
-        'Illuminate\View\ViewServiceProvider',
-        'Illuminate\Html\HtmlServiceProvider',
+        // 'Illuminate\View\ViewServiceProvider',
+        // 'Illuminate\Html\HtmlServiceProvider',
         'Laracasts\Flash\FlashServiceProvider',
         'Mitul\Generator\GeneratorServiceProvider'
 

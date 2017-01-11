@@ -69,47 +69,51 @@
     <div class="col-md-12">
       <div >
 
-            <div class="panel-body">
+            <div class="panel-body ">
               <form class="form-inline" style="border: none;">
-                <div class="form-group">
-                  <label for="cabineroInicio" class="form-label">Cabinero que Inicio </label>
-                  <select type="text" class="form-control" id="cabineroInicio">
+                <div class="col-md-4 col-lg-3 pull-right">
+                  {{-- <div class="col-md-6 col-lg-6"> --}}
+                    <label for="cabineroInicio" class="form-label " style="width:40%" >Cabinero que Inicio </label>
+                  {{-- </div> --}}
+                  {{-- <div class="col-md-6 col-lg-6"> --}}
+                  <select type="text" class="form-control" id="cabineroInicio" style="width:50%" >
                   <option value="0">Todos</option>
                    @foreach($users as $option)
                       <option>{{$option->name}}</option>
                    @endforeach
-                  </select>
+                  </select>  
+                  {{-- </div>             --}}
                 </div>
-                 <div class="form-group">
-                  <label for="cabineroFin" class="form-label">Cabinero que Termino </label>
-                   <select type="text" class="form-control" id="cabineroFin">
-                   <option value="0">Todos</option>
-                   @foreach($users as $option)
+                 <div class="col-md-4 col-lg-3">
+                  <label for="empresa" class="form-label" style="width:30%">Empresa</label>
+                   <select class="form-control" id="empresa" style="width:50%">
+                    <option value="0">Todos</option>
+                      @foreach($empresas as $option)
                       <option>{{$option->name}}</option>
                    @endforeach
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="operador" class="form-label">Operador</label>
-                   <select class="form-control" id="operador">
+                <div class="col-md-4 col-lg-3">
+                  <label for="operador" class="form-label" style="width:30%">Operador</label>
+                   <select class="form-control" id="operador" style="width:50%">
                    <option value="0">Todos</option>
                    @foreach($operators as $option)
                       <option>{{$option->name}}</option>
                    @endforeach
                     </select>
                 </div>
-                <div class="form-group">
-                  <label for="unidad" class="form-label">Unidad</label>
-                   <select class="form-control" id="unidad">
+                <div class="col-md-4 col-lg-3">
+                  <label for="unidad" class="form-label" style="width:30%">Unidad</label>
+                   <select class="form-control" id="unidad" style="width:50%">
                    <option value="0">Todos</option>
                    @foreach($units as $option)
                       <option>{{$option->economic_number}}</option>
                    @endforeach
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="servicio" class="form-label">Servicio</label>
-                   <select class="form-control" id="servicio">
+                <div class="col-md-4 col-lg-3">
+                  <label for="servicio" class="form-label" style="width:30%">Servicio</label>
+                   <select class="form-control" id="servicio" style="width:50%">
                     <option value="0">Todos</option>
                     <option>Particular</option>
                     <option>Asistencia</option>
@@ -119,33 +123,48 @@
                     <option>Industrial</option>
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="subMarca" class="form-label">Sub-Marca</label>
-                   <select class="form-control" id="subMarca">
+                <div class="col-md-4 col-lg-3">
+                  <label for="subMarca" class="form-label" style="width:30%">Sub-Marca</label>
+                   <select class="form-control" id="subMarca" style="width:50%">
                    <option value="0">Todos</option>
                    @foreach($subbrands as $option)
                       <option>{{$option->name_sub_brand}}</option>
                    @endforeach
                   </select>
                 </div>
-                <div class="form-group">
-                  <label for="empresa" class="form-label">Empresa</label>
-                   <select class="form-control" id="empresa">
-                    <option value="0">todos</option>
-                      @foreach($empresas as $option)
+                
+                <div class="col-md-4 col-lg-3 pull-right">
+                  <label for="cabineroFin" class="form-label" style="width:40%">Cabinero que Termino </label>
+                   <select type="text" class="form-control" id="cabineroFin" style="width:50%">
+                   <option value="0">Todos</option>
+                   @foreach($users as $option)
                       <option>{{$option->name}}</option>
                    @endforeach
                   </select>
                 </div>
-                 <div class="form-group">
-                  <label for="HoraInicio" class="form-label">Hora Inicio</label>
-                  <input type="text" class="form-control date-picker" id="HoraInicio" value="{{date('Y/m/d/  H:i:s')}}">
+                <div class="col-md-4 col-lg-3">
+                  <label for="estatus" class="form-label" style="width:30%">Estatus</label>
+                   <select class="form-control" id="estatus" style="width:50%">
+                    <option value="0">Todos</option>
+                    <option>Sin Asignar</option>
+                    <option>Asignado</option>
+                    <option>Arribado</option>
+                    <option>Terminado</option>
+                    <option>Cancelado</option>
+                  </select>
                 </div>
-                 <div class="form-group">
-                  <label for="HoraFin" class="form-label">Hora Fin</label>
-                  <input type="text" class="form-control date-picker" id="HoraFin" value="{{date('Y/m/d/  H:i:s')}}">
+                 <div class="col-md-4 col-lg-3">
+                  <label for="HoraInicio" class="form-label" style="width:30%">Hora Inicio</label>
+                  <input type="text" class="form-control date-picker" id="HoraInicio" value="{{date('Y/m/d/  H:i:s')}}" style="width:50%">
                 </div>
-                <a class="btn btn-primary" onclick="filtraReporte();">Filtrar</a>
+                 <div class="col-md-4 col-lg-3">
+                  <label for="HoraFin" class="form-label" style="width:30%">Hora Fin</label>
+                  <input type="text" class="form-control date-picker" id="HoraFin" value="{{date('Y/m/d/  H:i:s')}}" style="width:50%">
+                </div>
+                 <div class="col-md-8 col-lg-6">
+                    <a class="btn btn-primary pull-right" onclick="filtraReporte();" style="margin-top:10px; margin-right:35px;">Filtrar</a>
+                 </div>
+                
               </form>
             </div>
 
@@ -163,6 +182,7 @@
       <thead>
         <th>Folio</th>
         <th>Tipo de Servicio</th>
+        <th>Empresa/Reporte/Inventario</th>
         <th>Unidad</th>
         <th>Operador</th>
         <th>Submarca</th>
@@ -175,6 +195,7 @@
         <th>Total</th>
         <th>Cabinero Inicio</th>
         <th>Cabinero Termino</th>
+        <th>Acciones</th>
       </thead>
       <tbody id="tBody">
 
@@ -182,6 +203,13 @@
         <tr >
           <td>{!! $service->id !!}</td>
           <td>{!! $service->service_type !!}</td>
+          @if($service->service_type=="Empresa")
+            <td>{!! $service->empresa !!}</td>
+          @elseif($service->service_type=="Policia" || $service->service_type=="Movilidad" || $service->service_type=="Asistencia")
+            <td>{!! $service->report_number !!}</td>
+          @else
+            <td>No contiene</td>
+          @endif
           <td>{!! $service->unit_assigned !!}</td>
           <td>{!! $service->operator_assigned !!}</td>
           <td>{!! $service->sub_brand !!}</td>
@@ -194,16 +222,24 @@
           <td>${!! $service->total !!}</td>
           <td>{!! $service->cabinero_took_service !!}</td>
           <td>{!! $service->cabinero_end_service !!}</td>
+          <td>
+            @if($service->estatus=='Terminado')
+              @role('admin')
+                  <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id]) !!}">Editar <i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+              @endrole   
+            @endif
+          </td>
          
         </tr>
         @endforeach
       </tbody>
       <tfoot>
         <th>Folio</th>
-        <th class="filtro">Tipo de Servicio</th>
-        <th class="filtro">Unidad</th>
-        <th class="filtro">Operador</th>
-        <th class="filtro">Submarca</th>
+        <th>Tipo de Servicio</th>
+        <th>Empresa/Reporte/Inventario</th>
+        <th>Unidad</th>
+        <th>Operador</th>
+        <th>Submarca</th>
         <th>Fecha y hora</th>
         <th>Ubicación Origen</th>
         <th>Arribo Estimado</th>
@@ -211,8 +247,9 @@
         <th>Estatus</th>
         <th>Pago</th>
         <th>Total</th>
-        <th class="filtro">Cabinero Inicio</th>
-        <th class="filtro">Cabinero Termino</th>
+        <th>Cabinero Inicio</th>
+        <th>Cabinero Termino</th>
+        <th>Acciones</th>
       </tfoot>
     </table>
   </div>
@@ -313,7 +350,7 @@
 
      $.ajax({
         type: "get",
-        data: {cInicio:$('#cabineroInicio').val(),cFin:$('#cabineroFin').val(),hInicio:$('#HoraInicio').val(),hFin:$('#HoraFin').val(),servicio:$('#servicio').val(),operador:$('#operador').val(),unidad:$('#unidad').val(),subMarca:$('#subMarca').val(),empresa:$('#empresa').val()},
+        data: {cInicio:$('#cabineroInicio').val(),cFin:$('#cabineroFin').val(),hInicio:$('#HoraInicio').val(),hFin:$('#HoraFin').val(),servicio:$('#servicio').val(),operador:$('#operador').val(),unidad:$('#unidad').val(),subMarca:$('#subMarca').val(),empresa:$('#empresa').val(),estatus:$('#estatus').val()},
         url:'getReportFilter',
         success: llegada,
       });   
@@ -343,6 +380,7 @@
         columns: [
             {data:'id'},
             {data:'service_type'},
+            {data:'empresa'},
             {data:'unit_assigned'},
             {data:'operator_assigned'},
             {data:'sub_brand' },
@@ -353,8 +391,9 @@
             {data:'estatus'},
             {data:'payment_received' },
             {data:'total'},
-             {data:'cabinero_took_service' },
-            {data:'cabinero_end_service'}
+            {data:'cabinero_took_service' },
+            {data:'cabinero_end_service'},
+            {data:'nota'}
 
         ]
         });
