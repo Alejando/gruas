@@ -64,6 +64,7 @@ class ServiceController extends AppBaseController
 		$query = Service::query();
         $columns = Schema::getColumnListing('$TABLE_NAME$');
         $attributes = array();
+        $d=strtotime("-2 Months");
         
         foreach($columns as $attribute){
             if($request[$attribute] == true)
@@ -75,7 +76,7 @@ class ServiceController extends AppBaseController
             }
         };
 
-        $services = $query->where('estatus','!=','Cotizacion')->where('estatus','!=','Sin Asignar')->get();
+        $services = $query->where('time_request','>=',date("Y-m-d", $d))->where('estatus','!=','Cotizacion')->where('estatus','!=','Sin Asignar')->get();
         $subbrands = Subbrand::all();
 		$units = Unit::all();
 		$operators = Operator::all();

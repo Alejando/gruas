@@ -201,7 +201,7 @@
 
         @foreach($services as $service)
         <tr >
-          <td>{!! $service->id !!}</td>
+          <td style="text-align: center;">{!! $service->id !!}</td>
           <td>{!! $service->service_type !!}</td>
           @if($service->service_type=="Empresa")
             <td>{!! $service->empresa !!}</td>
@@ -210,7 +210,7 @@
           @else
             <td>No contiene</td>
           @endif
-          <td>{!! $service->unit_assigned !!}</td>
+          <td style="text-align: center;">{!! $service->unit_assigned !!}</td>
           <td>{!! $service->operator_assigned !!}</td>
           <td>{!! $service->sub_brand !!}</td>
           <td>{!! $service->time_request !!}</td>

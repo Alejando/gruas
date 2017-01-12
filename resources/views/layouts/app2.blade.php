@@ -33,7 +33,7 @@
     @yield('content')
      <footer class="footer">
       <div class="container">
-        <p class="text-muted">&#174; Grúas Manolo | Todos los derechos reservados</p>
+        <p class="text-muted">&#174; Grúas Manolo | Todos los derechos reservados 2017</p>
       </div>
     </footer>
     <!-- JavaScripts -->

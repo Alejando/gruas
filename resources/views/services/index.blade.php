@@ -104,16 +104,16 @@
       <p style="margin-top: 10px"><h2><b>Reportes Activos</b></h2></p>
     </div>
     <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge just-time">5</span> A tiempo
+     <span class="badge just-time" id="aTiempo" >5</span> A tiempo
    </div>
    <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge ten-minutes">4</span>< A 10 mins
+     <span class="badge ten-minutes" id="10mins" >4</span>< A 10 mins
    </div>
    <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge fifteen-minutes">3</span> < A 5 mins
+     <span class="badge fifteen-minutes" id="5mins" >3</span> < A 5 mins
    </div>
    <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge usigned">3</span> Sin asignar
+     <span class="badge usigned" id="sinAsignar" >3</span> Sin asignar
    </div>
    <div class="col-md-2">
     <a class="btn btn-default btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva Cotización</a>
@@ -155,9 +155,9 @@
 
       @foreach($services as $service)
       <tr >
-        <td  style="vertical-align: middle; align-text:center;">{!! $service->id !!}</td>
+        <td  style="vertical-align: middle; text-align: center;">{!! $service->id !!}</td>
         <td style="vertical-align: middle;"> {!! $service->service_type !!}</td>
-        <td style="vertical-align: middle;">
+        <td style="vertical-align: middle; text-align: center;">
           @if($service->unit_assigned=="Ninguno")
               <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id,'#unit_assigned']) !!}">Asignar<i class="glyphicon glyphicon-edit" title="Editar"></i></a>
           @else
@@ -171,7 +171,7 @@
             <b>{!! $service->operator_assigned !!}</b></td>
           @endif
         </td>
-        <td style="vertical-align: middle;">{!! $service->sub_brand !!}</td>
+        <td style="vertical-align: middle; ">{!! $service->sub_brand !!}</td>
         <td style="vertical-align: middle;" >{!! $service->time_request !!}</td>
         <td style="vertical-align: middle;">{!! $service->street_is !!}, #{!! $service->number_is !!}, {!! $service->colony !!}, {!! $service->municipality !!}</td>
         <td style="vertical-align: middle;" class="arriboEstimado">{!! $service->time_promise !!}</td>
@@ -232,8 +232,12 @@
 @endsection
 @section('js')
 <script type="text/javascript">
+  // var aTiempo=0;
+  // var min10=0;
+  // var min5=0;
+  // var sinAsignar=0;
    $(document).ready(function() {
-        $('#activos').DataTable({
+        tabla = $('#activos').DataTable({
           "language": {
           "emptyTable":     "No hay datos disponibles",
           "search": "Buscar",
@@ -249,18 +253,26 @@
         },
         "order": [[ 7, 'asc' ]]
         });
-
+        
+         
         verificarEstado();
-        setInterval(verificarEstado, 3000)
+        setInterval(verificarEstado, 5000)
     } );
    function verificarEstado(){
-     
+      var aTiempo=0;
+      var min10=0;
+      var min5=0;
+      var sinAsignar=0;
+      var tabla = $('#activos').DataTable()
+      //console.log(tabla.context[0].aoData.length);
+      // console.log(tabla.context[0].aoData[0]._aData[1]);
        //nsole.log('<---->'+fecha);
        $("#activos tbody tr .estatus").each(function (index) 
         {
             var fecha =  new Date();
             var estatus=$(this).text(); 
             var tr= $(this).parent();
+
             // console.log(tr.find('.arriboEstimado').html());
              // console.log(estatus.search("Asignado"))
             if(estatus.includes("Asignado")){
@@ -273,14 +285,17 @@
                // console.log(fecha10+'<---->'+fecha5);
                 if(fecha<fecha10){
                   $(this).parent().css("background-color", "#B5E7C8");
+                 // aTiempo++;
                 }
                 else if(fecha>fecha10 && fecha<fecha5){
                    $(this).parent().css("background-color", "#FFDAA9");
                   //console.log('fecha 2->'+fecha);
+                   //min10++;
                 }
                 else if(fecha>fecha5){
                    $(this).parent().css({"background-color":"#FF0020","color":"#FFFFFF"});
                   //console.log('fecha 2->'+fecha);
+                 // min5++;
                 }
                  
                   
@@ -297,24 +312,68 @@
                 if(fecha<fecha10){
                   $(this).parent().css("background-color", "#B5E7C8");
                   //console.log('fecha 2->'+fecha);
+                 
                 }
                 else if(fecha>fecha10 && fecha<fecha5){
                    $(this).parent().css("background-color", "#FFDAA9");
                  // console.log('fecha 2->'+fecha);
+                 
                 }
                 else if(fecha>fecha5){
                    $(this).parent().css({"background-color":"#FF0020","color":"#FFFFFF"});
                   //console.log('fecha 2-->'+fecha);
+                  
                 }
             }
             else  {
                $(this).parent().css("background-color", "#CEECF5");
+               
             }
             
             
            
             
         })
+       
+        for (var i =0 ; i <parseInt(tabla.context[0].aoData.length) ;i++ ){
+ //console.log(' EStarus'+tabla.context[0].aoData.length);
+          var fecha =  new Date();
+            var estatus=tabla.context[0].aoData[i]._aData[9];
+             //console.log(' EStarus'+estatus);
+           if(estatus.includes("Asignado")){
+               console.log(estatus)
+                var td=tabla.context[0].aoData[i]._aData[7];
+                var fechaServicio= new Date(td);
+                var fecha10  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()-10,0,0));
+                var fecha5  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()+5,0,0));
+
+                 // console.log(fecha10+'<---->'+fecha5);
+                  if(fecha<fecha10){
+                    $(this).parent().css("background-color", "#B5E7C8");
+                    aTiempo++;
+                  }
+                  else if(fecha>fecha10 && fecha<fecha5){
+                     $(this).parent().css("background-color", "#FFDAA9");
+                    //console.log('fecha 2->'+fecha);
+                     min10++;
+                  }
+                  else if(fecha>fecha5){
+                     $(this).parent().css({"background-color":"#FF0020","color":"#FFFFFF"});
+                    //console.log('fecha 2->'+fecha);
+                    min5++;
+                  }
+                   
+                    
+                
+              }
+              if(estatus.includes("Sin Asignar")){
+                sinAsignar++
+              }
+        };
+        $('#aTiempo').html(aTiempo);
+        $('#10mins').html(min10);
+        $('#5mins').html(min5);
+        $('#sinAsignar').html(sinAsignar);
 
    }
 </script>

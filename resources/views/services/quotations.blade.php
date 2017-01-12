@@ -85,13 +85,27 @@
         <th>Pago</th>
         <th>Acciones</th>
       </thead>
+      <tfoot>
+        <th>Folio</th>
+        <th>Tipo de Servicio</th>
+        <th>Unidad</th>
+        <th>Operador</th>
+        <th>Submarca</th>
+        <th>Fecha y hora</th>
+        <th>Ubicación Origen</th>
+        <th>Arribo Estimado</th>
+        <th>Arribo Real</th>
+        <th>Estatus</th>
+        <th>Pago</th>
+        <th>Acciones</th>
+      </tfoot>
       <tbody>
 
         @foreach($services as $service)
         <tr>
-          <td>{!! $service->id !!}</td>
+          <td style="text-align: center;">{!! $service->id !!}</td>
           <td>{!! $service->service_type !!}</td>
-          <td>{!! $service->unit_assigned !!}</td>
+          <td style="text-align: center;">{!! $service->unit_assigned !!}</td>
           <td>{!! $service->operator_assigned !!}</td>
           <td>{!! $service->sub_brand !!}</td>
           <td>{!! $service->time_request !!}</td>

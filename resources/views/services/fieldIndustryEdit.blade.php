@@ -53,17 +53,18 @@
     {!! Form::text('measure', null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::checkbox('platform_move', null, ['class' => 'form-control','required' =>'true']) !!}
+    
     {!! Form::label('platform_move', 'Traslado en plataforma:*') !!}
+    {!! Form::select('platform_move',['Si'=>'Si','No'=>'No'], null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     
-    {!! Form::checkbox('wheel', null, ['class' => 'form-control','required' =>'true']) !!}
     {!! Form::label('wheel', 'Ruedas:*') !!}
+    {!! Form::select('wheel',['Si'=>'Si','No'=>'No'], null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::checkbox('machine_worksobstructs', null, ['class' => 'form-control','required' =>'true']) !!}
-    {!! Form::label('machine_worksobstructs', '¿Funciona la máquina?:*') !!}
+    {!! Form::label('machine_works', '¿Funciona la máquina?:*') !!}
+    {!! Form::select('machine_works',['Si'=>'Si','No'=>'No'], null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('obstructs', '¿Hay algo que estorbe a la máquina?') !!}

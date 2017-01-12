@@ -62,13 +62,15 @@ img.avatar {
 }
 .usigned{
     background-color: #CEECF5;
-    color: #fff;
+    color: #000;
 }
 .just-time{
     background-color: #B5E7C8;
+    color: #000;
 }
 .ten-minutes{
     background-color: #FFDAA9;
+    color: #000;
 }
 .fifteen-minutes{
     background-color: #FF0020;
