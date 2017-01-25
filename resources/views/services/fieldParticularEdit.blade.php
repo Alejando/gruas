@@ -37,7 +37,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-    {!! Form::text('vehicle_type', null, ['class' => 'form-control','required' =>'true']) !!}
+   {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('brand', 'Marca:*') !!}
@@ -56,7 +56,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('color', 'Color:') !!}
-    {!! Form::text('color', null, ['class' => 'form-control']) !!}
+    {!! Form::select('color', $colors, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6 col-lg-4">
@@ -116,8 +116,8 @@
   <h3>Ubicación Destino</h3>
 </div>
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('street_deliver', 'Calle de entrega:*') !!}
-   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver','required']) !!}
+    {!! Form::label('street_deliver', 'Calle de entrega:') !!}
+   {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver']) !!}
 </div>
 
 <div class="form-group col-sm-6 col-lg-4">
@@ -325,7 +325,7 @@
     {!! Form::label('payment_received', 'Estatus del pago:') !!}
     {!! Form::select('payment_received',[$service->payment_received => $service->payment_received], null, ['class' => 'form-control']) !!}
 </div>
-@if($service->operator_assigned=="Ninguno" && $service->unit_assigned=="Ninguno")
+@if($service->operator_assigned=="Ninguno" || $service->unit_assigned=="Ninguno")
 <!--- Estatus Field --->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('estatus', 'Estatus:*') !!}
@@ -336,7 +336,7 @@
         <!--- Estatus Field --->
         <div class="form-group col-sm-6 col-lg-4">
             {!! Form::label('estatus', 'Estatus:*') !!}
-            {!! Form::select('estatus', [$service->estatus => $service->estatus], null, ['class' => 'form-control']) !!}
+            {!! Form::select('estatus', [$service->estatus => $service->estatus], null, ['class' => 'form-control','id'=>'noEstatus']) !!}
         </div>
 
 @endif
@@ -345,6 +345,14 @@
     {!! Form::textArea('nota', null, ['class' => 'form-control','placeholder'=>'Puedes agregar cualquier nota referente al servicio  que no este contenplado en el formulario.']) !!}
 </div>
 <div class="form-group col-sm-12">
-    {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+    @if($service->estatus=="Terminado")
+       @role('admin')
+            {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+        @endrole
+    
+    @else
+        {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
+    
+    @endif
     <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>
 </div>

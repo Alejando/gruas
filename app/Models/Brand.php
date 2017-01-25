@@ -16,7 +16,7 @@ class Brand extends Model
 	];
 
 	public static $rules = [
-	    "name_brand" => "required|alpha"
+	    "name_brand" => "required"
 	];
 
 	public function subbrands()

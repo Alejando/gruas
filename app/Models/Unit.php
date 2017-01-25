@@ -29,7 +29,7 @@ class Unit extends Model
 	    "sub_brand" => "required",
 	    "model" => "required",
 	    "expiration_date" => "required|date",
-		"license_plate" => "required|AlphaDash",
+		"license_plate" => "required",
 		"economic_number" => "required|numeric",
 	];
 

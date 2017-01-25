@@ -6,7 +6,7 @@
     <div class="container" ng-controller="serviceController">
         @include('common.errors')
 
-        {!! Form::open(['route' => 'services.store']) !!}
+        {!! Form::open(['route' => 'services.store','id'=>'form']) !!}
         	@if($typeService==1)
             	@include('services.fieldParticular')
             @elseif($typeService==2)
@@ -104,11 +104,18 @@ function geocodeAddress(geocoder, resultsMap) {
   });
 }
 $(document).ready(function() {
+
+  var cotizacion=false;
   $('.date-picker').daterangepicker({ singleDatePicker: true, timePicker: true,
     timePickerIncrement: 1,
     format: 'YYYY/MM/DD/ HH:mm:ss' }, function(start, end, label) {
     console.log(start.toISOString(), end.toISOString(), label);
   });
+  if($('#estatus').val()=='Cotizacion'){
+      cotizacion=true;
+    }else{
+      cotizacion=false;
+    }
 });
 
   </script>

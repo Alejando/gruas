@@ -104,16 +104,16 @@
       <p style="margin-top: 10px"><h2><b>Reportes Activos</b></h2></p>
     </div>
     <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge just-time" id="aTiempo" >5</span> A tiempo
+     <span class="badge just-time" id="aTiempo">0</span> A tiempo
    </div>
    <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge ten-minutes" id="10mins" >4</span>< A 10 mins
+     <span class="badge ten-minutes" id="10mins" >0</span>< A 10 mins
    </div>
    <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge fifteen-minutes" id="5mins" >3</span> < A 5 mins
+     <span class="badge fifteen-minutes" id="5mins" >0</span> < A 5 mins
    </div>
    <div class="col-md-1" style="margin-top: 20px;">
-     <span class="badge usigned" id="sinAsignar" >3</span> Sin asignar
+     <span class="badge usigned" id="sinAsignar" >0</span> Sin asignar
    </div>
    <div class="col-md-2">
     <a class="btn btn-default btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva Cotización</a>
@@ -154,8 +154,8 @@
     <tbody>
 
       @foreach($services as $service)
-      <tr >
-        <td  style="vertical-align: middle; text-align: center;">{!! $service->id !!}</td>
+      <tr  class="servicio">
+        <td class="id-servicio"  style="vertical-align: middle; text-align: center;">{!! $service->id !!}</td>
         <td style="vertical-align: middle;"> {!! $service->service_type !!}</td>
         <td style="vertical-align: middle; text-align: center;">
           @if($service->unit_assigned=="Ninguno")
@@ -198,9 +198,9 @@
         </td>
 
         <td style="vertical-align: middle;" ><div class="btn-group">
-          @if($service->estatus!='Terminado')
+         
             <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id]) !!}">Editar <i class="glyphicon glyphicon-edit" title="Editar"></i></a>
-          @endif
+          
           <a  class="btn btn-danger" href="{!! route('cancelarServicio', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas cancerlar el servicio?')">Cancelar <i class="glyphicon glyphicon-trash" title="Editar"></i></a>
         </div>
          
@@ -251,12 +251,19 @@
               "previous":   "Anterior"
           },
         },
-        "order": [[ 7, 'asc' ]]
+        "order": [[9,'asc'],[ 7, 'asc' ]]
         });
         
          
         verificarEstado();
-        setInterval(verificarEstado, 5000)
+        setInterval(verificarEstado, 5000);
+        $(".servicio").dblclick(function(){
+            var id=$(this).find('.id-servicio').html()
+            var respuesta=confirm('¿Estas seguro de que deseas ir al servicio  con el identificador '+id+'?');
+            if(respuesta){
+              window.location.href = "services/"+id+"/edit";
+            }
+        });
     } );
    function verificarEstado(){
       var aTiempo=0;
@@ -341,7 +348,7 @@
             var estatus=tabla.context[0].aoData[i]._aData[9];
              //console.log(' EStarus'+estatus);
            if(estatus.includes("Asignado")){
-               console.log(estatus)
+              //console.log(estatus)
                 var td=tabla.context[0].aoData[i]._aData[7];
                 var fechaServicio= new Date(td);
                 var fecha10  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()-10,0,0));

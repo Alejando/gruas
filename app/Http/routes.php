@@ -240,6 +240,13 @@ Route::group(['middleware' => 'auth'], function () {
 	    'uses' => 'EmpresaController@destroy',
 	]);
 
+	Route::resource('types', 'TypeController');
+
+	Route::get('types/{id}/delete', [
+	    'as' => 'types.delete',
+	    'uses' => 'TypeController@destroy',
+	]);
+
 	Route::resource('subbrands', 'SubbrandController');
 
 	Route::get('subbrands/{id}/delete', [

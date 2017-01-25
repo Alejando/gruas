@@ -17,7 +17,7 @@
         @if($empresas->isEmpty())
         <div class="well text-center">No hay registros.</div>
         @else
-        <table class="table table-striped">
+        <table id="tabla" class="table table-striped">
             <thead class="thead-color">
                 <th>Nombre de empresa</th>
                 @role('admin')
@@ -43,3 +43,30 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script type="text/javascript">
+  // var aTiempo=0;
+  // var min10=0;
+  // var min5=0;
+  // var sinAsignar=0;
+   $(document).ready(function() {
+        tabla = $('#tabla').DataTable({
+          "language": {
+          "emptyTable":     "No hay datos disponibles",
+          "search": "Buscar",
+          "lengthMenu":     "Mostrar _MENU_ elementos",
+          "info":           "Mostrar _START_ a _END_ de _TOTAL_ elementos",
+          "infoEmpty":      "Mostrar 0 a 0 de 0 elementos",
+          "paginate": {
+              "first":      "Primero",
+              "last":       "Ultimo",
+              "next":       "Siguiente",
+              "previous":   "Anterior"
+          },
+        },
+        });
+        
+    } );
+</script>
+ @endsection

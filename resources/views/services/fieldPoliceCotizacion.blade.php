@@ -2,17 +2,16 @@
     {!! Form::label('report_number', 'Numero de inventario:') !!}
     {!! Form::text('report_number', null, ['class' => 'form-control']) !!}
 </div>
- <div class="form-group col-sm-12 col-lg-12">
-  <h3>Datos cliente</h3>
-   {!! Form::hidden('service_type', 'Policia', ['class' => 'form-control','id'=>'tipoServicio']) !!}
-</div>
-         
+<div class="form-group col-sm-6 col-lg-4">
+    {!! Form::label('empresa', 'Empresa:*') !!}
+    {!! Form::select('empresa',$empresas,null, ['id'=>'empresa', 'class' => 'form-control','required' =>'true']) !!}
+</div>  
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('name_requests', 'Nombre quien solicita:*') !!}
     {!! Form::text('name_requests', null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
 
-<!--- Phone Requests Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('patrol', 'Patrulla en sitio:*') !!}
     {!! Form::text('patrol', null, ['class' => 'form-control','required']) !!}
@@ -22,44 +21,44 @@
   <h3>Datos del vehículo</h3>
 </div>
 
-<!--- Vehicle Type Field --->
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-    {!! Form::text('vehicle_type', null, ['class' => 'form-control','required' =>'true']) !!}
+    {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
 </div>
 
-<!--- Brand Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('brand', 'Marca:') !!}
     {!! Form::select('brand',$brands,null, ['id'=>'brand', 'class' => 'form-control']) !!}
 </div>
 
-<!--- Sub Brand Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('sub_brand', 'Submarca:') !!}
     {!! Form::select('sub_brand',$subbrands,null, ['id'=>'subbrand', 'class' => 'form-control']) !!}
 </div>
 
-<!--- Model Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('model', 'Modelo:') !!}
     {!! Form::select('model',$models,null, ['id'=>'Model', 'class' => 'form-control']) !!}
 </div>
 
-<!--- Color Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('color', 'Color:') !!}
-    {!! Form::text('color', null, ['class' => 'form-control']) !!}
+    {!! Form::select('color', $colors, null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- License Plate Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('license_plate', 'Placas:') !!}
     {!! Form::text('license_plate', null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- Failure Field --->
+
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('failure', 'Falla:') !!}
     {!! Form::text('failure', null, ['class' => 'form-control']) !!}
@@ -67,7 +66,7 @@
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Ubicación Origen</h3>
 </div>
-<!--- Street Is Field --->
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('street_is', 'Calle:*') !!}
@@ -75,43 +74,43 @@
     {{-- <input type="text" name="street_is" id="txt1" class="form-control" placeholder="Introduce localización" /> --}}
 </div>
 
-<!--- Number Is Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('number_is', 'Número:') !!}
     {!! Form::text('number_is', null, ['class' => 'form-control','id'=>'number_is']) !!}
 </div>
 
-<!--- Between Streets Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('between_streets', 'Entre calles:') !!}
     {!! Form::text('between_streets', null, ['class' => 'form-control']) !!}
      {{-- <input type="text" name="between_streets" id="txt2" class="form-control" placeholder="Introduce localización" /> --}}
 </div>
 
-<!--- Colony Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('colony', 'Colonia:') !!}
     {!! Form::text('colony', null, ['class' => 'form-control','id'=>'colony']) !!}
 </div>
 
-<!--- Municipality Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('municipality', 'Municipio:') !!}
      {!! Form::text('municipality', null, ['class' => 'form-control','id'=>'municipality']) !!}
 </div>
 
-<!--- References Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('references', 'Referencias:') !!}
     {!! Form::text('references', null, ['class' => 'form-control']) !!}
 </div>
-<!--- Observations  Field --->
+
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('observations', 'Observaciones:') !!}
     {!! Form::text('observations', null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- Street Deliver Field --->
+
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Ubicación Destino</h3>
 </div>
@@ -120,37 +119,37 @@
    {!! Form::text('street_deliver', null, [ 'class' => 'form-control','id'=>'street_deliver']) !!}
 </div>
 
-<!--- Number Deliver Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('number_deliver', 'Número de entrega:') !!}
     {!! Form::text('number_deliver', null, ['class' => 'form-control','id'=>'number_deliver']) !!}
 </div>
 
-<!--- Between Streets Deliver Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('between_streets_deliver', 'Entre calles:') !!}
     {!! Form::text('between_streets_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- Colony Deliver Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('colony_deliver', 'Colonia de entrega:') !!}
    {!! Form::text('colony_deliver', null, ['class' => 'form-control','id'=>'colony_deliver']) !!}
 </div>
 
-<!--- Municipality Deliver Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('municipality_deliver', 'Municipio de entrega:') !!}
     {!! Form::text('municipality_deliver', null, ['class' => 'form-control','id'=>'municipality_deliver']) !!}
 </div>
 
-<!--- References Deliver Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('references_deliver', 'Referencias de entrega:') !!}
     {!! Form::text('references_deliver', null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- Observations Deliver Field --->
+
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('observations_deliver', 'Observaciones:') !!}
     {!! Form::text('observations_deliver', null, ['class' => 'form-control']) !!}
@@ -171,20 +170,20 @@
   <h3>Costos</h3>
 </div>
 
-<!--- Type Field --->
+
 
 <div class="form-group col-sm-6 col-lg-4">
    {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
     {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 
-<!--- Description Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('description', 'Descripción:*') !!}
     {!! Form::text('description',null,['id'=>'description', 'class' => 'form-control','readonly','ng-model'=>'particular.description']) !!}
 </div>
 
-<!--- Zone Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('zone', 'Zona:*') !!}
     {!! Form::select('zone',['ba'=>'Banderazo'],null, ['class' => 'form-control','id'=>'tipoZona','ng-change'=>'zone()','ng-model'=>'tipoZona']) !!}
@@ -286,19 +285,19 @@
   <h3>Asignación </h3>
 </div>
 
-<!--- Cabinero Took Service Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('cabinero_took_service', 'Cabinero que tomo el Servicio:*') !!}
     {!! Form::select('cabinero_took_service',[Auth::user()->name => Auth::user()->name],null,['class' => 'form-control','required']) !!}
 </div>
 
-<!--- Unit Assigned Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('unit_assigned', 'Unidad Asignada:') !!}
     {!! Form::select('unit_assigned',$units,null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- Operator Assigned Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('operator_assigned', 'Operador Asignado:*') !!}
     {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control']) !!}
@@ -307,13 +306,13 @@
   <h3>Tiempos</h3>
 </div>
 
-<!--- Payment Method Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('payment_method', 'Metodo de pago:') !!}
     {!! Form::select('payment_method',['Efectivo' => 'Efectivo', 'Tarjeta de débito' => 'Tarjeta de débito', 'Tarjeta de Crédito' => 'Tarjeta de Crédito', 'Transferencia bancaria' => 'Transferencia bancaria', 'Cheque' => 'Cheque','Credito' => 'Credito'], null, ['class' => 'form-control']) !!}
 </div>
 
-<!--- Estatus Field --->
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('estatus', 'Estatus:*') !!}
     {!! Form::select('estatus', ['Cotizacion' => 'Cotizacion'], null, ['class' => 'form-control']) !!}
@@ -322,7 +321,7 @@
     {!! Form::label('nota', 'Detalles del servicios:') !!}
     {!! Form::textArea('nota', null, ['class' => 'form-control','placeholder'=>'Puedes agregar cualquier nota referente al servicio  que no este contenplado en el formulario.']) !!}
 </div>
-<!--- Submit Field --->
+
 <div class="form-group col-sm-12">
     {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
     <a class="btn btn-primary" href="{{ URL::previous() }}"> Regresar</a>

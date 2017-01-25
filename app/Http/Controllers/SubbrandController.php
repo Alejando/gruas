@@ -73,6 +73,8 @@ class SubbrandController extends AppBaseController
 
 		Flash::message('Subbrand saved successfully.');
 
+	
+
 		return redirect(route('subbrands.index'));
 	}
 

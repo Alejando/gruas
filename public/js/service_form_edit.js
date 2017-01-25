@@ -29,6 +29,40 @@ var subMarcas;
       });
   });
 
+$("#unit_assigned").change(function(){
+    
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+            $('#estatus').empty();
+           $('#estatus').append($('<option>', {
+            value: 'Asignado',
+            text: 'Asignado'
+             }));
+       }else{
+        $('#estatus').empty();
+           $('#estatus').append($('<option>', {
+            value: 'Sin Asignar',
+            text: 'Sin Asignar'
+             }));
+
+       }
+});
+$("#operator_assigned").change(function(){
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+            $('#estatus').empty();
+           $('#estatus').append($('<option>', {
+            value: 'Asignado',
+            text: 'Asignado'
+             }));
+       }else{
+        $('#estatus').empty();
+           $('#estatus').append($('<option>', {
+            value: 'Sin Asignar',
+            text: 'Sin Asignar'
+             }));
+
+       }
+});
+
 
 
 var app= angular.module('serviceApp',[]);

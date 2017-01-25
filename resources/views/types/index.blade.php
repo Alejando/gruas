@@ -7,32 +7,32 @@
     @include('flash::message')
 
     <div class="row">
-        <h1 class="pull-left">Modelo de vehiculos (Año)</h1>
+        <h1 class="pull-left">Tipos</h1>
         @role('admin')
-        <a class="btn btn-primary pull-right" style="margin-top: 25px" href="{!! route('vehiclemodels.create') !!}">Agregar nuevo</a>
+        <a class="btn my-btn pull-right" style="margin-top: 25px" href="{!! route('types.create') !!}">Agregar Nuevo</a>
         @endrole
     </div>
 
     <div class="row">
-        @if($vehiclemodels->isEmpty())
-        <div class="well text-center">No hay registros.</div>
+        @if($types->isEmpty())
+        <div class="well text-center">No hay registros...</div>
         @else
         <table id="tabla" class="table table-striped">
             <thead class="thead-color">
-                <th>Modelo (Año)</th>
+                <th>Tipo</th>
                 @role('admin')
                 <th width="50px">Acción</th>
                 @endrole
             </thead>
             <tbody>
                
-                @foreach($vehiclemodels as $vehiclemodel)
+                @foreach($types as $type)
                 <tr>
-                    <td>{!! $vehiclemodel->model_year !!}</td>
+                    <td>{!! $type->name !!}</td>
                     @role('admin')
                     <td>
-                        <a href="{!! route('vehiclemodels.edit', [$vehiclemodel->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a href="{!! route('vehiclemodels.delete', [$vehiclemodel->id]) !!}" onclick="return confirm('Are you sure wants to delete this Vehiclemodel?')"><i class="glyphicon glyphicon-remove"></i></a>
+                        <a href="{!! route('types.edit', [$type->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a href="{!! route('types.delete', [$type->id]) !!}" onclick="return confirm('¿Esta seguro de elimiar esta Empresa?')"><i class="glyphicon glyphicon-remove"></i></a>
                     </td>
                     @endrole
                 </tr>

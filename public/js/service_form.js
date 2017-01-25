@@ -1,4 +1,32 @@
 var subMarcas;
+var cotizacion=false;
+var bPreguntar = false;
+$(document).ready(function() {
+
+  if($('#estatus').val()=='Cotizacion'){
+      cotizacion=true;
+    }else{
+      cotizacion=false;
+    }
+  $("#form").keypress(function(e) {
+        if (e.which == 13) {
+            return false;
+        }
+    });
+    $('#name_requests').click(function() {
+         window.onbeforeunload = function(e) {
+          return true;
+        };
+    });
+    $('#form').submit(function() {
+         window.onbeforeunload = function(e) {
+          return null;
+        };
+    });
+  
+
+});
+
  document.getElementById('brand').addEventListener('change', function() {
     $('#subbrand').empty();
       $.ajax({
@@ -28,7 +56,53 @@ var subMarcas;
           }
       });
   });
-
+$("#unit_assigned").change(function(){
+     
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+        $('#estatus').empty();
+        
+        $('#estatus').append($('<option>', {
+            value: 'Asignado',
+            text: 'Asignado'
+        }));
+      }else{
+         $('#estatus').empty();
+        if(cotizacion){
+            $('#estatus').append($('<option>', {
+                value: 'Cotizacion',
+                text: 'Cotizacion'
+            }));
+        }else{
+            $('#estatus').append($('<option>', {
+              value: 'Sin Asignar',
+              text: 'Sin Asignar'
+            }));
+        }
+      }
+});
+$("#operator_assigned").change(function(){
+   // console.log('hola')
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+          $('#estatus').empty();
+          $('#estatus').append($('<option>', {
+            value: 'Asignado',
+            text: 'Asignado'
+          }));
+      }else{
+        $('#estatus').empty();
+          if(cotizacion){
+              $('#estatus').append($('<option>', {
+                  value: 'Cotizacion',
+                  text: 'Cotizacion'
+              }));
+          }else{
+              $('#estatus').append($('<option>', {
+                value: 'Sin Asignar',
+                text: 'Sin Asignar'
+              }));
+          }
+      }
+});
 
 
 var app= angular.module('serviceApp',[]);

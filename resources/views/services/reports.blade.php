@@ -205,7 +205,9 @@
           <td>{!! $service->service_type !!}</td>
           @if($service->service_type=="Empresa")
             <td>{!! $service->empresa !!}</td>
-          @elseif($service->service_type=="Policia" || $service->service_type=="Movilidad" || $service->service_type=="Asistencia")
+          @elseif($service->service_type=="Policia" )
+            <td>{!! $service->report_number !!} -> {!! $service->empresa !!} </td>
+          @elseif( $service->service_type=="Movilidad" || $service->service_type=="Asistencia")
             <td>{!! $service->report_number !!}</td>
           @else
             <td>No contiene</td>
@@ -224,9 +226,9 @@
           <td>{!! $service->cabinero_end_service !!}</td>
           <td>
             @if($service->estatus=='Terminado')
-              @role('admin')
-                  <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id]) !!}">Editar <i class="glyphicon glyphicon-edit" title="Editar"></i></a>
-              @endrole   
+              
+                  <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id]) !!}">Ver <i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+                 
             @endif
           </td>
          

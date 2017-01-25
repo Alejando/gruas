@@ -22,6 +22,7 @@ use App\Models\Cabinero;
 use App\Models\Unit;
 use App\Models\Operator;
 use App\Models\Empresa;
+use App\Models\Type;
 use DB;
 use Auth;
 
@@ -82,6 +83,8 @@ class ServiceController extends AppBaseController
 		$operators = Operator::all();
 		$users= User::all();
 		$empresas=Empresa::all(); 
+
+		
         return view('services.reports')
 		->with('subbrands', $subbrands)
 		->with('units', $units)
@@ -134,13 +137,17 @@ class ServiceController extends AppBaseController
 		$cabineros = Cabinero::lists('name', 'name');
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
+		$vehicle_type= Type::lists('name', 'name');
 
 		$operators->prepend('Sin Asignar','Ninguno');
+		$vehicle_type->prepend('Sin Asignar','Ninguno');
 		$brands->prepend('Sin Asignar','Ninguno');
 		$subbrands->prepend('Sin Asignar','Ninguno');
 		$models->prepend('Sin Asignar','Ninguno');
 		$cabineros->prepend('Sin Asignar','Ninguno');
 		$units->prepend('Sin Asignar','Ninguno');
+		$colors=['Sin Asingnar'=>'Sin Asingnar','Rojo'=>'Rojo','Verde'=>'Verde','Azul'=>'Azul','Negro'=>'Negro','Plata'=>'Plata','Blanco'=>'Blanco','Beige'=>'Beige','Amarillo'=>'Amarillo','Rosa'=>'Rosa','Gris'=>'Gris','Naranja'=>'Naranja'];
+
 
 		if ($id ==1|| $id==7) {
 			/*Lists*/
@@ -153,18 +160,24 @@ class ServiceController extends AppBaseController
 		->with('types', $types)
 		->with('units', $units)
 		->with('operators', $operators)
+		->with('colors',$colors)
+		->with('vehicle_type',$vehicle_type)
 		->with('typeService',$typeService);
 		}
 		if ($id ==2 || $id==8) {
 			$typeService=$id;
 			$types = Assistance::lists('type', 'id');
+			$empresas =Empresa::lists('name','name');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
 			->with('models', $models)
 			->with('types', $types)
 			->with('units', $units)
+			->with('empresas',$empresas)
 			->with('operators', $operators)
+			->with('colors',$colors)
+			->with('vehicle_type',$vehicle_type)	
 			->with('typeService',$typeService);
 
 		}
@@ -178,11 +191,14 @@ class ServiceController extends AppBaseController
 			->with('types', $types)
 			->with('units', $units)
 			->with('operators', $operators)
+			->with('vehicle_type',$vehicle_type)	
+			->with('colors',$colors)	
 			->with('typeService',$typeService);
 		}
 		if ($id ==4 || $id==10) {
 			$typeService=$id;
-			$types = Police::lists('type', 'id');
+			$types = Business::lists('type', 'id');
+			$empresas =Empresa::lists('name','name');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -191,6 +207,9 @@ class ServiceController extends AppBaseController
 			->with('cabineros', $cabineros)
 			->with('units', $units)
 			->with('operators', $operators)
+			->with('vehicle_type',$vehicle_type)	
+			->with('colors',$colors)	
+			->with('empresas',$empresas)
 			->with('typeService',$typeService);
 		}
 		if ($id ==5 || $id==11) {
@@ -205,6 +224,8 @@ class ServiceController extends AppBaseController
 			->with('cabineros', $cabineros)
 			->with('units', $units)
 			->with('operators', $operators)
+			->with('vehicle_type',$vehicle_type)	
+			->with('colors',$colors)	
 			->with('empresas',$empresas)
 			->with('typeService',$typeService);
 		}
@@ -212,9 +233,6 @@ class ServiceController extends AppBaseController
 			$typeService=$id;
 			$types = Industry::lists('type', 'id');
 			return view('services.create')
-			->with('brands', $brands)
-			->with('subbrands', $subbrands)
-			->with('models', $models)
 			->with('types', $types)
 			->with('cabineros', $cabineros)
 			->with('units', $units)
@@ -279,11 +297,14 @@ class ServiceController extends AppBaseController
 		$models = Vehiclemodel::lists('model_year', 'model_year');
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
+		$vehicle_type= Type::lists('name', 'name');
+		$vehicle_type->prepend('Sin Asignar','Ninguno');
 		$operators->prepend('Sin Asignar','Ninguno');
 		$brands->prepend('Sin Asignar','Ninguno');
 		$subbrands->prepend('Sin Asignar','Ninguno');
 		$models->prepend('Sin Asignar','Ninguno');
 		$units->prepend('Sin Asignar','Ninguno');
+		$colors=['Sin Asingnar'=>'Sin Asingnar','Rojo'=>'Rojo','Verde'=>'Verde','Azul'=>'Azul','Negro'=>'Negro','Plata'=>'Plata','Blanco'=>'Blanco','Beige'=>'Beige','Amarillo'=>'Amarillo','Rosa'=>'Rosa','Gris'=>'Gris','Naranja'=>'Naranja'];
 
 		if($service->service_type=="Particular"){
 			$types = Particular::lists('type', 'id');
@@ -294,6 +315,8 @@ class ServiceController extends AppBaseController
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
 				->with('units', $units)
+				->with('colors',$colors)
+				->with('vehicle_type',$vehicle_type)	
 				->with('operators', $operators);
 		}
 		elseif($service->service_type=="Movilidad"){
@@ -305,21 +328,28 @@ class ServiceController extends AppBaseController
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
 				->with('units', $units)
+				->with('colors',$colors)
+				->with('vehicle_type',$vehicle_type)	
 				->with('operators', $operators);
 		}
 		elseif($service->service_type=="Asistencia"){
 			$types = Assistance::lists('type', 'id');
+			$empresas =Empresa::lists('name','name');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
 	            ->with('brands', $brands)
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
+				->with('empresas',$empresas)
 				->with('units', $units)
+				->with('colors',$colors)
+				->with('vehicle_type',$vehicle_type)	
 				->with('operators', $operators);
 		}
 		elseif($service->service_type=="Policia"){
 			$types = Police::lists('type', 'id');
+			$empresas =Empresa::lists('name','name');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
@@ -327,6 +357,9 @@ class ServiceController extends AppBaseController
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
 				->with('units', $units)
+				->with('colors',$colors)
+				->with('vehicle_type',$vehicle_type)	
+				->with('empresas',$empresas)
 				->with('operators', $operators);
 		}
 		elseif($service->service_type=="Empresa"){
@@ -339,6 +372,8 @@ class ServiceController extends AppBaseController
 	            ->with('subbrands', $subbrands)
 	            ->with('models', $models)
 				->with('units', $units)
+				->with('colors',$colors)
+				->with('vehicle_type',$vehicle_type)	
 				->with('empresas',$empresas)
 				->with('operators', $operators);
 		}
@@ -347,10 +382,8 @@ class ServiceController extends AppBaseController
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
-	            ->with('brands', $brands)
-	            ->with('subbrands', $subbrands)
-	            ->with('models', $models)
-				->with('units', $units)
+	       		->with('units', $units)
+				->with('vehicle_type',$vehicle_type)	
 				->with('operators', $operators);
 		}
 
@@ -512,12 +545,18 @@ class ServiceController extends AppBaseController
 			 if($service->service_type=="Empresa"){
 
 			 }
-			 else if($service->service_type=="Policia" || $service->service_type=="Movilidad" || $service->service_type=="Asistencia"){
+			 else if($service->service_type=="Policia"){
+			 	 $service->empresa=$service->report_number.' -> '.$service->empresa;
+			 	}
+			 else if($service->service_type=="Movilidad" || $service->service_type=="Asistencia"){
 			 	 $service->empresa=$service->report_number;
 			 	}	           
 	         else {
 	            $service->empresa="No contiene";         
 	          }
+	        if($service->estatus=="Terminado"){
+				$service->nota=' <a  class="btn btn-primary" href="'.route('services.edit', [$service->id]) .'">Ver  <i class="glyphicon glyphicon-edit" title="Ver"></i></a>';
+			}			
 		}
 		
 		return $services;
