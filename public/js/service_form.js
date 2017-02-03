@@ -58,7 +58,7 @@ $(document).ready(function() {
   });
 $("#unit_assigned").change(function(){
      
-      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno" && reporte){
         $('#estatus').empty();
         
         $('#estatus').append($('<option>', {
@@ -67,7 +67,7 @@ $("#unit_assigned").change(function(){
         }));
       }else{
          $('#estatus').empty();
-        if(cotizacion){
+        if(!reporte){
             $('#estatus').append($('<option>', {
                 value: 'Cotizacion',
                 text: 'Cotizacion'
@@ -82,7 +82,7 @@ $("#unit_assigned").change(function(){
 });
 $("#operator_assigned").change(function(){
    // console.log('hola')
-      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno" && reporte){
           $('#estatus').empty();
           $('#estatus').append($('<option>', {
             value: 'Asignado',
@@ -90,7 +90,7 @@ $("#operator_assigned").change(function(){
           }));
       }else{
         $('#estatus').empty();
-          if(cotizacion){
+          if(!reporte){
               $('#estatus').append($('<option>', {
                   value: 'Cotizacion',
                   text: 'Cotizacion'
@@ -177,40 +177,40 @@ var app= angular.module('serviceApp',[]);
             case 'Particular':
                     $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                     });
                 break; 
             case 'Movilidad':
                     $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                     });
                 break;
             case 'Asistencia':
 
                     $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                     });
                 break;
              case 'Policia':
 
                     $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                     });
                 break;
              case 'Empresa':
-                    console.log("hola");
+                    // console.log("hola");
                     $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                     });
                 break;
                case 'Industrial':
                     $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                     });
                 break;
         }

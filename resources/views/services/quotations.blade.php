@@ -55,9 +55,9 @@
   <div class="col-md-6 ">
        <h1 class="pull-left">Cotizaciones</h1>
   </div>
-  <div class="col-md-6 ">
+  {{-- <div class="col-md-6 ">
     <a class="btn my-btn btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva cotización</a>
-  </div>
+  </div> --}}
 </div>
 </div>
 <div class="container" style="width: 90%; background-color:#E6E6E6;">

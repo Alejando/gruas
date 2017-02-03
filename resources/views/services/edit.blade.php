@@ -40,7 +40,10 @@
     });
    function initMap() {
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+   var directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: map
+    });
   var geocoder = new google.maps.Geocoder();
   var map = new google.maps.Map(document.getElementById('mapaOrigen'), {
     zoom: 14,
@@ -50,17 +53,20 @@
   directionsDisplay.setMap(map);
 
   // var onChangeHandler = function() {
-    if($('#street_deliver').empty()){
-        geocodeAddress(geocoder, map);
+    if($('#street_deliver').val().length>0){
+         calculateAndDisplayRoute(directionsService, directionsDisplay);
     }else{
-      
-       calculateAndDisplayRoute(directionsService, directionsDisplay);
+     
+       geocodeAddress(geocoder, map);
+
     }
     
   // };
   // document.getElementById('start').addEventListener('change', onChangeHandler);
   // document.getElementById('end').addEventListener('change', onChangeHandler);
-
+   directionsDisplay.addListener('directions_changed', function() {
+    computeTotalDistance(directionsDisplay.getDirections());
+  });
    document.getElementById('updateRute').addEventListener('click', function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   });
@@ -82,6 +88,32 @@ function geocodeAddress(geocoder, resultsMap) {
     }
   });
 }
+function computeTotalDistance(result) {
+  var total = 0;
+  var origen='';
+  var destino='';
+  var myroute = result.routes[0];
+  for (var i = 0; i < myroute.legs.length; i++) {
+    total += myroute.legs[i].distance.value;
+    origen=myroute.legs[i].start_address;
+    destino=myroute.legs[i].end_address;
+  }
+  total = total / 1000;
+ // console.log(result.routes[0]);
+   $('#distancia').val(total+' Km');
+   var direccion=destino.split(',');
+   var calle=direccion[0].split(' ');
+   $('#street_deliver').val(direccion[0].replace(calle[calle.length-1],''));
+   $('#number_deliver').val(calle[calle.length-1]);
+   $('#colony_deliver').val(direccion[1]);
+   $('#municipality_deliver').val(direccion[2]+' '+direccion[3]+' '+direccion[4]);
+      direccion=origen.split(',');
+      calle=direccion[0].split(' ');
+   $('#street_is').val(direccion[0].replace(calle[calle.length-1],''));
+   $('#number_is').val(calle[calle.length-1]);
+   $('#colony').val(direccion[1]);
+   $('#municipality').val(direccion[2]+' '+direccion[3]+' '+direccion[4]);
+ }
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
     origin: $('#street_is').val()+' '+$('#number_is').val()+' '+$('#colony').val()+' '+$('#municipality').val(),

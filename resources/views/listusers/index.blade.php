@@ -19,6 +19,7 @@
             <thead class="thead-color">
                 <th>Nombre</th>
                 <th>Email</th>
+                <th>Rol</th>
                 @role('admin')
                 <th width="50px">Acción</th>
                 @endrole
@@ -29,11 +30,17 @@
                 <tr>
                     <td>{!! $listusers->name !!}</td>
                     <td>{!! $listusers->email !!}</td>
-                    @role('admin')
                     <td>
-                        <!--<a href="{!! route('listusers.edit', [$listusers->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>-->
-                        <a href="{!! route('listusers.delete', [$listusers->id]) !!}" onclick="return confirm('Are you sure wants to delete this Listusers?')"><i class="glyphicon glyphicon-remove"></i></a>
-                    </td>
+                      @foreach ($listusers->roles as $key => $value)
+                              {{ $value->name }}
+                     @endforeach 
+                   </td>
+                    @role('admin')
+                      <td>
+                          <!--<a href="{!! route('listusers.edit', [$listusers->id]) !!}"><i class="glyphicon glyphicon-edit"></i></a>-->
+                          <a href="{!! route('listusers.delete', [$listusers->id]) !!}" onclick="return confirm('¿Estas seguro que deseas eliminar al usuario?')"><i class="glyphicon glyphicon-remove"></i></a>
+                          <a href="{!! route('updateRole', [$listusers->id]) !!}" onclick="return confirm('¿Estas seguro que deseas cambiar el rol?')"><i class="glyphicon glyphicon-random"></i></a>
+                      </td>
                     @endrole
                 </tr>
                 @endforeach

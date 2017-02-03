@@ -47,7 +47,7 @@
 </div>
 </div>
 <!-- Modal -->
-<div id="modalCotizacion" class="modal fade" role="dialog">
+{{-- <div id="modalCotizacion" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -86,7 +86,7 @@
   </div>
 
 </div>
-</div>
+</div> --}}
 
 @if(!empty(Session::get('option')) && Session::get('option') == 1)
 <script>
@@ -116,7 +116,7 @@
      <span class="badge usigned" id="sinAsignar" >0</span> Sin asignar
    </div>
    <div class="col-md-2">
-    <a class="btn btn-default btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva Cotización</a>
+    {{-- <a class="btn btn-default btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#modalCotizacion">Nueva Cotización</a> --}}
   </div>
   <div class="col-md-2">
     <a class="btn my-btn btn-md pull-right" style="margin-top: 10px" data-toggle="modal" data-target="#myModal">Nuevo Reporte</a>
@@ -147,6 +147,7 @@
       <th>Arribo Estimado</th>
       <th>Arribo Real</th>
       <th>Estatus</th>
+      <th>Est. Pago</th>
       <th>Pago</th>
       <th width="50px">Acciones</th>
     </thead>
@@ -184,7 +185,15 @@
         </td>
         <td style="vertical-align: middle;" class="estatus">
           @if($service->estatus=="Arribado" )
-            <a class="btn btn-success" href="{!! route('registrarTermino', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas terminar el servicio?')"> Terminar <i class="glyphicon glyphicon-ok" ></i></a>
+            @if($service->colony_deliver!="" && $service->municipality_deliver!="")
+              <a class="btn btn-success" href="{!! route('registrarTermino', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas terminar el servicio?')"> Terminar <i class="glyphicon glyphicon-ok" ></i></a>
+            @else
+              @if($service->colony_deliver=="")
+                 <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id,'#colony_deliver']) !!}">Agrega Colonia D.<i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+              @elseif($service->municipality_deliver=="")
+                 <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id,'#municipality_deliver']) !!}">Agrega Muni D.<i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+              @endif
+            @endif
           @else
           {!! $service->estatus !!}
           @endif
@@ -196,12 +205,19 @@
             {!! $service->payment_received !!}
           @endif
         </td>
-
+        <td style="vertical-align: middle;"> ${!! $service->total !!} ({!! $service->payment_method !!})</td>
         <td style="vertical-align: middle;" ><div class="btn-group">
          
-            <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id]) !!}">Editar <i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+          <a  class="btn btn-primary" href="{!! route('services.edit', [$service->id]) !!}">Editar <i class="glyphicon glyphicon-edit" title="Editar"></i></a>
           
-          <a  class="btn btn-danger" href="{!! route('cancelarServicio', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas cancerlar el servicio?')">Cancelar <i class="glyphicon glyphicon-trash" title="Editar"></i></a>
+          @if($service->estatus=='Sin Asignar')
+              <a  class="btn btn-danger" href="{!! route('cancelarServicio', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas cancerlar el servicio?')">Cancelar <i class="glyphicon glyphicon-trash" title=""></i></a>
+          @else
+              @role('admin')
+                 <a  class="btn btn-danger" href="{!! route('cancelarServicio', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas cancerlar el servicio?')">Cancelar <i class="glyphicon glyphicon-trash" title=""></i></a>
+              @endrole
+          @endif
+         
         </div>
          
         </td>
@@ -219,6 +235,7 @@
       <th>Arribo Estimado</th>
       <th>Arribo Real</th>
       <th>Estatus</th>
+      <th>Est. Pago</th>
       <th>Pago</th>
       <th width="50px">Acciones</th>
     </tfoot>

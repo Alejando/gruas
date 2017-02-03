@@ -298,12 +298,17 @@ class ServiceController extends AppBaseController
 		$units = Unit::lists('economic_number', 'economic_number');
 		$operators = Operator::lists('name', 'name');
 		$vehicle_type= Type::lists('name', 'name');
-		$vehicle_type->prepend('Sin Asignar','Ninguno');
+
 		$operators->prepend('Sin Asignar','Ninguno');
+		$units->prepend('Sin Asignar','Ninguno');
+		$vehicle_type->prepend('Sin Asignar','Ninguno');
 		$brands->prepend('Sin Asignar','Ninguno');
 		$subbrands->prepend('Sin Asignar','Ninguno');
 		$models->prepend('Sin Asignar','Ninguno');
-		$units->prepend('Sin Asignar','Ninguno');
+		if($service->estatus=="Sin Asignar"){
+			$operators->prepend('Sin Asignar','Ninguno');
+			$units->prepend('Sin Asignar','Ninguno');
+		}
 		$colors=['Sin Asingnar'=>'Sin Asingnar','Rojo'=>'Rojo','Verde'=>'Verde','Azul'=>'Azul','Negro'=>'Negro','Plata'=>'Plata','Blanco'=>'Blanco','Beige'=>'Beige','Amarillo'=>'Amarillo','Rosa'=>'Rosa','Gris'=>'Gris','Naranja'=>'Naranja'];
 
 		if($service->service_type=="Particular"){

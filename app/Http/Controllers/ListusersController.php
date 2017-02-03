@@ -10,6 +10,7 @@ use Flash;
 use Schema;
 use Auth;
 use App\User;
+use App\Role;
 use App\Models\Particular;
 use App\Models\Assitance;
 use App\Models\Movility;
@@ -48,7 +49,6 @@ class ListusersController extends AppBaseController
         };
 
         $listusers = $query->get();
-
         return view('listusers.index')
             ->with('listusers', $listusers)
             ->with('attributes', $attributes);
@@ -171,7 +171,8 @@ class ListusersController extends AppBaseController
 				Flash::message('Usuario eliminado correctamente.');
 			}
 			else{
-				Flash::message('Cabinero no existe');
+				$listusers->delete();
+				Flash::message('Usuario eliminado correctamente.');
 			}
 			
 		}else{
@@ -180,5 +181,33 @@ class ListusersController extends AppBaseController
 		
 		return redirect(route('listusers.index'));
 	}
-
+	public function updateRole(User $user)
+	{	
+		if(empty($user))
+		{
+			Flash::error('Usuario no encontrado');
+			return redirect(route('listusers.index'));
+		}
+		if(empty($user->roles[0])){
+			$user->roles()->detach();
+			$user->roles()->attach($user->id,['role_id'=>1]);
+		}else{
+			if(empty($user->cabinero)){
+				if($user->roles[0]->pivot->role_id==2){
+					$user->roles()->detach();
+					$user->roles()->attach($user->id,['role_id'=>1]);
+					Flash::error('Ya es un Administrador');
+				}else{
+					Flash::error('Ya es un Administrador');
+				}
+			}
+			else{
+				Flash::error('No puede ser Administrador');
+			}
+			
+		}
+			
+		
+		 return  redirect(route('listusers.index'));
+	}
 }

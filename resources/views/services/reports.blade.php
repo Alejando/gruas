@@ -221,7 +221,7 @@
           <td>{!! $service->real_time !!}</td>
           <td>{!! $service->estatus !!}</td>
           <td>{!! $service->payment_received !!}</td>
-          <td>${!! $service->total !!}</td>
+          <td> ${!! $service->total !!} ({!! $service->payment_method !!})</td>
           <td>{!! $service->cabinero_took_service !!}</td>
           <td>{!! $service->cabinero_end_service !!}</td>
           <td>

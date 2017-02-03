@@ -1,4 +1,4 @@
-var subMarcas;
+// var subMarcas;
  document.getElementById('brand').addEventListener('change', function() {
     $('#subbrand').empty();
       $.ajax({
@@ -133,14 +133,14 @@ var app= angular.module('serviceApp',[]);
              case 'Particular':
                     $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                         $def.resolve();
                     });
                 break; 
             case 'Movilidad':
                     $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                         $def.resolve();
                     });
                 break;
@@ -148,7 +148,7 @@ var app= angular.module('serviceApp',[]);
 
                     $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                         $def.resolve();
                     });
                 break;
@@ -156,7 +156,7 @@ var app= angular.module('serviceApp',[]);
 
                     $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                         $def.resolve();
                     });
                 break;
@@ -164,14 +164,14 @@ var app= angular.module('serviceApp',[]);
 
                     $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                         $def.resolve();
                     });
                 break;
               case 'Industrial':
                     $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
-                        console.log($scope.particular);
+                        // console.log($scope.particular);
                         $def.resolve();
                     });
                 break;
@@ -225,10 +225,10 @@ var app= angular.module('serviceApp',[]);
       }
 
       $scope.tipo().then(function  () {
-          console.log('algo');
+          // console.log('algo');
           $scope.subtotal();
       },function  () {
-        console.log('Algo salio mal :(');
+        // console.log('Algo salio mal :(');
       });
       
 

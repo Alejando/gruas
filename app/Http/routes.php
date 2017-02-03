@@ -294,6 +294,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('cambiarCotizacion/{service}',['as'=>'cambiarCotizacion','uses'=>'ServiceController@cambiarCotizacion'])->where('service', '[0-9]+');
 	Route::get('cancelarServicio/{service}',['as'=>'cancelarServicio','uses'=>'ServiceController@cancelarServicio'])->where('service', '[0-9]+');
 	
+	Route::get('updateRole/{user}',['as'=>'updateRole','uses'=>'ListusersController@updateRole'])->where('user', '[0-9]+');
+
 	Route::get('datosParticular/{particular}',['as'=>'datosParticular','uses'=>'ParticularController@datosParticular'])->where('particular', '[0-9]+');
 	Route::get('datosAssistance/{assistance}',['as'=>'datosAssistance','uses'=>'AssistanceController@datosAssistance'])->where('assistance', '[0-9]+');
 	Route::get('datosMovility/{movility}',['as'=>'datosMovility','uses'=>'MovilityController@datosMovility'])->where('movility', '[0-9]+');
