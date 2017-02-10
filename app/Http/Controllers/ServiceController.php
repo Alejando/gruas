@@ -56,7 +56,7 @@ class ServiceController extends AppBaseController
             }
         };
 
-        $services = $query->where('payment_received','!=','Recibido')->where('estatus','!=','Cotizacion')->where('estatus','!=','Cancelado')->get();
+        $services = $query->Where('estatus','Sin Asignar')->orWhere('estatus','Asignado')->orWhere('estatus','Arribado')->orWhere('estatus','Terminado')->where('payment_received','!=','Recibido')->get();
         
         return view('services.index')->with('services', $services);
         }
@@ -153,6 +153,8 @@ class ServiceController extends AppBaseController
 			/*Lists*/
 		$typeService=$id;
 		$types = Particular::lists('type', 'id');
+
+		$types->prepend('Seleccionar','');
 		return view('services.create')
 		->with('brands', $brands)
 		->with('subbrands', $subbrands)
@@ -167,6 +169,7 @@ class ServiceController extends AppBaseController
 		if ($id ==2 || $id==8) {
 			$typeService=$id;
 			$types = Assistance::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			$empresas =Empresa::lists('name','name');
 			return view('services.create')
 			->with('brands', $brands)
@@ -184,6 +187,7 @@ class ServiceController extends AppBaseController
 		if ($id ==3 || $id==9) {
 			$typeService=$id;
 			$types = Movility::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			return view('services.create')
 			->with('brands', $brands)
 			->with('subbrands', $subbrands)
@@ -198,6 +202,7 @@ class ServiceController extends AppBaseController
 		if ($id ==4 || $id==10) {
 			$typeService=$id;
 			$types = Business::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			$empresas =Empresa::lists('name','name');
 			return view('services.create')
 			->with('brands', $brands)
@@ -215,6 +220,7 @@ class ServiceController extends AppBaseController
 		if ($id ==5 || $id==11) {
 			$typeService=$id;
 			$types = Business::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			$empresas =Empresa::lists('name','name');
 			return view('services.create')
 			->with('brands', $brands)
@@ -232,6 +238,7 @@ class ServiceController extends AppBaseController
 		if ($id ==6 || $id==12) {
 			$typeService=$id;
 			$types = Industry::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			return view('services.create')
 			->with('types', $types)
 			->with('cabineros', $cabineros)
@@ -299,13 +306,11 @@ class ServiceController extends AppBaseController
 		$operators = Operator::lists('name', 'name');
 		$vehicle_type= Type::lists('name', 'name');
 
-		$operators->prepend('Sin Asignar','Ninguno');
-		$units->prepend('Sin Asignar','Ninguno');
 		$vehicle_type->prepend('Sin Asignar','Ninguno');
 		$brands->prepend('Sin Asignar','Ninguno');
 		$subbrands->prepend('Sin Asignar','Ninguno');
 		$models->prepend('Sin Asignar','Ninguno');
-		if($service->estatus=="Sin Asignar"){
+		if($service->estatus=="Sin Asignar" || $service->estatus=="Cotizacion"){
 			$operators->prepend('Sin Asignar','Ninguno');
 			$units->prepend('Sin Asignar','Ninguno');
 		}
@@ -313,6 +318,7 @@ class ServiceController extends AppBaseController
 
 		if($service->service_type=="Particular"){
 			$types = Particular::lists('type', 'id');
+			$types->prepend('Seleccionar','');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
@@ -326,6 +332,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Movilidad"){
 			$types = Movility::lists('type', 'id');
+			$types->prepend('Seleccionar','');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)
@@ -339,6 +346,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Asistencia"){
 			$types = Assistance::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			$empresas =Empresa::lists('name','name');
        		return view('services.edit')
 	       		->with('service', $service)
@@ -354,6 +362,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Policia"){
 			$types = Police::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			$empresas =Empresa::lists('name','name');
        		return view('services.edit')
 	       		->with('service', $service)
@@ -369,6 +378,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Empresa"){
 			$types = Business::lists('type', 'id');
+			$types->prepend('Seleccionar','');
 			$empresas =Empresa::lists('name','name');
        		return view('services.edit')
 	       		->with('service', $service)
@@ -384,6 +394,7 @@ class ServiceController extends AppBaseController
 		}
 		elseif($service->service_type=="Industrial"){
 			$types = Industry::lists('type', 'id');
+			$types->prepend('Seleccionar','');
        		return view('services.edit')
 	       		->with('service', $service)
 	       		->with('types',$types)

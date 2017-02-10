@@ -3,7 +3,53 @@
 
 @section('content')
 <link rel="stylesheet" type="text/css" href="{{asset('css/style_form.css')}}"/> 
-    </style>
+ <style type="text/css" media="screen">
+.onoffswitch {
+    position: relative; width: 118px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Reporte";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Cotización";
+    padding-right: 10px;
+    background-color: #069937; color: #FCFFFD;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 84px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+</style>   
 <div ng-app="serviceApp">
     <div class="container" ng-controller="serviceController">
 
@@ -38,6 +84,41 @@
     $(document).ready(function(){
         $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
     });
+    var reporte=true;
+      $(document).ready(function(){
+       
+        $('#tipoReport').click(function() {
+            if(reporte){
+                $('.cotizacion').removeAttr('required');
+                $('#estatus').empty();
+                $('#estatus').append($('<option>', {
+                    value: 'Cotizacion',
+                    text: 'Cotizacion'
+                }));
+                 reporte=false;
+            }else{
+                $('.cotizacion').attr('required',true);
+                if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
+                $('#estatus').empty();
+                  $('#estatus').append($('<option>', {
+                      value: 'Asignado',
+                      text: 'Asignado'
+                  }));
+                }else{
+                   $('#estatus').empty();
+                      $('#estatus').append($('<option>', {
+                        value: 'Sin Asignar',
+                        text: 'Sin Asignar'
+                      }));
+                }
+                 reporte=true;
+            }
+         
+        });
+        
+      });
+
+
    function initMap() {
   var directionsService = new google.maps.DirectionsService;
    var directionsDisplay = new google.maps.DirectionsRenderer({

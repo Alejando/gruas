@@ -1,9 +1,7 @@
-    {{-- Etiqueta Servicio Asistencia 
- --}}
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('report_number', 'Numero de reporte:*') !!}
-    {!! Form::text('report_number', null, ['class' => 'form-control','required']) !!}
+    {!! Form::text('report_number', null, ['class' => 'form-control cotizacion','required']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('empresa', 'Empresa:*') !!}
@@ -52,7 +50,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-    {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control']) !!}
+    {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
 </div>
 
 
@@ -81,14 +79,14 @@
 
 
 <div class="form-group col-sm-6 col-lg-4">
-    {!! Form::label('license_plate', 'Placas:*') !!}
-    {!! Form::text('license_plate', null, ['class' => 'form-control','required']) !!}
+    {!! Form::label('license_plate', 'Placas:') !!}
+    {!! Form::text('license_plate', null, ['class' => 'form-control']) !!}
 </div>
 
 
-<div class="form-group col-sm-6 col-lg-4">
+<div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('failure', 'Falla:*') !!}
-    {!! Form::text('failure', null, ['class' => 'form-control','required']) !!}
+    {!! Form::text('failure', null, ['class' => 'form-control cotizacion','required']) !!}
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">
@@ -201,7 +199,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
      {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
-    {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato','required']) !!}
+    {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('description', 'Descripción:*') !!}

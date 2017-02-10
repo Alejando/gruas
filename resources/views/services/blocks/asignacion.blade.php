@@ -33,7 +33,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('estatus', 'Estatus:*') !!}
-    {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar','Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar'], null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6 col-lg-4">

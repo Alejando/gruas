@@ -123,9 +123,7 @@
             }
          
         });
-        $('#btnCotizacion').click(function() {
-            alert(reporte);
-        });
+        
       });
 
 

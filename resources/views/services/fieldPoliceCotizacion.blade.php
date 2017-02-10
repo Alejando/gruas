@@ -5,7 +5,12 @@
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('empresa', 'Empresa:*') !!}
     {!! Form::select('empresa',$empresas,null, ['id'=>'empresa', 'class' => 'form-control','required' =>'true']) !!}
-</div>  
+</div>
+ <div class="form-group col-sm-12 col-lg-12">
+  <h3>Datos cliente</h3>
+   {!! Form::hidden('service_type', 'Policia', ['class' => 'form-control','id'=>'tipoServicio']) !!}
+</div>
+         
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('name_requests', 'Nombre quien solicita:*') !!}
     {!! Form::text('name_requests', null, ['class' => 'form-control','required' =>'true']) !!}
@@ -25,7 +30,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-    {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
+   {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
 </div>
 
 
@@ -63,6 +68,7 @@
     {!! Form::label('failure', 'Falla:') !!}
     {!! Form::text('failure', null, ['class' => 'form-control']) !!}
 </div>
+
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Ubicación Origen</h3>
 </div>

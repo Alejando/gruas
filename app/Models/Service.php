@@ -119,7 +119,7 @@ class Service extends Model
 		// "municipality_deliver" => "required",
 		// "references_deliver" => "required",
 		// "observations_deliver" => "required",
-		"type" => "required",
+		//"type" => "required",
 		//"description" => "required",
 		//"zone" => "required",
 		// "extra_kilometers" => "required",

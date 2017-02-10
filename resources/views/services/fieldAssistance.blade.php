@@ -199,7 +199,7 @@
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('type', 'Tipo:*',['id'=>"labelTipo"]) !!}
-    {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato','required']) !!}
+    {!! Form::select('type',$types,null,['id'=>'type', 'class' => 'form-control','ng-change'=>'tipo()','ng-model'=>'tipoDato']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('description', 'Descripción:*') !!}

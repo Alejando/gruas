@@ -1,13 +1,7 @@
 var subMarcas;
-var cotizacion=false;
-var bPreguntar = false;
 $(document).ready(function() {
 
-  if($('#estatus').val()=='Cotizacion'){
-      cotizacion=true;
-    }else{
-      cotizacion=false;
-    }
+
   $("#form").keypress(function(e) {
         if (e.which == 13) {
             return false;
@@ -134,11 +128,7 @@ var app= angular.module('serviceApp',[]);
         $scope.total+=(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
         $scope.total+=parseFloat(($scope.carga)*parseFloat($scope.precioCarga())/100);
         $scope.total+=parseFloat($scope.otros);
-        
         $scope.total+=(parseFloat($scope.particular.maneuvers)*parseFloat($scope.hours_maneuver));
-          
-        
-       
         if($scope.tipoServicio=="Movilidad"){
             $scope.total+=(parseFloat($scope.particular.conditioning_hour)*parseFloat($scope.hora_acondicionamiento));
         }
@@ -171,47 +161,97 @@ var app= angular.module('serviceApp',[]);
         return parseFloat($scope.zone())+(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
       };
       $scope.tipo= function(){
-        
         switch($scope.tipoServicio){ //obtener los diferentes datos de los servicios
 
             case 'Particular':
-                    $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosParticular/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                    });
+                      });
+                    }
                 break; 
             case 'Movilidad':
-                    $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato=='' ){
+                      $http.get("../../datosMovility/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                    });
+                      });
+                    }
                 break;
             case 'Asistencia':
-
-                    $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato=='' || $scope.tipoDato==null ){
+                      $http.get("../../datosAssistance/2").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                    });
+                      });
+                    }
                 break;
              case 'Policia':
-
-                    $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosPolice/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                    });
+                      });
+                    }
                 break;
              case 'Empresa':
-                    // console.log("hola");
-                    $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosBusiness/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                    });
+                      });
+                    }
                 break;
                case 'Industrial':
-                    $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
+                      if($scope.tipoDato==''){
+                      $http.get("../../datosIndustry/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                    });
+                      });
+                    }
                 break;
         }
             

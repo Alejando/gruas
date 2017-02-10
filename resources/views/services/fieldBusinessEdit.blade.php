@@ -1,16 +1,18 @@
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('empresa', 'Empresa:*') !!}
     {!! Form::select('empresa',$empresas,null, ['id'=>'empresa', 'class' => 'form-control','required' =>'true']) !!}
 </div>
  <div class="form-group col-sm-12 col-lg-12">
   <h3>Datos cliente</h3>
-  {!! Form::hidden('service_type',null,['class' => 'form-control','id'=>'tipoServicio']) !!}
+   {!! Form::hidden('service_type', 'Empresa', ['class' => 'form-control','id'=>'tipoServicio']) !!}
 </div>
          
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('name_requests', 'Nombre quien solicita:*') !!}
     {!! Form::text('name_requests', null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('phone_requests', 'Teléfono quien solicita:*') !!}
@@ -23,10 +25,12 @@
     {!! Form::text('name_wait', null, ['class' => 'form-control']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('phone_wait', 'Teléfono quien esta en el vehículo:') !!}
     {!! Form::text('phone_wait', null, ['class' => 'form-control']) !!}
 </div>
+
 
 <div class="form-group col-sm-6 col-lg-4 ">
     {!! Form::label('email_request', 'Email:') !!}
@@ -38,38 +42,46 @@
 </div>
 
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-      {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control']) !!}
+    {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control']) !!}
 </div>
+
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('brand', 'Marca:*') !!}
     {!! Form::select('brand',$brands,null, ['id'=>'brand', 'class' => 'form-control','required' =>'true']) !!}
 </div>
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('sub_brand', 'Submarca:*') !!}
     {!! Form::select('sub_brand',$subbrands,null, ['id'=>'subbrand', 'class' => 'form-control','required' =>'true']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('model', 'Modelo:') !!}
     {!! Form::select('model',$models,null, ['id'=>'Model', 'class' => 'form-control']) !!}
 </div>
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('color', 'Color:') !!}
     {!! Form::select('color', $colors, null, ['class' => 'form-control']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('license_plate', 'Placas:*') !!}
-    {!! Form::text('license_plate', null, ['class' => 'form-control','required']) !!}
+    {!! Form::text('license_plate', null, ['class' => 'form-control cotizacion','required']) !!}
 </div>
+
 
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('failure', 'Falla:*') !!}
-    {!! Form::text('failure', null, ['class' => 'form-control','required']) !!}
+    {!! Form::text('failure', null, ['class' => 'form-control cotizacion','required']) !!}
 </div>
 
 

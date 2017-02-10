@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('meta')
+<meta http-equiv="refresh" content="50" />
+@endsection
+
 @section('widthContainer')
 <div class="container"  style="width: 90%">
 @endsection
@@ -176,13 +180,9 @@
         <td style="vertical-align: middle;" >{!! $service->time_request !!}</td>
         <td style="vertical-align: middle;">{!! $service->street_is !!}, #{!! $service->number_is !!}, {!! $service->colony !!}, {!! $service->municipality !!}</td>
         <td style="vertical-align: middle;" class="arriboEstimado">{!! $service->time_promise !!}</td>
-        <td style="vertical-align: middle;" class="arriboReal"//>
-          @if($service->real_time=="0000-00-00 00:00:00" && $service->operator_assigned!="Ninguno" && $service->unit_assigned!="Ninguno" && $service->estatus=="Asignado" )
+        <td style="vertical-align: middle;" class="arriboReal"//>@if($service->real_time=="0000-00-00 00:00:00" && $service->operator_assigned!="Ninguno" && $service->unit_assigned!="Ninguno" && $service->estatus=="Asignado" )
             <a class="btn btn-danger" href="{!! route('registrarArribo', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas registrar el arribo?')">Arribar <i class="glyphicon glyphicon-send" > </i></a>
-          @else
-            {!! $service->real_time !!}
-          @endif
-        </td>
+          @else{!! $service->real_time !!}@endif</td>
         <td style="vertical-align: middle;" class="estatus">
           @if($service->estatus=="Arribado" )
             @if($service->colony_deliver!="" && $service->municipality_deliver!="")
@@ -199,7 +199,7 @@
           @endif
         </td>
         <td style="vertical-align: middle;">
-           @if($service->estatus=="Terminado" )
+           @if($service->payment_received!="Recibido" )
             <a class="btn btn-warning" href="{!! route('registrarPago', [$service->id]) !!}" onclick="return confirm('¿Estas seguro de que deseas Registrar el pago?')"> Pagar <i class="glyphicon glyphicon-usd" ></i></a>
           @else
             {!! $service->payment_received !!}
@@ -296,9 +296,10 @@
             var fecha =  new Date();
             var estatus=$(this).text(); 
             var tr= $(this).parent();
-
+             
             // console.log(tr.find('.arriboEstimado').html());
              // console.log(estatus.search("Asignado"))
+
             if(estatus.includes("Asignado")){
             // console.log(estatus)
               var td=tr.find('.arriboEstimado').html()
@@ -326,8 +327,11 @@
               
             }
             else if(estatus.includes("Termina")) {
-              var fecha =  new Date(tr.find('.arriboReal').html());
+              //console.log(estatus);
+              var fechaString = tr.find('.arriboReal').html();
+              var fecha =  new Date(fechaString);
               var td=tr.find('.arriboEstimado').html()
+              // console.log('('+fechaString+'-->'+td+')');
               var fechaServicio= new Date(td);
               var fecha10  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()-10,0,0));
               var fecha5  = new Date(fechaServicio.setMinutes(fechaServicio.getMinutes()+5,0,0));

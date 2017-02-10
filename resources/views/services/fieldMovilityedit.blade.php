@@ -13,6 +13,7 @@
     {!! Form::text('name_requests', null, ['class' => 'form-control','required' =>'true']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('patrol', 'Patrulla en sitio:*') !!}
     {!! Form::text('patrol', null, ['class' => 'form-control','required']) !!}
@@ -23,39 +24,46 @@
 </div>
 
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('vehicle_type', 'Tipo de vehículo:*') !!}
-    {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
+     {!! Form::select('vehicle_type', $vehicle_type, null, ['class' => 'form-control','required']) !!}
 </div>
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('brand', 'Marca:') !!}
     {!! Form::select('brand',$brands,null, ['id'=>'brand', 'class' => 'form-control']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('sub_brand', 'Submarca:') !!}
     {!! Form::select('sub_brand',$subbrands,null, ['id'=>'subbrand', 'class' => 'form-control']) !!}
 </div>
+
 
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('model', 'Modelo:') !!}
     {!! Form::select('model',$models,null, ['id'=>'Model', 'class' => 'form-control']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('color', 'Color:') !!}
    {!! Form::select('color', $colors, null, ['class' => 'form-control']) !!}
 </div>
 
+
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('license_plate', 'Placas:') !!}
-    {!! Form::text('license_plate', null, ['class' => 'form-control']) !!}
+    {!! Form::text('license_plate', null, ['class' => 'form-control'] ) !!}
 </div>
+
 
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('failure', 'Falla:') !!}
-    {!! Form::text('failure', null, ['class' => 'form-control']) !!}
+    {!! Form::text('failure', null, ['class' => 'form-control'] ) !!}
 </div>
 
 <div class="form-group col-sm-12 col-lg-12">

@@ -1,4 +1,24 @@
-// var subMarcas;
+var subMarcas;
+$(document).ready(function() {
+
+  $("#form").keypress(function(e) {
+        if (e.which == 13) {
+            return false;
+        }
+    });
+    $('#name_requests').click(function() {
+         window.onbeforeunload = function(e) {
+          return true;
+        };
+    });
+    $('#form').submit(function() {
+         window.onbeforeunload = function(e) {
+          return null;
+        };
+    });
+  
+
+});
  document.getElementById('brand').addEventListener('change', function() {
     $('#subbrand').empty();
       $.ajax({
@@ -30,37 +50,51 @@
   });
 
 $("#unit_assigned").change(function(){
-    
-      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
-            $('#estatus').empty();
-           $('#estatus').append($('<option>', {
+     
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno" && reporte){
+        $('#estatus').empty();
+        
+        $('#estatus').append($('<option>', {
             value: 'Asignado',
             text: 'Asignado'
-             }));
-       }else{
-        $('#estatus').empty();
-           $('#estatus').append($('<option>', {
-            value: 'Sin Asignar',
-            text: 'Sin Asignar'
-             }));
-
-       }
+        }));
+      }else{
+         $('#estatus').empty();
+        if(!reporte){
+            $('#estatus').append($('<option>', {
+                value: 'Cotizacion',
+                text: 'Cotizacion'
+            }));
+        }else{
+            $('#estatus').append($('<option>', {
+              value: 'Sin Asignar',
+              text: 'Sin Asignar'
+            }));
+        }
+      }
 });
 $("#operator_assigned").change(function(){
-      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno"){
-            $('#estatus').empty();
-           $('#estatus').append($('<option>', {
+   // console.log('hola')
+      if($('#operator_assigned').val()!="Ninguno" && $('#unit_assigned').val()!="Ninguno" && reporte){
+          $('#estatus').empty();
+          $('#estatus').append($('<option>', {
             value: 'Asignado',
             text: 'Asignado'
-             }));
-       }else{
+          }));
+      }else{
         $('#estatus').empty();
-           $('#estatus').append($('<option>', {
-            value: 'Sin Asignar',
-            text: 'Sin Asignar'
-             }));
-
-       }
+          if(!reporte){
+              $('#estatus').append($('<option>', {
+                  value: 'Cotizacion',
+                  text: 'Cotizacion'
+              }));
+          }else{
+              $('#estatus').append($('<option>', {
+                value: 'Sin Asignar',
+                text: 'Sin Asignar'
+              }));
+          }
+      }
 });
 
 
@@ -128,54 +162,106 @@ var app= angular.module('serviceApp',[]);
         return parseFloat($scope.zone())+(parseFloat($scope.particular.cost_kilometer)*parseFloat($scope.extra_kilometers));
       };
       $scope.tipo= function(){
-        var $def=$q.defer();
-        switch($scope.tipoServicio){ //obtener los diferentes datos de los servicios
-             case 'Particular':
-                    $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
+        var $def=$q.defer();switch($scope.tipoServicio){ //obtener los diferentes datos de los servicios
+
+            case 'Particular':
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosParticular/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosParticular/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                        $def.resolve();
-                    });
+                         $def.resolve();
+                      });
+                    }
                 break; 
             case 'Movilidad':
-                    $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosMovility/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosMovility/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                        $def.resolve();
-                    });
+                         $def.resolve();
+                      });
+                    }
                 break;
             case 'Asistencia':
-
-                    $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato=='' || $scope.tipoDato==null ){
+                      $http.get("../../datosAssistance/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosAssistance/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                        $def.resolve();
-                    });
+                         $def.resolve();
+                      });
+                    }
                 break;
              case 'Policia':
-
-                    $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosPolice/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosPolice/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                        $def.resolve();
-                    });
+                         $def.resolve();
+                      });
+                    }
                 break;
              case 'Empresa':
-
-                    $http.get("../../datosBusiness/"+$scope.tipoDato).then(function(data){
+                    if($scope.tipoDato==''){
+                      $http.get("../../datosBusinessdatosIndustry/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosBusinessdatosIndustry/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                        $def.resolve();
-                    });
+                         $def.resolve();
+                      });
+                    }
                 break;
-              case 'Industrial':
-                    $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
+               case 'Industrial':
+                      if($scope.tipoDato==''){
+                      $http.get("../../datosIndustry/1").then(function(data){
+                          angular.forEach(data.data, function(value, key) {
+                            data.data[key]=0;
+                          });
+                        $scope.particular=data.data;
+                      });
+                    }else{
+                      $http.get("../../datosIndustry/"+$scope.tipoDato).then(function(data){
                         $scope.particular=data.data;
                         // console.log($scope.particular);
-                        $def.resolve();
-                    });
+                         $def.resolve();
+                      });
+                    }
                 break;
         }
+       
         return $def.promise;    
       }
      

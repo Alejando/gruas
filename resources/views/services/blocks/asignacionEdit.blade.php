@@ -11,10 +11,10 @@
     {!! Form::text('cabinero_took_service',null,['class' => 'form-control','readonly']) !!}
     @endif
 </div>
-@if($service->operator_assigned!="Ninguno" || $service->unit_assigned!="Ninguno")
+@if($service->estatus=='Terminado')
      @role('cabinero')
         <div class="form-group col-sm-6 col-lg-4">
-            {!! Form::label('unit_assigned', 'Unidad Asignada:*') !!}
+            {!! Form::label('unit_assigned','Unidad Asignada:*') !!}
             {!! Form::select('unit_assigned',[$service->unit_assigned=>$service->unit_assigned],null, ['class' => 'form-control','required']) !!}
         </div>
 
@@ -36,7 +36,6 @@
     @endrole
     
 @else
-    @role('admin')
         <div class="form-group col-sm-6 col-lg-4">
             {!! Form::label('unit_assigned', 'Unidad Asignada:*') !!}
             {!! Form::select('unit_assigned',$units,null, ['class' => 'form-control','required']) !!}
@@ -46,8 +45,6 @@
             {!! Form::label('operator_assigned', 'Operador Asignado:*') !!}
             {!! Form::select('operator_assigned',$operators,null,  ['class' => 'form-control','required']) !!}
         </div>
-    @endrole
-
 @endif
 <div class="form-group col-sm-12 col-lg-12">
   <h3>Tiempos</h3>
@@ -61,7 +58,7 @@
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('time_promise', 'Hora estimada de Arribo:*') !!}
     
-    <input type="text" name="time_promise" class="date-picker form-control" required >
+    <input type="text" name="time_promise" class="date-picker form-control cotizacion" required >
 </div>
         @if($service->operator_assigned=="Ninguno" || $service->unit_assigned=="Ninguno")
 
@@ -72,7 +69,7 @@
         @else
             <div class="form-group col-sm-6 col-lg-4">
                 {!! Form::label('estatus', 'Estatus:*') !!}
-               {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control','id'=>'noEstatus']) !!}
+               {!! Form::select('estatus', ['Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
             </div>
         @endif
 @else
@@ -86,7 +83,7 @@
 
     <div class="form-group col-sm-6 col-lg-4">
         {!! Form::label('estatus', 'Estatus:*') !!}
-        {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar','Asignado' => 'Asignado'], null, ['class' => 'form-control']) !!}
+        {!! Form::select('estatus', ['Sin Asignar'=>'Sin Asignar'], null, ['class' => 'form-control']) !!}
     </div>
     @else
         
@@ -116,6 +113,16 @@
         @endrole
     
     @else
+           @if($service->estatus=="Cotizacion")
+                <label>Guardar Como:</label>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="tipoReport" checked>
+                    <label class="onoffswitch-label" for="tipoReport">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+           @endif
         {!! Form::submit('Guardar', ['class' => 'btn my-btn']) !!}
     
     @endif
